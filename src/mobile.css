@@ -1,171 +1,673 @@
-@media (min-width: 1600px) { .desktop-break { display: none; } .hero-section { gap: 90px; } }
-@media (max-width: 1200px) {
-  .page-container { width: calc(100% - 72px); }
-  .site-header { padding-inline: 30px; gap: 20px; }
-  .main-nav { gap: 19px; }
-  .preview-pill { display: none; }
-  .hero-section { gap: 40px; padding-top: 52px; }
-  .hero-copy h1 { font-size: 65px; }
-  .hero-secondary { font-size: 11px; }
-  .hero-cta-row { gap: 14px; }
-  .clarity-panel { padding: 23px; }
-  .principle-strip > a { display: none; }
-  .journal-layout { gap: 60px; }
-  .waitlist-section { padding: 36px; gap: 35px; }
-  .email-controls { flex-wrap: wrap; }
-  .email-controls .button { width: 100%; }
+@media (min-width: 1700px) {
+  .hero-grid {
+    padding-block: 56px;
+    gap: 85px;
+  }
 }
-@media (max-width: 900px) {
-  .main-nav { gap: 15px; }
-  .main-nav a { font-size: 11px; }
-  .brand-lockup { font-size: 24px; gap: 8px; }
-  .hero-section { gap: 28px; }
-  .hero-copy h1 { font-size: 55px; }
-  .hero-lede { font-size: 14px; }
-  .eyebrow { font-size: 8px; }
-  .hero-cta-row { align-items: flex-start; gap: 8px; flex-direction: column; }
-  .clarity-panel { padding: 21px; }
-  .clarity-panel > h2 { font-size: 23px; }
-  .panel-topline { font-size: 7px; }
-  .perspective-card { padding: 16px; }
-  .perspective-card h3 { font-size: 19px; }
-  .perspective-columns { font-size: 8px; }
-  .card-kicker { font-size: 7px; }
-  .sample-tag { display: none; }
-  .layer-selector { gap: 7px; }
-  .layer-selector button { font-size: 9px; gap: 4px; }
-  .layer-selector button svg { display: none; }
-  .section-intro { align-items: flex-start; flex-direction: column; gap: 16px; }
-  .section-intro > p br { display: none; }
-  .section-intro > p { max-width: 460px; }
-  .method-item { padding-right: 22px; }
-  .method-item + .method-item { padding-left: 22px; }
-  .method-item h3 { font-size: 19px; }
-  .method-item p { font-size: 12px; }
-  .method-bottom { font-size: 7px; }
-  .journal-layout { gap: 36px; }
-  .journal-copy h2 { font-size: 44px; }
-  .journal-sheet { padding: 23px; }
-  .journal-sheet-top { font-size: 7px; }
-  .journal-sheet h3 { font-size: 28px; }
-  .journal-sheet dl > div { grid-template-columns: 85px 1fr; }
-  .journal-sheet dt { font-size: 7px; }
-  .sheet-footer { font-size: 8px; }
-  .footer-top { flex-wrap: wrap; gap: 18px; }
-  .footer-top > p { margin-left: 0; }
+@media (max-width: 1200px) {
+  .page-container {
+    width: calc(100% - 56px);
+  }
+  .site-header {
+    padding-inline: 28px;
+  }
+  .hero-grid {
+    grid-template-columns: 1.15fr 1fr;
+    gap: 30px;
+  }
+  .hero-copy h1 {
+    font-size: 54px;
+    letter-spacing: -2.8px;
+  }
+  .hero-lede {
+    font-size: 13px;
+  }
+  .decision-map {
+    padding: 18px;
+  }
+  .map-heading {
+    font-size: 8px;
+  }
+  .hero-actions {
+    gap: 14px;
+  }
+  .hero-actions .button {
+    padding-inline: 16px;
+    font-size: 12px;
+  }
+  .hero-actions > span {
+    font-size: 9px;
+  }
+  .journal-section {
+    padding: 35px;
+    gap: 38px;
+  }
+  .journal-copy h2 {
+    font-size: 37px;
+  }
+  .example-note {
+    padding: 23px;
+  }
+  .note-label {
+    display: none;
+  }
+  .roadmap-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .roadmap-card p {
+    min-height: 42px;
+  }
+  .interest-section {
+    gap: 30px;
+  }
+  .email-controls {
+    flex-wrap: wrap;
+  }
+  .email-controls .button {
+    width: 100%;
+  }
+}
+@media (max-width: 940px) {
+  .brand-lockup small,
+  .brand-divider {
+    display: none;
+  }
+  .header-actions {
+    gap: 18px;
+  }
+  .hero-topline .eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.6px;
+  }
+  .edition-tag {
+    font-size: 8px;
+    letter-spacing: 0.6px;
+  }
+  .hero-grid {
+    gap: 22px;
+  }
+  .hero-copy h1 {
+    font-size: 43px;
+    letter-spacing: -2.2px;
+  }
+  .hero-actions {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .hero-actions > span br {
+    display: none;
+  }
+  .map-heading {
+    font-size: 7px;
+  }
+  .map-index {
+    display: none;
+  }
+  .map-step {
+    gap: 10px;
+  }
+  .map-step strong {
+    font-size: 11px;
+  }
+  .map-note {
+    font-size: 9px;
+  }
+  .hero-bottom {
+    gap: 14px;
+  }
+  .hero-bottom strong {
+    font-size: 22px;
+  }
+  .hero-bottom > div {
+    gap: 11px;
+  }
+  .hero-bottom > div > span {
+    font-size: 9px;
+  }
+  .section-intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .section-intro h2 {
+    font-size: 32px;
+  }
+  .section-intro > p {
+    max-width: 440px;
+  }
+  .method-layout {
+    grid-template-columns: 200px 1fr;
+  }
+  .method-tabs {
+    padding: 10px;
+  }
+  .method-tabs button {
+    padding-inline: 10px;
+    gap: 9px;
+  }
+  .method-tabs button > span:not(.layer-number) {
+    font-size: 13px;
+  }
+  .method-tabs button > svg:last-child {
+    display: none;
+  }
+  .method-detail {
+    padding: 27px;
+  }
+  .method-kicker > span:last-child {
+    display: none;
+  }
+  .method-detail h3 {
+    font-size: 25px;
+  }
+  .journal-section {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    padding: 30px;
+  }
+  .journal-copy h2 {
+    font-size: 32px;
+  }
+  .journal-copy .button {
+    font-size: 11px;
+    padding-inline: 13px;
+    gap: 10px;
+  }
+  .example-note {
+    padding: 20px;
+  }
+  .note-heading {
+    font-size: 7px;
+  }
+  .note-heading svg {
+    display: none;
+  }
+  .note-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .example-note h3 {
+    font-size: 22px;
+  }
+  .footer-top {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-top > a:last-child {
+    margin-left: auto;
+  }
 }
 @media (max-width: 720px) {
-  html { scroll-padding-top: 24px; }
-  .page-container { width: calc(100% - 40px); }
-  .site-header { height: 72px; padding-inline: 20px; gap: 12px; }
-  .brand-lockup { font-size: 24px; }
-  .brand-lockup img { width: 30px; height: 30px; }
-  .header-actions { gap: 8px; }
-  .wallet-button { padding: 10px; min-height: 44px; font-size: 10px; gap: 6px; }
-  .wallet-button svg { width: 14px; }
-  .session-end { display: none; }
-  .mobile-menu { display: flex; }
-  .main-nav { display: none; position: absolute; top: 71px; left: 0; right: 0; padding: 16px 20px 20px; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 12px 18px #183b3510; }
-  .main-nav.open { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
-  .main-nav a { min-height: 48px; font-size: 14px; border-bottom: 1px solid var(--line); }
-  .hero-section { grid-template-columns: 1fr; padding-top: 38px; padding-bottom: 32px; gap: 32px; }
-  .hero-copy .eyebrow { font-size: 8px; letter-spacing: .07em; margin-bottom: 19px; }
-  .hero-copy h1 { font-size: clamp(48px, 9.5vw, 65px); line-height: 1.06; margin-bottom: 21px; }
-  .desktop-break { display: none; }
-  .hero-lede { max-width: 470px; font-size: 14px; line-height: 1.8; margin-bottom: 22px; }
-  .hero-cta-row { flex-direction: row; align-items: center; gap: 16px; }
-  .hero-cta-row .button { padding-inline: 16px; font-size: 12px; }
-  .hero-secondary { font-size: 11px; }
-  .hero-note { margin-top: 20px; font-size: 10px; }
-  .clarity-panel { padding: 24px; border-radius: 12px; }
-  .panel-topline { font-size: 8px; }
-  .clarity-panel > h2 { font-size: 24px; max-width: 270px; min-height: 62px; }
-  .sift-visual { height: 107px; margin-bottom: 15px; padding-bottom: 18px; }
-  .sift-visual svg { height: 70px; }
-  .input-lines { height: 73px; top: 6px; }
-  .output-lines { top: 20px; height: 49px; }
-  .perspective-card { padding: 19px; }
-  .perspective-card h3 { font-size: 21px; max-width: 350px; }
-  .perspective-columns { font-size: 9px; }
-  .card-kicker { font-size: 8px; }
-  .sample-tag { display: block; font-size: 7px; }
-  .layer-selector button { font-size: 10px; min-height: 44px; gap: 7px; }
-  .layer-selector button svg { display: block; }
-  .principle-strip { align-items: flex-start; gap: 10px; padding-block: 17px; }
-  .principle-strip > span { flex: 1; align-items: flex-start; flex-direction: column; gap: 8px; font-size: 9px; max-width: 120px; }
-  .principle-strip > span svg { width: 16px; height: 16px; }
-  .workspace-section { padding-top: 45px; padding-bottom: 25px; }
-  .section-intro h2 { font-size: 31px; }
-  .section-intro .eyebrow { font-size: 8px; margin-bottom: 12px; }
-  .section-intro { margin-bottom: 24px; }
-  .workspace-caption { flex-direction: column; align-items: flex-start; gap: 6px; font-size: 9px; }
-  .method-section { padding-top: 37px; padding-bottom: 48px; }
-  .method-grid { grid-template-columns: 1fr; margin-top: 10px; }
-  .method-item, .method-item + .method-item { border-left: 0; padding: 22px 0 26px; }
-  .method-top { margin-bottom: 20px; }
-  .method-item h3 { font-size: 22px; }
-  .method-item p { font-size: 13px; max-width: 460px; margin-bottom: 20px; }
-  .method-bottom { font-size: 8px; }
-  .journal-layout { grid-template-columns: 1fr; gap: 35px; padding-top: 44px; padding-bottom: 49px; }
-  .journal-copy .eyebrow { font-size: 8px; }
-  .journal-copy h2 { font-size: 45px; }
-  .journal-copy > p:not(.eyebrow) { font-size: 13px; max-width: 440px; }
-  .journal-preview { padding: 14px 25px 14px 5px; max-width: 475px; width: 100%; margin-inline: auto; }
-  .journal-sheet { padding: 24px; }
-  .journal-sheet-top { font-size: 7px; }
-  .journal-sheet dl > div { grid-template-columns: 91px 1fr; }
-  .journal-sheet h3 { font-size: 30px; }
-  .handwritten { font-size: 17px; }
-  .journal-sheet dd { font-size: 10px; }
-  .journal-sheet dt { font-size: 7px; }
-  .sheet-footer { font-size: 8px; }
-  .journal-underlay { left: 5px; }
-  .journal-margin { right: 0; font-size: 7px; }
-  .roadmap-section { padding-top: 47px; padding-bottom: 45px; }
-  .roadmap-list { margin-top: 27px; }
-  .roadmap-list li { grid-template-columns: 35px 1fr; gap: 8px 9px; padding-block: 21px; }
-  .roadmap-number { align-self: start; padding-top: 2px; font-size: 11px; }
-  .roadmap-list h3 { font-size: 16px; }
-  .roadmap-list p { font-size: 11px; }
-  .roadmap-status { grid-column: 2; justify-self: start; font-size: 9px; }
-  .roadmap-status.current { padding: 5px 8px; }
-  .waitlist-section { grid-template-columns: 1fr; padding: 28px 24px; gap: 28px; margin-bottom: 42px; }
-  .waitlist-copy h2 { font-size: 34px; }
-  .email-controls { flex-wrap: nowrap; }
-  .email-controls .button { width: auto; font-size: 10px; padding-inline: 11px; }
-  .email-controls .button svg { display: none; }
-  .footer-top { flex-wrap: wrap; gap: 14px; }
-  .footer-top .brand-lockup { width: 100%; }
-  .footer-top > p { width: 100%; font-size: 11px; }
-  .footer-links { gap: 25px; }
-  .footer-bottom { flex-direction: column; gap: 17px; margin-top: 13px; }
-  .footer-bottom > span { text-align: left; }
+  html {
+    scroll-padding-top: 84px;
+  }
+  .navigation-rail {
+    display: none;
+  }
+  .page-shell {
+    margin-left: 0;
+  }
+  .page-container {
+    width: calc(100% - 40px);
+  }
+  .site-header {
+    height: 68px;
+    padding-inline: 20px;
+    gap: 12px;
+  }
+  .site-header .brand-lockup > img {
+    display: block;
+    width: 28px;
+    height: 28px;
+  }
+  .brand-lockup {
+    font-size: 23px;
+    gap: 8px;
+    letter-spacing: -0.8px;
+  }
+  .header-journal {
+    display: none;
+  }
+  .header-actions {
+    gap: 5px;
+  }
+  .wallet-button {
+    font-size: 10px;
+    padding-inline: 10px;
+    gap: 6px;
+  }
+  .wallet-button svg,
+  .session-end {
+    display: none;
+  }
+  .mobile-menu {
+    display: grid;
+  }
+  .skip-link {
+    left: 12px;
+  }
+  .hero-section {
+    padding-top: 23px;
+  }
+  .hero-topline .eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.4px;
+    gap: 8px;
+  }
+  .edition-tag {
+    display: none;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 30px 0 26px;
+  }
+  .hero-copy h1 {
+    font-size: clamp(43px, 9.5vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -2px;
+    margin-bottom: 21px;
+  }
+  .hero-lede {
+    font-size: 14px;
+    line-height: 1.85;
+    max-width: 450px;
+    margin-bottom: 23px;
+  }
+  .hero-actions {
+    flex-wrap: nowrap;
+    gap: 19px;
+  }
+  .hero-actions .button {
+    min-height: 48px;
+    font-size: 12px;
+    padding-inline: 17px;
+    gap: 16px;
+  }
+  .hero-actions > span {
+    font-size: 10px;
+  }
+  .hero-actions > span br {
+    display: block;
+  }
+  .decision-map {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 15px;
+  }
+  .map-heading {
+    grid-column: 1 / -1;
+    font-size: 8px;
+    margin-bottom: 17px;
+  }
+  .map-index {
+    display: block;
+  }
+  .map-graphic {
+    grid-column: 1;
+    grid-row: 2 / 5;
+    margin: 0;
+    align-self: center;
+    padding-bottom: 12px;
+  }
+  .map-question,
+  .map-choice {
+    font-size: 5px;
+    letter-spacing: 0.1px;
+  }
+  .map-step {
+    grid-column: 2;
+    padding: 8px 0;
+    gap: 7px;
+  }
+  .map-step strong {
+    font-size: 10px;
+  }
+  .map-step > span {
+    font-size: 8px;
+  }
+  .map-step svg {
+    display: none;
+  }
+  .map-note {
+    grid-column: 1 / -1;
+    font-size: 10px;
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid #435039;
+  }
+  .hero-bottom {
+    gap: 13px;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 19px 0;
+  }
+  .hero-bottom > div {
+    display: block;
+  }
+  .hero-bottom strong {
+    display: block;
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+  .hero-bottom > div > span {
+    font-size: 9px;
+  }
+  .hero-bottom > a {
+    display: none;
+  }
+  .workspace-section {
+    padding-top: 33px;
+  }
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+  }
+  .section-intro {
+    gap: 14px;
+    margin-bottom: 23px;
+  }
+  .section-intro h2 {
+    font-size: 31px;
+    letter-spacing: -1px;
+  }
+  .sample-badge {
+    font-size: 10px;
+  }
+  .workspace-caption {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 10px;
+  }
+  .method-section {
+    padding-block: 43px;
+  }
+  .method-layout {
+    grid-template-columns: 1fr;
+  }
+  .method-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 10px;
+  }
+  .method-tabs button {
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    min-height: 90px;
+    padding: 12px 6px;
+  }
+  .method-tabs .layer-number {
+    display: none;
+  }
+  .method-tabs button > span:not(.layer-number) {
+    font-size: 12px;
+  }
+  .method-detail {
+    padding: 25px 22px;
+    min-height: 345px;
+  }
+  .method-detail h3 {
+    font-size: 25px;
+    margin: 22px 0 18px;
+    min-height: 92px;
+  }
+  .method-detail > p {
+    font-size: 13px;
+    min-height: 117px;
+  }
+  .method-detail .text-link {
+    font-size: 12px;
+  }
+  .journal-section {
+    grid-template-columns: 1fr;
+    padding: 26px 22px;
+    gap: 27px;
+  }
+  .journal-copy h2 {
+    font-size: 37px;
+  }
+  .journal-copy > p:not(.eyebrow) {
+    font-size: 13px;
+  }
+  .journal-copy .button {
+    min-height: 48px;
+    font-size: 12px;
+    padding-inline: 17px;
+  }
+  .journal-copy > small {
+    font-size: 10px;
+  }
+  .note-stack {
+    max-width: 410px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .example-note {
+    padding: 21px;
+  }
+  .note-heading {
+    font-size: 7px;
+  }
+  .note-asset {
+    margin-block: 22px 18px;
+  }
+  .example-note h3 {
+    font-size: 24px;
+    margin-bottom: 23px;
+  }
+  .note-row {
+    grid-template-columns: 83px 1fr;
+    gap: 8px;
+  }
+  .note-row > span {
+    font-size: 7px;
+  }
+  .note-footer {
+    font-size: 9px;
+  }
+  .roadmap-section {
+    padding-block: 43px;
+  }
+  .roadmap-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .roadmap-card {
+    padding: 17px 14px;
+  }
+  .roadmap-card > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 22px;
+  }
+  .roadmap-card h3 {
+    font-size: 16px;
+  }
+  .roadmap-card p {
+    font-size: 12px;
+    min-height: 105px;
+  }
+  .roadmap-card > svg {
+    width: 26px;
+    margin-bottom: 18px;
+  }
+  .roadmap-card a {
+    font-size: 10px;
+    gap: 5px;
+  }
+  .roadmap-card a svg {
+    width: 13px;
+  }
+  .roadmap-note {
+    font-size: 7px;
+  }
+  .interest-section {
+    grid-template-columns: 1fr;
+    padding-block: 30px;
+    gap: 23px;
+    margin-bottom: 30px;
+  }
+  .interest-section h2 {
+    font-size: 30px;
+  }
+  .interest-section > div > p:not(.eyebrow) {
+    font-size: 13px;
+  }
+  .email-controls {
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+  .email-controls .button {
+    width: 100%;
+  }
+  #email-help {
+    font-size: 11px;
+  }
+  .footer-top {
+    gap: 12px;
+  }
+  .footer-top .brand-lockup {
+    width: 100%;
+  }
+  .footer-top > p {
+    width: 100%;
+    font-size: 12px;
+  }
+  .footer-top > a:last-child {
+    margin-left: 0;
+    font-size: 12px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 15px;
+    font-size: 10px;
+  }
+  .footer-bottom > span {
+    text-align: left;
+  }
 }
 @media (max-width: 360px) {
-  .page-container { width: calc(100% - 32px); }
-  .site-header { padding-inline: 16px; gap: 8px; }
-  .brand-lockup { font-size: 21px; }
-  .header-actions { gap: 2px; }
-  .wallet-button { font-size: 9px; padding: 8px; }
-  .wallet-button svg { display: none; }
-  .hero-copy h1 { font-size: 44px; }
-  .hero-copy .eyebrow { font-size: 7px; }
-  .hero-cta-row { gap: 12px; }
-  .hero-secondary { font-size: 10px; }
-  .clarity-panel { padding: 20px; }
-  .sample-tag { display: none; }
-  .layer-selector button { font-size: 9px; }
-  .layer-selector button svg { display: none; }
-  .perspective-columns { font-size: 8px; }
-  .waitlist-section { padding: 23px 18px; }
-  .email-controls { flex-direction: column; }
-  .email-controls .button { width: 100%; }
+  .page-container {
+    width: calc(100% - 32px);
+  }
+  .site-header {
+    padding-inline: 16px;
+    gap: 7px;
+  }
+  .brand-lockup {
+    font-size: 22px;
+    gap: 6px;
+  }
+  .site-header .brand-lockup > img {
+    width: 26px;
+    height: 26px;
+  }
+  .wallet-button {
+    font-size: 9px;
+    padding-inline: 8px;
+  }
+  .header-actions {
+    gap: 0;
+  }
+  .hero-copy h1 {
+    font-size: 39px;
+    letter-spacing: -1.8px;
+  }
+  .hero-actions {
+    gap: 13px;
+  }
+  .hero-actions .button {
+    font-size: 11px;
+    padding-inline: 14px;
+    gap: 13px;
+  }
+  .hero-actions > span {
+    font-size: 9px;
+  }
+  .decision-map {
+    padding: 15px;
+    gap: 0 10px;
+  }
+  .map-heading {
+    font-size: 7px;
+  }
+  .map-step strong {
+    font-size: 9px;
+  }
+  .map-step > span {
+    font-size: 7px;
+  }
+  .journal-copy h2 {
+    font-size: 32px;
+  }
+  .journal-section {
+    padding-inline: 18px;
+  }
+  .journal-copy .button {
+    font-size: 11px;
+    padding-inline: 12px;
+  }
+  .note-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+  .roadmap-card {
+    padding: 22px;
+  }
+  .roadmap-card > div {
+    flex-direction: row;
+  }
+  .roadmap-card p {
+    min-height: 0;
+  }
+  .roadmap-card h3 {
+    font-size: 20px;
+  }
+  .roadmap-card a {
+    font-size: 12px;
+  }
+  .roadmap-note {
+    font-size: 9px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 @media (forced-colors: active) {
-  .button, button, input { border: 1px solid ButtonText; }
-  a { text-decoration: underline; }
+  button,
+  .button,
+  input,
+  textarea {
+    border: 1px solid ButtonText;
+  }
+  a {
+    text-decoration: underline;
+  }
+  :focus-visible {
+    outline: 3px solid Highlight;
+  }
+  [aria-pressed="true"],
+  .navigation-rail nav a.active {
+    border: 2px solid Highlight;
+  }
 }

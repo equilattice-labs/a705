@@ -1,26 +1,109 @@
-export const storageKeys = Object.freeze({ session: 'decisift:session', email: 'decisift:beta-email' })
+export const brand = Object.freeze({
+  name: "Folivect",
+  slug: "folivect",
+  domain: "folivect.xyz",
+  handle: "@folivect",
+  tagline: "See the case. Own the decision.",
+});
 
-function isValid(key, value) {
-  if (key === storageKeys.email) return typeof value === 'string' && /^\S+@\S+\.\S+$/.test(value)
+export const storageKeys = Object.freeze({
+  session: "folivect:session",
+  email: "folivect:beta-email",
+  journal: "folivect:journal",
+});
+
+function validPreference(key, value) {
+  if (key === storageKeys.email)
+    return typeof value === "string" && /^\S+@\S+\.\S+$/.test(value);
   try {
-    const session = JSON.parse(value)
-    return /^0x[0-9a-f]{40}$/i.test(session?.account || '') && session.chainId === 4663 && Number.isFinite(session.signedAt)
-  } catch { return false }
+    const session = JSON.parse(value);
+    return (
+      /^0x[0-9a-f]{40}$/i.test(session?.account || "") &&
+      session.chainId === 4663 &&
+      Number.isFinite(session.signedAt)
+    );
+  } catch {
+    return false;
+  }
 }
 
-// Compatibility only: preserve existing local preferences across the brand rename.
+function readJournal(raw) {
+  const entries = JSON.parse(raw);
+  if (
+    !Array.isArray(entries) ||
+    !entries.every(
+      (entry) =>
+        entry &&
+        typeof entry.id === "string" &&
+        ["AAPL", "NVDA", "TSLA", "AMZN"].includes(entry.symbol) &&
+        ["bear", "base", "bull"].includes(entry.scenario) &&
+        Number.isFinite(entry.weight) &&
+        entry.weight >= 1 &&
+        entry.weight <= 50 &&
+        Number.isFinite(entry.savedAt) &&
+        !Number.isNaN(new Date(entry.savedAt).getTime()) &&
+        typeof entry.thesis === "string" &&
+        typeof entry.note === "string",
+    )
+  )
+    throw new Error("Unreadable journal");
+  return entries;
+}
+
+// Compatibility identifiers only. Never use these as product display names.
 export function migrateBrandStorage() {
-  for (const [storageName, oldKey, newKey] of [
-    ['sessionStorage', 'stockorbit:session', storageKeys.session],
-    ['localStorage', 'stockorbit:beta-email', storageKeys.email],
+  for (const [storageName, previousKeys, nextKey] of [
+    [
+      "sessionStorage",
+      ["decisift:session", "stockorbit:session"],
+      storageKeys.session,
+    ],
+    [
+      "localStorage",
+      ["decisift:beta-email", "stockorbit:beta-email"],
+      storageKeys.email,
+    ],
   ]) {
-    try {
-      const storage = window[storageName]
-      const oldValue = storage.getItem(oldKey)
-      if (oldValue !== null) {
-        if (!isValid(newKey, storage.getItem(newKey)) && isValid(newKey, oldValue)) storage.setItem(newKey, oldValue)
-        if (isValid(newKey, storage.getItem(newKey))) storage.removeItem(oldKey)
+    for (const previousKey of previousKeys) {
+      try {
+        const storage = window[storageName];
+        const value = storage.getItem(previousKey);
+        if (value === null || !validPreference(nextKey, value)) continue;
+        if (!validPreference(nextKey, storage.getItem(nextKey)))
+          storage.setItem(nextKey, value);
+        if (validPreference(nextKey, storage.getItem(nextKey)))
+          storage.removeItem(previousKey);
+      } catch {
+        /* The relevant action reports a storage failure when used. */
       }
-    } catch { /* Storage may be disabled. The UI remains usable. */ }
+    }
+  }
+  try {
+    const storage = window.localStorage;
+    const previousKey = "decisift:journal";
+    const previous = storage.getItem(previousKey);
+    if (previous === null) return { journalError: "" };
+    const oldEntries = readJournal(previous);
+    const existing = storage.getItem(storageKeys.journal);
+    const currentEntries = existing === null ? [] : readJournal(existing);
+    const ids = new Set(currentEntries.map((entry) => entry.id));
+    const merged = [...currentEntries];
+    for (const entry of oldEntries) {
+      if (!ids.has(entry.id)) {
+        merged.push(entry);
+        ids.add(entry.id);
+      }
+    }
+    const serialized = JSON.stringify(merged);
+    storage.setItem(storageKeys.journal, serialized);
+    if (storage.getItem(storageKeys.journal) !== serialized)
+      throw new Error("Journal write not verified");
+    storage.removeItem(previousKey);
+    return { journalError: "" };
+  } catch {
+    return {
+      journalError:
+        "Your existing journal could not be transferred. Its records have been kept. Allow browser storage or restore readable journal data, then retry.",
+    };
   }
 }

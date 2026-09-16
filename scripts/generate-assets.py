@@ -1,121 +1,166 @@
-"""Generate editable Decisift SVGs and exact-size JPEGs without network requests.
+"""Render the Folivect identity and social kit as editable SVG and exact-size JPEG.
 
 Run: python website/scripts/generate-assets.py
 Requires: pip install -r website/scripts/requirements-assets.txt
-Uses local Chrome/Edge, DECISIFT_BROWSER_PATH, or Playwright's Chromium.
+Uses local Chrome/Edge, FOLIVECT_BROWSER_PATH, or Playwright's Chromium.
 """
 import os
 from pathlib import Path
 import shutil
+from xml.sax.saxutils import escape
 from playwright.sync_api import sync_playwright
 
-ROOT = Path(__file__).resolve().parents[2]
-PUBLIC, TWITTER = ROOT / 'website/public', ROOT / 'twitter'
+WEBSITE = Path(__file__).resolve().parents[1]
+ROOT = next((path for path in WEBSITE.parents if (path / 'BRAND_SELECTION.md').is_file()), WEBSITE)
+PUBLIC, TWITTER = WEBSITE / 'public', ROOT / 'twitter'
 SOCIAL = PUBLIC / 'social'
-PAPER, FOREST, ORANGE = '#F6F5F0', '#183B35', '#ED7147'
-SAGE, INK, MUTED, LINE = '#E7EDE6', '#20332E', '#60716A', '#CED7CE'
+BRAND, DOMAIN, HANDLE = 'Folivect', 'folivect.xyz', '@folivect'
+TAGLINE = 'See the case. Own the decision.'
+BG, CARD, WHITE = '#101315', '#191E22', '#EEF2ED'
+MUTED, LINE, GREEN, VIOLET = '#A7B2AB', '#344039', '#CEF576', '#C4B5FD'
 
-def text(x, y, value, size=24, fill=INK, weight=400, spacing=0):
-    return f'<text x="{x}" y="{y}" fill="{fill}" font-family="Arial, Helvetica, sans-serif" font-size="{size}" font-weight="{weight}" letter-spacing="{spacing}">{value}</text>'
 
-def rect(x, y, w, h, fill, r=0, stroke=None):
-    return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{r}" fill="{fill}"' + (f' stroke="{stroke}"' if stroke else '') + '/>'
+def text(x, y, value, size=24, fill=WHITE, weight=400, spacing=0, mono=False):
+    family = 'Consolas, monospace' if mono else 'Arial, Helvetica, sans-serif'
+    return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{family}" font-size="{size}" font-weight="{weight}" letter-spacing="{spacing}">{escape(value)}</text>'
 
-def line(x, y, x2, y2, color=LINE, width=1):
-    return f'<path d="M{x} {y}L{x2} {y2}" stroke="{color}" stroke-width="{width}"/>'
 
-def mark(x=0, y=0, size=256, tile=True):
-    # Original geometric D with three progressively sifted evidence lines.
-    p = PAPER if tile else FOREST
-    body = rect(0, 0, 256, 256, FOREST, 58) if tile else ''
-    body += f'<path fill="{p}" fill-rule="evenodd" d="M67 43H126C180 43 215 77 215 128S180 213 126 213H67V43ZM101 77V179H126C160 179 181 160 181 128S160 77 126 77H101Z"/>'
-    body += f'<path d="M39 97H128M39 159H108" stroke="{p}" stroke-width="12" stroke-linecap="round"/>'
-    body += f'<path d="M39 128H145" stroke="{ORANGE}" stroke-width="13" stroke-linecap="round"/>'
+def rect(x, y, width, height, fill, radius=0, stroke=None):
+    border = f' stroke="{stroke}"' if stroke else ''
+    return f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="{radius}" fill="{fill}"{border}/>'
+
+
+def line(x1, y1, x2, y2, color=LINE, width=1):
+    return f'<path d="M{x1} {y1}L{x2} {y2}" stroke="{color}" stroke-width="{width}"/>'
+
+
+def arrow(x, y, size=32, color=GREEN, width=3):
+    return f'<path d="M{x} {y + size}L{x + size} {y}M{x} {y}H{x + size}V{y + size}" fill="none" stroke="{color}" stroke-width="{width}"/>'
+
+
+def mark(x=0, y=0, size=256, tile=True, light=False):
+    # A continuous F and an angular V form a compact directional monogram.
+    first, second = (BG, BG) if light else (GREEN, VIOLET)
+    body = rect(0, 0, 256, 256, GREEN if light else BG, 36) if tile else ''
+    body += f'<path d="M29 49H127V80H61V112H114V143H61V207H29Z" fill="{first}"/>'
+    body += f'<path d="M114 49H145L171 157L197 49H228L187 207H155Z" fill="{second}"/>'
     return f'<g transform="translate({x} {y}) scale({size / 256})">{body}</g>'
 
-def svg(w, h, title, body):
-    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-labelledby="title desc"><title id="title">{title}</title><desc id="desc">Original Decisift artwork. Research preview with illustrative data; no live trading.</desc>{body}</svg>\n'
 
-def lockup(x, y, size=48):
-    return mark(x, y, size, False) + text(x + size + 12, y + size * .77, 'Decisift', size * .76, FOREST, 700, -.8)
+def svg(width, height, title, body):
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc"><title id="title">{escape(title)}</title><desc id="desc">Original Folivect artwork. A research preview with sample data, local decision records, and no trade execution.</desc>{body}</svg>\n'
 
-def base(n, label):
-    return rect(0, 0, 1600, 900, PAPER) + lockup(72, 57, 53) + text(1488, 94, f'0{n}', 24, MUTED) + line(76, 147, 1524, 147) + text(80, 210, label.upper(), 17, MUTED, 700, 2.5)
 
-def footer():
-    return line(76, 790, 1524, 790) + text(80, 844, 'Sift the noise. Decide with clarity.', 22, FOREST) + text(1080, 844, 'decisift.xyz  /  @decisift', 20, MUTED)
+def lockup(x, y, size=52, light=False):
+    return mark(x, y, size, False, light) + text(x + size + 13, y + size * .79, BRAND, size * .8, BG if light else WHITE, 700, -1.2)
 
-def evidence(x=882, y=219, scale=1):
-    b = rect(0, 0, 638, 505, SAGE, 18) + text(34, 47, 'FROM SOURCES TO A CLEARER VIEW', 15, MUTED, 700, 1.4)
-    for i, label in enumerate(['Source', 'Context', 'Counter-case']):
-        cy = 94 + i * 96
-        b += rect(32, cy, 270, 70, PAPER, 8, LINE) + text(52, cy + 29, f'0{i+1}', 13, MUTED, 700, 1.3) + text(88, cy + 44, label, 23, FOREST, 600) + line(302, cy + 35, 364, cy + 35, '#A9BAB0', 2)
-    b += line(364, 129, 364, 321, '#A9BAB0', 2) + line(364, 225, 430, 225, FOREST, 2)
-    b += f'<path d="M422 218L430 225L422 232" fill="none" stroke="{FOREST}" stroke-width="2"/>'
-    b += mark(449, 175, 104) + text(425, 322, 'A working thesis', 18, FOREST, 600)
-    b += line(34, 394, 604, 394) + text(34, 438, 'Inspect the evidence.', 22, FOREST, 600) + text(34, 471, 'Keep the uncertainty visible.', 19, MUTED)
-    return f'<g transform="translate({x} {y}) scale({scale})">{b}</g>'
+
+def topbar(index, label, light=False):
+    ink, rule = (BG, '#718647') if light else (MUTED, LINE)
+    return lockup(66, 46, 56, light) + text(1090, 82, label.upper(), 16, ink, 400, 1, True) + text(1482, 84, f'0{index}', 21, ink, 500, 0, True) + line(70, 126, 1530, 126, rule)
+
+
+def footer(light=False):
+    ink, rule = (BG, '#718647') if light else (MUTED, LINE)
+    return line(70, 804, 1530, 804, rule) + text(72, 853, 'RESEARCH TOOLS / YOUR JUDGMENT', 16, ink, 400, 1, True) + text(1130, 853, f'{DOMAIN}  /  {HANDLE}', 19, ink)
+
+
+def vector_field(x=0, y=0, width=510, height=500):
+    body = ''
+    for gx in range(0, width + 1, 34):
+        for gy in range(0, height + 1, 34):
+            body += f'<circle cx="{gx}" cy="{gy}" r="1" fill="{LINE}"/>'
+    body += f'<path d="M38 {height - 75}L{width - 65} 70M{width - 203} 70H{width - 65}V208" fill="none" stroke="{GREEN}" stroke-width="38"/>'
+    body += f'<path d="M20 {height - 13}L{width - 150} 170" fill="none" stroke="{VIOLET}" stroke-width="2"/>'
+    body += f'<circle cx="38" cy="{height - 75}" r="10" fill="{BG}" stroke="{GREEN}" stroke-width="3"/>'
+    return f'<g transform="translate({x} {y})">{body}</g>'
+
 
 def post_signal():
-    b = base(1, 'The research principle') + text(76, 330, 'Follow the', 82, FOREST, 700, -3) + text(76, 424, 'evidence.', 82, FOREST, 700, -3)
-    b += text(81, 496, 'A signal needs a source.', 28) + text(81, 539, 'A thesis needs a counter-case.', 28) + text(81, 679, '01  READ     02  QUESTION     03  DECIDE', 16, MUTED, 700, 1)
-    return svg(1600, 900, 'Decisift — Follow the evidence', b + evidence() + footer())
+    body = rect(0, 0, 1600, 900, BG) + topbar(1, 'Build the case')
+    body += text(68, 257, 'A thesis is a starting point.', 82, WHITE, 700, -3)
+    body += text(71, 322, 'Give every observation a source. Give every case a challenge.', 28, MUTED)
+    cells = [('01', 'Evidence', 'What can you inspect?', 'Start with the source.', GREEN), ('02', 'Interpretation', 'What does it suggest?', 'Separate the fact from the view.', WHITE), ('03', 'Counter-case', 'What could change it?', 'Make the uncertainty visible.', VIOLET)]
+    for i, (n, label, question, detail, accent) in enumerate(cells):
+        x = 70 + i * 491
+        body += rect(x, 410, 478, 327, CARD, 8) + text(x+26, 456, n, 18, accent, 400, 0, True) + arrow(x+414, 432, 25, accent, 2)
+        body += text(x+26, 540, label, 33, WHITE, 700, -1) + line(x+26, 568, x+449, 568)
+        body += text(x+26, 626, question, 25, WHITE) + text(x+26, 681, detail, 21, MUTED)
+    return svg(1600, 900, 'Folivect — Build the case', body + footer())
+
 
 def post_risk():
-    b = base(2, 'Make uncertainty useful') + text(76, 330, 'A clear thesis', 77, FOREST, 700, -3) + text(76, 423, 'has limits.', 82, FOREST, 700, -3)
-    b += text(81, 500, 'Test the downside before', 28) + text(81, 542, 'taking a position.', 28) + text(81, 679, 'SET LIMITS. REVISIT YOUR ASSUMPTIONS.', 16, MUTED, 700, 1)
-    b += rect(882, 219, 638, 505, SAGE, 18) + text(916, 267, 'THREE WAYS THE THESIS COULD MOVE', 15, MUTED, 700, 1.3)
-    for cy, label, endpoint, color in [(338, 'Upside case', 1400, FOREST), (434, 'Base case', 1280, FOREST), (530, 'Downside case', 1120, '#B24829')]:
-        b += text(916, cy, label, 20, FOREST, 600) + line(916, cy+28, 1483, cy+28, '#BCCABD', 4) + line(1062, cy+28, endpoint, cy+28, color, 8)
-        b += f'<circle cx="{endpoint}" cy="{cy+28}" r="8" fill="{color}"/>'
-    b += line(916, 615, 1485, 615) + text(916, 658, 'Know what would change your mind.', 22, FOREST, 600) + text(916, 691, 'Illustrative scenarios · No performance forecast', 16, MUTED)
-    return svg(1600, 900, 'Decisift — A clear thesis has limits', b + footer())
+    body = rect(0, 0, 1600, 900, BG) + topbar(2, 'Test the assumptions')
+    body += text(68, 246, 'Change the input.', 83, WHITE, 700, -3) + text(68, 340, 'Inspect the consequence.', 83, GREEN, 700, -3)
+    body += text(74, 406, 'One position. Three hypothetical paths. A clearer sense of the downside.', 27, MUTED)
+    for i, (name, value, detail, color) in enumerate([('BEAR', '-12%', 'Challenge the thesis', VIOLET), ('BASE', '+6%', 'State the assumptions', GREEN), ('BULL', '+18%', 'Question the upside', WHITE)]):
+        x = 70 + i * 491
+        body += rect(x, 479, 478, 229, CARD, 8, LINE) + text(x+25, 518, name, 16, MUTED, 400, 2, True)
+        body += text(x+25, 603, value, 67, color, 500, -2, True) + text(x+25, 670, detail, 23, WHITE)
+    body += text(74, 761, 'ILLUSTRATIVE 30-DAY PRICE MOVES / NOT FORECASTS OR PROBABILITIES', 17, MUTED, 400, .5, True)
+    return svg(1600, 900, 'Folivect — Test the assumptions', body + footer())
+
 
 def post_journal():
-    b = base(3, 'Build a decision practice') + text(76, 330, 'Keep', 82, FOREST, 700, -3) + text(76, 424, 'the why.', 82, FOREST, 700, -3)
-    b += text(81, 500, 'Write the thesis. Log the evidence.', 27) + text(81, 542, 'Return with a clearer perspective.', 27) + text(81, 679, 'GOOD RESEARCH LEAVES A USEFUL TRAIL.', 16, MUTED, 700, 1)
-    b += rect(882, 219, 638, 505, SAGE, 18) + rect(922, 249, 558, 443, PAPER, 7, LINE) + text(954, 294, 'RESEARCH NOTE', 14, MUTED, 700, 2) + text(1396, 294, '01', 16, MUTED)
-    for cy, label, copy in [(353, 'Thesis', 'What do I believe?'), (459, 'Evidence', 'Which sources support it?'), (565, 'Counter-case', 'What would prove me wrong?')]:
-        b += line(954, cy-27, 1446, cy-27) + rect(954, cy-6, 6, 39, ORANGE, 2) + text(977, cy+7, label, 18, FOREST, 700) + text(977, cy+41, copy, 21, MUTED)
-    b += text(954, 662, 'A record to revisit, not a promise of returns.', 17, MUTED)
-    return svg(1600, 900, 'Decisift — Keep the why', b + footer())
+    body = rect(0, 0, 1600, 900, BG) + topbar(3, 'Keep the record')
+    body += text(68, 252, 'Keep your reasoning.', 90, WHITE, 700, -3) + text(72, 323, 'The decision matters. So does the thinking that led to it.', 29, MUTED)
+    body += rect(70, 384, 1460, 356, CARD, 8) + rect(70, 384, 8, 356, GREEN)
+    body += text(107, 432, 'DECISION RECORD / 001', 17, GREEN, 400, 1, True) + text(1190, 432, 'SAVED ON THIS DEVICE', 16, MUTED, 400, 0, True)
+    entries = [('CONTEXT', 'The asset, the scenario, and the source.'), ('THESIS', 'What I believe — and what would change my mind.'), ('NEXT REVIEW', 'A question to return to, with fresh evidence.')]
+    for i, (label, detail) in enumerate(entries):
+        cy = 494 + i * 87
+        body += line(106, cy-27, 1490, cy-27) + text(109, cy+14, label, 16, MUTED, 400, .7, True) + text(408, cy+17, detail, 27, WHITE)
+    return svg(1600, 900, 'Folivect — Keep your reasoning', body + footer())
+
 
 def post_preview():
-    b = base(4, 'The research preview') + text(76, 330, 'Read.', 88, FOREST, 700, -3) + text(76, 430, 'Test. Decide.', 88, FOREST, 700, -3)
-    b += text(81, 511, 'The Decisift research preview is open.', 26) + text(81, 553, 'Explore the workflow. Examine the assumptions.', 22, MUTED)
-    b += rect(80, 628, 360, 66, FOREST, 8) + text(104, 670, 'Explore the research preview', 21, PAPER, 600) + rect(882, 219, 638, 505, FOREST, 18)
-    for i, (label, detail) in enumerate([('Read', 'Gather context and source evidence'), ('Test', 'Challenge the thesis and its limits'), ('Decide', 'Record the reasoning behind a choice')]):
-        cy = 313 + i * 127
-        b += text(920, cy, f'0{i+1}', 19, '#A9BEB4') + text(984, cy, label, 39, PAPER, 600, -1) + text(984, cy+39, detail, 19, '#CBD8CF')
-        if i < 2: b += line(920, cy+69, 1480, cy+69, '#416056')
-    b += text(920, 689, 'ILLUSTRATIVE DATA · NO LIVE TRADING', 15, '#CBD8CF', 700, 1)
-    return svg(1600, 900, 'Decisift — Read. Test. Decide.', b + footer())
+    body = rect(0, 0, 1600, 900, GREEN) + topbar(4, 'The research preview', True)
+    body += text(65, 284, 'See the case.', 124, BG, 700, -5) + text(65, 423, 'Own the decision.', 124, BG, 700, -5)
+    body += text(73, 495, 'Explore the Folivect research workspace.', 30, BG)
+    steps = [('01', 'Pick an asset'), ('02', 'Inspect the case'), ('03', 'Test the risk'), ('04', 'Save the context')]
+    for i, (index, label) in enumerate(steps):
+        x=70+i*369
+        body += rect(x, 565, 353, 151, BG, 8) + text(x+22, 605, index, 17, MUTED, 400, 0, True) + arrow(x+302, 588, 22, GREEN, 2) + text(x+22, 669, label, 26, WHITE, 600, -.5)
+    body += text(75, 760, 'SAMPLE DATA / LOCAL JOURNAL / OPTIONAL WALLET / NO TRADE EXECUTION', 17, BG, 400, .4, True)
+    return svg(1600, 900, 'Folivect — See the case. Own the decision.', body + footer(True))
+
 
 def banner():
-    b = rect(0, 0, 1500, 500, PAPER) + lockup(76, 48, 52) + text(77, 202, 'Sift the noise.', 72, FOREST, 700, -3) + text(77, 287, 'Decide with clarity.', 72, FOREST, 700, -3)
-    b += text(82, 353, 'A more considered view of the market.', 24, MUTED) + line(76, 405, 852, 405) + text(440, 453, 'RESEARCH PREVIEW  /  decisift.xyz', 16, MUTED, 700, 1)
-    return svg(1500, 500, 'Decisift — Sift the noise. Decide with clarity.', b + rect(917, 0, 583, 500, SAGE) + evidence(955, 43, .78))
+    body = rect(0, 0, 1500, 500, BG) + rect(995, 0, 505, 500, CARD)
+    body += vector_field(1042, 23, 410, 435) + lockup(66, 44, 56)
+    body += text(69, 225, 'See the case.', 79, WHITE, 700, -3) + text(69, 321, 'Own the decision.', 79, GREEN, 700, -3)
+    body += text(75, 391, 'Equity research. Scenario thinking. A record to revisit.', 24, MUTED)
+    # Keep the lower-left area clear for the social profile avatar overlay.
+    body += text(433, 466, f'RESEARCH PREVIEW / {DOMAIN}', 16, MUTED, 400, .3, True)
+    return svg(1500, 500, 'Folivect — See the case. Own the decision.', body)
+
 
 def og_card():
-    b = rect(0, 0, 1200, 630, PAPER) + lockup(58, 48, 52) + text(57, 236, 'Sift the noise.', 65, FOREST, 700, -2.5) + text(57, 314, 'Decide with', 65, FOREST, 700, -2.5) + text(57, 392, 'clarity.', 65, FOREST, 700, -2.5)
-    b += text(62, 459, 'Research. Risk. Reasoning.', 23, MUTED) + evidence(643, 144, .78) + line(60, 550, 1140, 550) + text(62, 592, 'DECISIFT / RESEARCH PREVIEW', 15, MUTED, 700, 1.5) + text(998, 592, 'decisift.xyz', 19, FOREST)
-    return svg(1200, 630, 'Decisift research preview', b)
+    body = rect(0, 0, 1200, 630, BG) + lockup(48, 35, 57)
+    body += rect(810, 0, 390, 630, CARD) + vector_field(835, 108, 333, 395)
+    body += text(49, 231, 'See the case.', 80, WHITE, 700, -3) + text(49, 331, 'Own the', 80, GREEN, 700, -3) + text(49, 427, 'decision.', 80, GREEN, 700, -3)
+    body += text(53, 494, 'A workspace for equity research and risk.', 24, MUTED)
+    body += line(52, 550, 758, 550) + text(54, 593, 'RESEARCH PREVIEW', 16, MUTED, 400, 1, True) + text(604, 593, DOMAIN, 21, WHITE)
+    return svg(1200, 630, 'Folivect equity research preview', body)
+
 
 def find_browser():
-    configured = os.environ.get('DECISIFT_BROWSER_PATH')
+    configured = os.environ.get('FOLIVECT_BROWSER_PATH')
     if configured:
         path = Path(configured).expanduser().resolve()
-        if not path.is_file(): raise FileNotFoundError(f'DECISIFT_BROWSER_PATH does not exist: {path}')
+        if not path.is_file(): raise FileNotFoundError(f'FOLIVECT_BROWSER_PATH does not exist: {path}')
         return str(path)
     for path in [shutil.which('google-chrome'), shutil.which('chromium'), shutil.which('chromium-browser'), r'C:\Program Files\Google\Chrome\Application\chrome.exe', r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome']:
         if path and Path(path).is_file(): return path
     return None
 
+
 def main():
     for directory in (PUBLIC, SOCIAL, TWITTER): directory.mkdir(parents=True, exist_ok=True)
-    (PUBLIC / 'logo-mark.svg').write_text(svg(256, 256, 'Decisift', mark()), encoding='utf-8')
-    (PUBLIC / 'logo-lockup.svg').write_text(svg(550, 128, 'Decisift', lockup(2, 8, 112)), encoding='utf-8')
-    avatar = svg(400, 400, 'Decisift profile image', rect(0, 0, 400, 400, FOREST) + mark(56, 56, 288))
+    (PUBLIC / 'logo-mark.svg').write_text(svg(256, 256, BRAND, mark()), encoding='utf-8')
+    shutil.copyfile(PUBLIC / 'logo-mark.svg', PUBLIC / 'folivect-mark.svg')
+    (PUBLIC / 'logo-lockup.svg').write_text(svg(550, 128, BRAND, lockup(2, 8, 112)), encoding='utf-8')
+    avatar = svg(400, 400, 'Folivect profile image', rect(0, 0, 400, 400, BG) + mark(41, 41, 318, False))
     assets = {'twitter-logo': (avatar, 400, 400), 'twitter-banner': (banner(), 1500, 500), 'post-01-signal': (post_signal(), 1600, 900), 'post-02-risk': (post_risk(), 1600, 900), 'post-03-journal': (post_journal(), 1600, 900), 'post-04-research-preview': (post_preview(), 1600, 900), 'og-card': (og_card(), 1200, 630)}
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True, executable_path=find_browser())
@@ -123,7 +168,7 @@ def main():
             path = (SOCIAL if name == 'og-card' else TWITTER) / f'{name}.svg'
             path.write_text(source, encoding='utf-8')
             page = browser.new_page(viewport={'width': width, 'height': height}, device_scale_factor=1)
-            page.set_content(f'<!doctype html><html><head><meta charset="utf-8"><style>html,body{{margin:0;width:{width}px;height:{height}px;overflow:hidden}}svg{{display:block}}</style></head><body>{source}</body></html>')
+            page.set_content(f'<!doctype html><html><head><meta charset="utf-8"><style>html,body{{margin:0;width:{width}px;height:{height}px;overflow:hidden;background:{BG}}}svg{{display:block}}</style></head><body>{source}</body></html>')
             page.evaluate('document.fonts.ready')
             page.screenshot(path=str(path.with_suffix('.jpg')), type='jpeg', quality=95)
             page.close()
@@ -131,9 +176,7 @@ def main():
                 for ext in ('svg', 'jpg'): shutil.copyfile(path.with_suffix(f'.{ext}'), SOCIAL / f'{name}.{ext}')
             print(f'Generated {name}: {width} x {height}')
         browser.close()
-    # Preserve inbound links while replacing the obsolete launch assertion.
-    for directory in (TWITTER, SOCIAL):
-        for ext in ('svg', 'jpg'): shutil.copyfile(directory / f'post-04-research-preview.{ext}', directory / f'post-04-contracts-open-tonight.{ext}')
     shutil.copyfile(TWITTER / 'twitter-logo.svg', PUBLIC / 'twitter-logo.svg')
+
 
 if __name__ == '__main__': main()
