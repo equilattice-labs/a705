@@ -1,553 +1,552 @@
-@media (min-width: 1700px) {
+﻿@media (min-width: 1700px) {
   .hero-grid {
-    padding-block: 56px;
-    gap: 85px;
+    min-height: 460px;
+  }
+  .hero-copy {
+    padding: 55px;
+  }
+  .hero-copy h1 {
+    font-size: 76px;
+  }
+  .perspective-map {
+    margin-right: 48px;
+  }
+  .hero-lede {
+    font-size: 16px;
   }
 }
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
   .page-container {
     width: calc(100% - 56px);
   }
   .site-header {
     padding-inline: 28px;
   }
-  .hero-grid {
-    grid-template-columns: 1.15fr 1fr;
-    gap: 30px;
+  .header-context {
+    display: none;
+  }
+  .hero-copy {
+    padding-left: 30px;
   }
   .hero-copy h1 {
-    font-size: 54px;
-    letter-spacing: -2.8px;
+    font-size: 49px;
+    letter-spacing: -2.5px;
   }
-  .hero-lede {
-    font-size: 13px;
+  .hero-grid {
+    grid-template-columns: 1.1fr 1fr;
+    min-height: 380px;
   }
-  .decision-map {
-    padding: 18px;
+  .perspective-map {
+    margin-inline: 20px;
   }
-  .map-heading {
-    font-size: 8px;
+  .map-topline {
+    font-size: 7px;
   }
-  .hero-actions {
-    gap: 14px;
+  .hero-index button {
+    gap: 10px;
+    padding-inline: 14px;
   }
-  .hero-actions .button {
-    padding-inline: 16px;
-    font-size: 12px;
+  .index-icon {
+    width: 38px;
+    height: 42px;
   }
-  .hero-actions > span {
+  .hero-index small {
     font-size: 9px;
+  }
+  .hero-index strong {
+    font-size: 11px;
+  }
+  .hero-index button > svg {
+    display: none;
+  }
+  .method-layout {
+    grid-template-columns: 220px 1fr;
+  }
+  .method-detail {
+    padding: 26px;
+  }
+  .method-body {
+    gap: 25px;
+  }
+  .method-body h3 {
+    font-size: 22px;
   }
   .journal-section {
     padding: 35px;
-    gap: 38px;
+    gap: 36px;
   }
   .journal-copy h2 {
-    font-size: 37px;
-  }
-  .example-note {
-    padding: 23px;
-  }
-  .note-label {
-    display: none;
+    font-size: 34px;
   }
   .roadmap-grid {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
-  .roadmap-card p {
-    min-height: 42px;
+  .roadmap-card {
+    padding: 20px 15px 12px;
+  }
+  .roadmap-card > div {
+    font-size: 7px;
+  }
+  .roadmap-card h3 {
+    font-size: 15px;
   }
   .interest-section {
     gap: 30px;
   }
-  .email-controls {
+  .footer-top {
     flex-wrap: wrap;
   }
-  .email-controls .button {
-    width: 100%;
+  .footer-links {
+    margin-left: auto;
   }
 }
-@media (max-width: 940px) {
-  .brand-lockup small,
-  .brand-divider {
-    display: none;
+@media (max-width: 1000px) {
+  .site-shell {
+    padding-left: 72px;
   }
-  .header-actions {
-    gap: 18px;
+  .navigation-rail {
+    width: 72px;
   }
-  .hero-topline .eyebrow {
-    font-size: 8px;
-    letter-spacing: 0.6px;
+  .navigation-rail nav {
+    padding-inline: 6px;
   }
-  .edition-tag {
-    font-size: 8px;
-    letter-spacing: 0.6px;
-  }
-  .hero-grid {
-    gap: 22px;
-  }
-  .hero-copy h1 {
-    font-size: 43px;
-    letter-spacing: -2.2px;
-  }
-  .hero-actions {
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-  .hero-actions > span br {
-    display: none;
-  }
-  .map-heading {
-    font-size: 7px;
-  }
-  .map-index {
-    display: none;
-  }
-  .map-step {
-    gap: 10px;
-  }
-  .map-step strong {
-    font-size: 11px;
-  }
-  .map-note {
+  .navigation-rail nav a {
     font-size: 9px;
   }
-  .hero-bottom {
-    gap: 14px;
+  .rail-brand img {
+    width: 36px;
+    height: 36px;
   }
-  .hero-bottom strong {
-    font-size: 22px;
+  .hero-grid {
+    grid-template-columns: 1fr;
+    position: relative;
   }
-  .hero-bottom > div {
-    gap: 11px;
+  .hero-copy {
+    padding: 35px;
+    max-width: 75%;
+    z-index: 1;
   }
-  .hero-bottom > div > span {
+  .hero-copy h1 {
+    font-size: 57px;
+  }
+  .perspective-map {
+    position: absolute;
+    right: -120px;
+    bottom: 10px;
+    width: 460px;
+    opacity: 0.22;
+    pointer-events: none;
+  }
+  .perspective-map .map-topline,
+  .perspective-map .map-bottom {
+    display: none;
+  }
+  .hero-lede {
+    color: #d4dee5;
+  }
+  .hero-index .index-icon {
+    display: none;
+  }
+  .hero-index button {
+    padding-block: 20px;
+  }
+  .hero-index strong {
+    font-size: 12px;
+  }
+  .hero-index small {
     font-size: 9px;
   }
   .section-intro {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 18px;
+    flex-wrap: wrap;
+    gap: 14px;
   }
   .section-intro h2 {
-    font-size: 32px;
+    font-size: 27px;
   }
-  .section-intro > p {
-    max-width: 440px;
-  }
-  .method-layout {
-    grid-template-columns: 200px 1fr;
-  }
-  .method-tabs {
-    padding: 10px;
-  }
-  .method-tabs button {
-    padding-inline: 10px;
-    gap: 9px;
-  }
-  .method-tabs button > span:not(.layer-number) {
-    font-size: 13px;
-  }
-  .method-tabs button > svg:last-child {
-    display: none;
-  }
-  .method-detail {
-    padding: 27px;
+  .method-body {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
   .method-kicker > span:last-child {
     display: none;
   }
-  .method-detail h3 {
-    font-size: 25px;
+  .method-detail {
+    padding: 24px;
+  }
+  .method-body h3 {
+    font-size: 23px;
+    max-width: 340px;
+  }
+  .method-tabs {
+    justify-content: center;
   }
   .journal-section {
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-    padding: 30px;
+    grid-template-columns: 1fr 0.95fr;
+    padding: 28px;
+    gap: 25px;
   }
   .journal-copy h2 {
-    font-size: 32px;
+    font-size: 29px;
   }
   .journal-copy .button {
-    font-size: 11px;
-    padding-inline: 13px;
-    gap: 10px;
+    font-size: 10px;
+    padding-inline: 12px;
+    gap: 8px;
   }
   .example-note {
-    padding: 20px;
+    padding: 22px 20px;
   }
-  .note-heading {
-    font-size: 7px;
+  .example-note h3 {
+    font-size: 21px;
   }
-  .note-heading svg {
+  .note-label {
     display: none;
   }
   .note-row {
     grid-template-columns: 1fr;
-    gap: 5px;
+    gap: 4px;
   }
-  .example-note h3 {
-    font-size: 22px;
+  .roadmap-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
   }
-  .footer-top {
-    gap: 20px;
-    flex-wrap: wrap;
+  .roadmap-card {
+    padding: 22px;
   }
-  .footer-top > a:last-child {
-    margin-left: auto;
+  .roadmap-card h3 {
+    font-size: 18px;
+  }
+  .roadmap-card p {
+    min-height: 40px;
+    font-size: 12px;
+  }
+  .roadmap-card > div {
+    font-size: 9px;
+  }
+  .interest-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .email-controls {
+    max-width: 600px;
+  }
+  .footer-links {
+    width: 100%;
+    margin: 0;
+  }
+  .footer-top > p {
+    font-size: 11px;
+  }
+  .workspace-caption {
+    font-size: 9px;
   }
 }
 @media (max-width: 720px) {
   html {
-    scroll-padding-top: 84px;
+    scroll-padding-top: 89px;
+  }
+  .site-shell {
+    padding-left: 0;
   }
   .navigation-rail {
     display: none;
   }
-  .page-shell {
-    margin-left: 0;
-  }
   .page-container {
-    width: calc(100% - 40px);
+    width: calc(100% - 36px);
   }
   .site-header {
-    height: 68px;
-    padding-inline: 20px;
+    min-height: 70px;
+    padding-inline: 18px;
     gap: 12px;
   }
-  .site-header .brand-lockup > img {
+  .site-header .brand-lockup img {
     display: block;
-    width: 28px;
-    height: 28px;
+    width: 29px;
+    height: 29px;
   }
   .brand-lockup {
-    font-size: 23px;
+    font-size: 24px;
     gap: 8px;
-    letter-spacing: -0.8px;
-  }
-  .header-journal {
-    display: none;
   }
   .header-actions {
-    gap: 5px;
+    gap: 8px;
+  }
+  .preview-label {
+    display: none;
   }
   .wallet-button {
-    font-size: 10px;
-    padding-inline: 10px;
-    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
   }
-  .wallet-button svg,
-  .session-end {
+  .wallet-button > span {
     display: none;
   }
   .mobile-menu {
-    display: grid;
+    display: flex;
   }
   .skip-link {
-    left: 12px;
+    left: 16px;
   }
-  .hero-section {
-    padding-top: 23px;
-  }
-  .hero-topline .eyebrow {
+  .page-topline {
+    padding: 21px 0 15px;
     font-size: 8px;
     letter-spacing: 0.4px;
-    gap: 8px;
   }
-  .edition-tag {
+  .page-topline > span:last-child {
     display: none;
   }
   .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    padding: 30px 0 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 12px;
+  }
+  .hero-copy {
+    max-width: none;
+    padding: 30px 25px 15px;
+  }
+  .hero-copy .eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.5px;
   }
   .hero-copy h1 {
-    font-size: clamp(43px, 9.5vw, 60px);
-    line-height: 1.08;
-    letter-spacing: -2px;
-    margin-bottom: 21px;
+    font-size: clamp(39px, 8.8vw, 59px);
+    letter-spacing: -2.2px;
+    line-height: 1.05;
+    margin: 22px 0;
   }
   .hero-lede {
-    font-size: 14px;
-    line-height: 1.85;
-    max-width: 450px;
-    margin-bottom: 23px;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 22px;
   }
   .hero-actions {
-    flex-wrap: nowrap;
-    gap: 19px;
+    gap: 14px;
+    flex-wrap: wrap;
   }
   .hero-actions .button {
-    min-height: 48px;
     font-size: 12px;
-    padding-inline: 17px;
-    gap: 16px;
+    padding-inline: 15px;
   }
   .hero-actions > span {
-    font-size: 10px;
-  }
-  .hero-actions > span br {
-    display: block;
-  }
-  .decision-map {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 15px;
-  }
-  .map-heading {
-    grid-column: 1 / -1;
-    font-size: 8px;
-    margin-bottom: 17px;
-  }
-  .map-index {
-    display: block;
-  }
-  .map-graphic {
-    grid-column: 1;
-    grid-row: 2 / 5;
-    margin: 0;
-    align-self: center;
-    padding-bottom: 12px;
-  }
-  .map-question,
-  .map-choice {
-    font-size: 5px;
-    letter-spacing: 0.1px;
-  }
-  .map-step {
-    grid-column: 2;
-    padding: 8px 0;
-    gap: 7px;
-  }
-  .map-step strong {
-    font-size: 10px;
-  }
-  .map-step > span {
-    font-size: 8px;
-  }
-  .map-step svg {
-    display: none;
-  }
-  .map-note {
-    grid-column: 1 / -1;
-    font-size: 10px;
-    margin-top: 15px;
-    padding-top: 12px;
-    border-top: 1px solid #435039;
-  }
-  .hero-bottom {
-    gap: 13px;
-    grid-template-columns: repeat(3, 1fr);
-    padding: 19px 0;
-  }
-  .hero-bottom > div {
-    display: block;
-  }
-  .hero-bottom strong {
-    display: block;
-    font-size: 26px;
-    margin-bottom: 8px;
-  }
-  .hero-bottom > div > span {
     font-size: 9px;
   }
-  .hero-bottom > a {
+  .perspective-map {
+    position: relative;
+    width: auto;
+    right: auto;
+    bottom: auto;
+    opacity: 1;
+    pointer-events: auto;
+    margin: 14px 25px 22px;
+  }
+  .path-diagram {
+    margin: 0;
+    width: 100%;
+    max-height: 225px;
+  }
+  .perspective-map .map-bottom {
+    display: flex;
+    padding-top: 8px;
+    font-size: 10px;
+  }
+  .perspective-map .map-topline {
     display: none;
+  }
+  .hero-index {
+    grid-template-columns: 1fr;
+    margin-top: 10px;
+  }
+  .hero-index button,
+  .hero-index button:first-child {
+    padding: 17px 0;
+    gap: 14px;
+  }
+  .hero-index button + button {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .hero-index .index-icon {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+  }
+  .hero-index button > svg {
+    display: block;
+  }
+  .hero-index strong {
+    font-size: 13px;
+  }
+  .hero-index small {
+    font-size: 10px;
+  }
+  .index-number {
+    margin-bottom: 4px;
   }
   .workspace-section {
-    padding-top: 33px;
-  }
-  .eyebrow {
-    font-size: 9px;
-    letter-spacing: 0.8px;
-    margin-bottom: 12px;
+    padding-top: 36px;
   }
   .section-intro {
-    gap: 14px;
-    margin-bottom: 23px;
+    margin-bottom: 20px;
   }
   .section-intro h2 {
-    font-size: 31px;
+    font-size: 28px;
     letter-spacing: -1px;
   }
   .sample-badge {
-    font-size: 10px;
+    font-size: 9px;
+    padding: 0;
   }
   .workspace-caption {
     flex-direction: column;
     gap: 4px;
-    font-size: 10px;
   }
   .method-section {
-    padding-block: 43px;
+    padding-block: 43px 38px;
   }
   .method-layout {
     grid-template-columns: 1fr;
   }
   .method-tabs {
+    flex-direction: row;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
     padding: 10px;
+    gap: 5px;
   }
   .method-tabs button {
     flex-direction: column;
-    align-items: center;
-    gap: 7px;
-    min-height: 90px;
-    padding: 12px 6px;
+    min-height: 76px;
+    justify-content: center;
+    gap: 4px;
+    padding: 9px 4px;
+    font-size: 11px;
   }
-  .method-tabs .layer-number {
+  .method-tabs button > svg {
     display: none;
   }
-  .method-tabs button > span:not(.layer-number) {
-    font-size: 12px;
+  .layer-number {
+    font-size: 9px;
   }
   .method-detail {
-    padding: 25px 22px;
-    min-height: 345px;
+    padding: 24px;
   }
-  .method-detail h3 {
-    font-size: 25px;
-    margin: 22px 0 18px;
-    min-height: 92px;
+  .method-kicker {
+    margin-bottom: 16px;
   }
-  .method-detail > p {
+  .method-body h3 {
+    font-size: 26px;
+    max-width: none;
+  }
+  .method-body p {
     font-size: 13px;
-    min-height: 117px;
-  }
-  .method-detail .text-link {
-    font-size: 12px;
   }
   .journal-section {
     grid-template-columns: 1fr;
-    padding: 26px 22px;
-    gap: 27px;
+    padding: 27px 23px;
+    gap: 28px;
   }
   .journal-copy h2 {
-    font-size: 37px;
-  }
-  .journal-copy > p:not(.eyebrow) {
-    font-size: 13px;
+    font-size: 34px;
   }
   .journal-copy .button {
-    min-height: 48px;
-    font-size: 12px;
-    padding-inline: 17px;
+    font-size: 11px;
+    padding-inline: 14px;
+    gap: 10px;
   }
   .journal-copy > small {
-    font-size: 10px;
-  }
-  .note-stack {
-    max-width: 410px;
-    width: 100%;
-    margin-inline: auto;
+    font-size: 9px;
   }
   .example-note {
-    padding: 21px;
+    padding: 23px 20px;
+  }
+  .example-note h3 {
+    font-size: 25px;
+  }
+  .note-label {
+    display: block;
   }
   .note-heading {
     font-size: 7px;
   }
-  .note-asset {
-    margin-block: 22px 18px;
-  }
-  .example-note h3 {
-    font-size: 24px;
-    margin-bottom: 23px;
-  }
   .note-row {
-    grid-template-columns: 83px 1fr;
-    gap: 8px;
+    grid-template-columns: 85px 1fr;
+    gap: 9px;
   }
-  .note-row > span {
-    font-size: 7px;
+  .note-row p {
+    font-size: 10px;
   }
   .note-footer {
-    font-size: 9px;
+    font-size: 8px;
   }
   .roadmap-section {
-    padding-block: 43px;
+    padding-block: 43px 35px;
   }
   .roadmap-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 11px;
   }
   .roadmap-card {
-    padding: 17px 14px;
+    padding: 18px 14px 10px;
   }
   .roadmap-card > div {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 9px;
-    margin-bottom: 22px;
+    flex-wrap: wrap;
+    font-size: 7px;
+    gap: 5px;
+    margin-bottom: 16px;
+  }
+  .roadmap-card > div > span:first-child {
+    width: 100%;
   }
   .roadmap-card h3 {
-    font-size: 16px;
+    font-size: 17px;
+    line-height: 1.25;
   }
   .roadmap-card p {
-    font-size: 12px;
-    min-height: 105px;
+    font-size: 11px;
+    min-height: 76px;
   }
-  .roadmap-card > svg {
-    width: 26px;
-    margin-bottom: 18px;
+  .roadmap-note {
+    font-size: 7px;
   }
   .roadmap-card a {
     font-size: 10px;
     gap: 5px;
   }
-  .roadmap-card a svg {
-    width: 13px;
-  }
-  .roadmap-note {
-    font-size: 7px;
-  }
   .interest-section {
-    grid-template-columns: 1fr;
-    padding-block: 30px;
-    gap: 23px;
-    margin-bottom: 30px;
+    padding-block: 27px;
+    gap: 22px;
+    margin-bottom: 25px;
   }
   .interest-section h2 {
-    font-size: 30px;
-  }
-  .interest-section > div > p:not(.eyebrow) {
-    font-size: 13px;
-  }
-  .email-controls {
-    flex-wrap: nowrap;
-    flex-direction: column;
+    font-size: 28px;
   }
   .email-controls .button {
-    width: 100%;
+    padding-inline: 11px;
+    font-size: 10px;
+    gap: 6px;
   }
-  #email-help {
-    font-size: 11px;
+  .email-controls .button svg {
+    display: none;
   }
   .footer-top {
-    gap: 12px;
-  }
-  .footer-top .brand-lockup {
-    width: 100%;
+    gap: 13px;
   }
   .footer-top > p {
     width: 100%;
     font-size: 12px;
   }
-  .footer-top > a:last-child {
-    margin-left: 0;
-    font-size: 12px;
+  .footer-links {
+    gap: 18px;
+  }
+  .footer-links a {
+    font-size: 10px;
   }
   .footer-bottom {
     flex-direction: column;
-    gap: 18px;
-    margin-top: 15px;
-    font-size: 10px;
+    gap: 15px;
+    font-size: 9px;
   }
   .footer-bottom > span {
     text-align: left;
@@ -555,89 +554,72 @@
 }
 @media (max-width: 360px) {
   .page-container {
-    width: calc(100% - 32px);
+    width: calc(100% - 28px);
   }
   .site-header {
-    padding-inline: 16px;
-    gap: 7px;
+    padding-inline: 14px;
   }
   .brand-lockup {
-    font-size: 22px;
-    gap: 6px;
+    font-size: 21px;
   }
-  .site-header .brand-lockup > img {
-    width: 26px;
-    height: 26px;
-  }
-  .wallet-button {
-    font-size: 9px;
-    padding-inline: 8px;
-  }
-  .header-actions {
-    gap: 0;
+  .hero-copy {
+    padding-inline: 20px;
   }
   .hero-copy h1 {
-    font-size: 39px;
-    letter-spacing: -1.8px;
+    font-size: 37px;
+    letter-spacing: -1.9px;
+  }
+  .hero-lede {
+    font-size: 12px;
   }
   .hero-actions {
-    gap: 13px;
+    gap: 12px;
   }
-  .hero-actions .button {
-    font-size: 11px;
-    padding-inline: 14px;
-    gap: 13px;
+  .hero-actions > span br {
+    display: none;
   }
-  .hero-actions > span {
-    font-size: 9px;
+  .perspective-map {
+    margin-inline: 20px;
   }
-  .decision-map {
-    padding: 15px;
-    gap: 0 10px;
+  .map-bottom {
+    font-size: 9px !important;
   }
-  .map-heading {
-    font-size: 7px;
+  .section-intro h2 {
+    font-size: 25px;
   }
-  .map-step strong {
-    font-size: 9px;
-  }
-  .map-step > span {
-    font-size: 7px;
-  }
-  .journal-copy h2 {
-    font-size: 32px;
+  .method-detail {
+    padding: 20px;
   }
   .journal-section {
-    padding-inline: 18px;
+    padding-inline: 20px;
   }
-  .journal-copy .button {
-    font-size: 11px;
-    padding-inline: 12px;
+  .journal-copy h2 {
+    font-size: 30px;
+  }
+  .example-note {
+    padding-inline: 15px;
+  }
+  .note-label {
+    display: none;
   }
   .note-row {
     grid-template-columns: 1fr;
-    gap: 5px;
+    gap: 4px;
   }
-  .roadmap-grid {
-    grid-template-columns: 1fr;
+  .email-controls {
+    flex-wrap: wrap;
+  }
+  .email-controls .button {
+    width: 100%;
   }
   .roadmap-card {
-    padding: 22px;
-  }
-  .roadmap-card > div {
-    flex-direction: row;
-  }
-  .roadmap-card p {
-    min-height: 0;
+    padding-inline: 12px;
   }
   .roadmap-card h3 {
-    font-size: 20px;
+    font-size: 15px;
   }
-  .roadmap-card a {
-    font-size: 12px;
-  }
-  .roadmap-note {
-    font-size: 9px;
+  .roadmap-card p {
+    min-height: 96px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -655,19 +637,26 @@
 }
 @media (forced-colors: active) {
   button,
-  .button,
   input,
-  textarea {
+  textarea,
+  select {
     border: 1px solid ButtonText;
   }
-  a {
-    text-decoration: underline;
-  }
   :focus-visible {
-    outline: 3px solid Highlight;
+    outline: 2px solid Highlight;
   }
-  [aria-pressed="true"],
+  .status-dot {
+    background: CanvasText;
+  }
+  .hero-grid,
+  .example-note,
+  .navigation-rail {
+    border: 1px solid CanvasText;
+  }
+  .path-diagram {
+    forced-color-adjust: none;
+  }
   .navigation-rail nav a.active {
-    border: 2px solid Highlight;
+    outline: 2px solid Highlight;
   }
 }

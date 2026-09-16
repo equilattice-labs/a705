@@ -1,15 +1,15 @@
 export const brand = Object.freeze({
-  name: "Folivect",
-  slug: "folivect",
-  domain: "folivect.xyz",
-  handle: "@folivect",
-  tagline: "See the case. Own the decision.",
+  name: "Thesivellum",
+  slug: "thesivellum",
+  domain: "thesivellum.xyz",
+  handle: "@thesivellum",
+  tagline: "Give every decision a reason.",
 });
 
 export const storageKeys = Object.freeze({
-  session: "folivect:session",
-  email: "folivect:beta-email",
-  journal: "folivect:journal",
+  session: "thesivellum:session",
+  email: "thesivellum:beta-email",
+  journal: "thesivellum:journal",
 });
 
 function validPreference(key, value) {
@@ -55,12 +55,22 @@ export function migrateBrandStorage() {
   for (const [storageName, previousKeys, nextKey] of [
     [
       "sessionStorage",
-      ["decisift:session", "stockorbit:session"],
+      [
+        "evidune:session",
+        "folivect:session",
+        "decisift:session",
+        "stockorbit:session",
+      ],
       storageKeys.session,
     ],
     [
       "localStorage",
-      ["decisift:beta-email", "stockorbit:beta-email"],
+      [
+        "evidune:beta-email",
+        "folivect:beta-email",
+        "decisift:beta-email",
+        "stockorbit:beta-email",
+      ],
       storageKeys.email,
     ],
   ]) {
@@ -80,25 +90,31 @@ export function migrateBrandStorage() {
   }
   try {
     const storage = window.localStorage;
-    const previousKey = "decisift:journal";
-    const previous = storage.getItem(previousKey);
-    if (previous === null) return { journalError: "" };
-    const oldEntries = readJournal(previous);
-    const existing = storage.getItem(storageKeys.journal);
-    const currentEntries = existing === null ? [] : readJournal(existing);
-    const ids = new Set(currentEntries.map((entry) => entry.id));
-    const merged = [...currentEntries];
-    for (const entry of oldEntries) {
-      if (!ids.has(entry.id)) {
-        merged.push(entry);
-        ids.add(entry.id);
+    for (const previousKey of [
+      "evidune:journal",
+      "folivect:journal",
+      "decisift:journal",
+      "stockorbit:journal",
+    ]) {
+      const previous = storage.getItem(previousKey);
+      if (previous === null) continue;
+      const oldEntries = readJournal(previous);
+      const existing = storage.getItem(storageKeys.journal);
+      const currentEntries = existing === null ? [] : readJournal(existing);
+      const ids = new Set(currentEntries.map((entry) => entry.id));
+      const merged = [...currentEntries];
+      for (const entry of oldEntries) {
+        if (!ids.has(entry.id)) {
+          merged.push(entry);
+          ids.add(entry.id);
+        }
       }
+      const serialized = JSON.stringify(merged);
+      storage.setItem(storageKeys.journal, serialized);
+      if (storage.getItem(storageKeys.journal) !== serialized)
+        throw new Error("Journal write not verified");
+      storage.removeItem(previousKey);
     }
-    const serialized = JSON.stringify(merged);
-    storage.setItem(storageKeys.journal, serialized);
-    if (storage.getItem(storageKeys.journal) !== serialized)
-      throw new Error("Journal write not verified");
-    storage.removeItem(previousKey);
     return { journalError: "" };
   } catch {
     return {
