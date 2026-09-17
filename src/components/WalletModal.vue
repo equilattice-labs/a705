@@ -503,9 +503,9 @@ onBeforeUnmount(() => {
   place-items: center;
   overflow-y: auto;
   padding: 24px;
-  background: #11192399;
+  background: #462c3499;
   backdrop-filter: blur(6px);
-  color: var(--ink, #111923);
+  color: var(--ink, #462c34);
   font: 14px/1.65 var(--sans, "Segoe UI", Arial, sans-serif);
 }
 .wallet-dialog {
@@ -516,12 +516,12 @@ onBeforeUnmount(() => {
   overflow-y: auto;
   overscroll-behavior: contain;
   background: var(--surface, #fff);
-  border: 1px solid var(--line, #d7dee5);
-  border-radius: 18px;
-  box-shadow: 0 28px 90px #11192338;
+  border: 1px solid var(--line, #d8cec1);
+  border-radius: 2px;
+  box-shadow: 0 28px 90px #462c3438;
   text-align: left;
   box-sizing: border-box;
-  scrollbar-color: var(--muted, #566474) var(--surface, #fff);
+  scrollbar-color: var(--muted, #726563) var(--surface, #fff);
   color-scheme: light;
 }
 .wallet-dialog *,
@@ -538,7 +538,7 @@ onBeforeUnmount(() => {
   cursor: pointer;
 }
 .wallet-dialog :is(button, a, [tabindex]):focus-visible {
-  outline: 3px solid var(--violet, #5262a5);
+  outline: 3px solid var(--violet, #725b85);
   outline-offset: 4px;
 }
 .wallet-dialog svg {
@@ -551,7 +551,7 @@ onBeforeUnmount(() => {
   gap: 0 13px;
   margin: -28px -28px 0;
   padding: 28px;
-  background: var(--ink, #111923);
+  background: var(--ink, #462c34);
   color: var(--surface, #fff);
 }
 .wallet-close {
@@ -564,7 +564,7 @@ onBeforeUnmount(() => {
   width: 44px;
   height: 44px;
   border: 1px solid #ffffff30;
-  border-radius: 9px;
+  border-radius: 2px;
   color: #fff;
   background: #ffffff08;
 }
@@ -576,9 +576,9 @@ onBeforeUnmount(() => {
   place-items: center;
   width: 40px;
   height: 40px;
-  border-radius: 9px;
+  border-radius: 2px;
   overflow: hidden;
-  background: var(--lime, #d5fa5b);
+  background: var(--lime, #f1b29d);
 }
 .wallet-emblem img {
   display: block;
@@ -588,7 +588,7 @@ onBeforeUnmount(() => {
 }
 .wallet-eyebrow {
   padding-right: 38px;
-  color: #cbd5e0;
+  color: #dfcdd0;
   font: 10px/1.7 var(--mono, Consolas, monospace);
   letter-spacing: 0.6px;
   text-transform: uppercase;
@@ -597,13 +597,13 @@ onBeforeUnmount(() => {
   grid-column: 1 / -1;
   max-width: 410px;
   margin-top: 25px;
-  font: 650 32px/1.2 var(--sans, "Segoe UI", Arial, sans-serif);
+  font: 400 38px/1.2 var(--serif, Georgia, serif);
   letter-spacing: -1px;
 }
 .wallet-description {
   grid-column: 1 / -1;
   margin-top: 13px !important;
-  color: #cbd5e0;
+  color: #dfcdd0;
   font-size: 14px;
   line-height: 1.75;
 }
@@ -614,7 +614,7 @@ onBeforeUnmount(() => {
   margin: 23px 0 0;
   padding: 4px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 2px;
   background: var(--paper);
   list-style: none;
   font-size: 12px;
@@ -627,7 +627,7 @@ onBeforeUnmount(() => {
   min-width: 0;
   min-height: 50px;
   padding: 9px 10px;
-  border-radius: 7px;
+  border-radius: 2px;
 }
 .connection-steps li > span {
   display: grid;
@@ -636,7 +636,7 @@ onBeforeUnmount(() => {
   height: 25px;
   flex-shrink: 0;
   border: 1px solid var(--line);
-  border-radius: 7px;
+  border-radius: 2px;
   background: var(--surface);
   color: var(--ink);
   font: 11px var(--mono);
@@ -706,7 +706,7 @@ onBeforeUnmount(() => {
   margin-top: 20px;
   padding: 12px 15px;
   border: 1px solid var(--lime);
-  border-radius: 9px;
+  border-radius: 2px;
   background: var(--lime);
   color: var(--ink);
   font-size: 14px !important;
@@ -741,7 +741,7 @@ onBeforeUnmount(() => {
   margin-top: 20px;
   padding: 14px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 2px;
   background: var(--accent-soft);
   color: var(--accent);
   font-size: 14px;
@@ -770,7 +770,7 @@ onBeforeUnmount(() => {
   margin-top: 16px !important;
   padding: 13px 15px;
   border: 1px solid #e8b5b1;
-  border-radius: 9px;
+  border-radius: 2px;
   background: #fcecea;
   color: var(--red, #ad3c38);
   font-size: 13px;
@@ -843,7 +843,7 @@ onBeforeUnmount(() => {
   .wallet-dialog {
     max-height: calc(100dvh - 24px);
     padding: 22px 18px;
-    border-radius: 14px;
+    border-radius: 2px;
   }
   .wallet-heading {
     margin: -22px -18px 0;

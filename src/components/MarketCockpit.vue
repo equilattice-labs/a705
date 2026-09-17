@@ -415,15 +415,12 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
   >
     <header class="desk-header">
       <div class="desk-title">
-        <span class="desk-index" aria-hidden="true">01 / 04</span>
+        <span class="folio-mark" aria-hidden="true">R.</span>
         <div>
-          <small>{{ brand.name }} / INTERACTIVE RESEARCH</small>
-          <h3>Your research desk</h3>
+          <small>{{ brand.name }} / RESEARCH FOLIO</small>
+          <h3>A place to form your view.</h3>
         </div>
       </div>
-      <p class="desk-session">
-        <span class="preview-dot"></span> Sample data <span>Local session</span>
-      </p>
       <button
         ref="journalToggle"
         class="quiet-button journal-toggle"
@@ -431,31 +428,33 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
         aria-controls="local-journal"
         @click="toggleJournal"
       >
-        <BookOpen :size="16" /> My journal
+        <BookOpen :size="17" /> My journal
         <span class="count">{{ journal.length }}</span>
       </button>
     </header>
-    <div class="desk-grid">
-      <aside class="watchlist" aria-label="Asset watchlist">
-        <div class="watchlist-toolbar">
-          <div class="small-heading">
-            <span>ASSETS</span><span>{{ filteredAssets.length }} of 4</span>
-          </div>
-          <div class="asset-search">
-            <Search :size="15" aria-hidden="true" /><input
-              ref="searchInput"
-              v-model="query"
-              type="search"
-              aria-label="Search assets"
-              placeholder="Find an asset"
-            /><button
-              v-if="query"
-              aria-label="Clear asset search"
-              @click="clearSearch"
-            >
-              <X :size="14" />
-            </button>
-          </div>
+
+    <section class="asset-index" aria-label="Asset watchlist">
+      <div class="index-label">
+        <span class="small-heading">01 / CHOOSE A SUBJECT</span
+        ><span class="sample-note">Illustrative prices · USD</span>
+      </div>
+      <div class="index-controls">
+        <div class="asset-search">
+          <Search :size="17" aria-hidden="true" />
+          <input
+            ref="searchInput"
+            v-model="query"
+            type="search"
+            aria-label="Search assets"
+            placeholder="Find an asset"
+          />
+          <button
+            v-if="query"
+            aria-label="Clear asset search"
+            @click="clearSearch"
+          >
+            <X :size="16" />
+          </button>
         </div>
         <div class="asset-list">
           <button
@@ -469,7 +468,8 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
             <span class="asset-name"
               ><strong>{{ asset.symbol }}</strong
               ><small>{{ asset.name }}</small></span
-            ><span class="asset-quote"
+            >
+            <span class="asset-quote"
               ><strong>{{ asset.price.toFixed(2) }}</strong
               ><small :class="asset.change > 0 ? 'positive' : 'negative'"
                 ><ArrowUpRight
@@ -481,107 +481,111 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
               ></span
             >
           </button>
-        </div>
-        <div v-if="!filteredAssets.length" class="search-empty" role="status">
-          <Search :size="20" />
-          <p>No matching assets.</p>
-          <button class="inline-button" @click="clearSearch">
-            Clear search
-          </button>
-        </div>
-        <p class="watchlist-note">
-          Fixed sample prices in USD. Select an asset to examine its thesis.
-        </p>
-      </aside>
-      <nav class="desk-process" aria-label="Research workflow">
-        <button @click="goToTab('Brief')">
-          <span>01</span><strong>Read the thesis</strong
-          ><small>Build a point of view</small><ArrowRight :size="16" />
-        </button>
-        <button @click="goToTab('Scenario')">
-          <span>02</span><strong>Test assumptions</strong
-          ><small>Make the downside visible</small><ArrowRight :size="16" />
-        </button>
-        <button @click="focusDecisionNote">
-          <span>03</span><strong>Record your decision</strong
-          ><small>Keep the reasoning with you</small><ArrowRight :size="16" />
-        </button>
-      </nav>
-      <section class="research-main" aria-label="Selected asset research">
-        <div class="asset-heading">
-          <div>
-            <p class="small-heading">{{ current.name }} / STOCK TOKEN</p>
-            <h3 id="selected-asset-title" tabindex="-1">
-              {{ current.symbol }}
-              <span :class="['signal-status', current.status.toLowerCase()]">{{
-                current.status
-              }}</span>
-            </h3>
-          </div>
-          <div class="main-price">
-            ${{ current.price.toFixed(2)
-            }}<small :class="current.change > 0 ? 'positive' : 'negative'"
-              >{{ current.change > 0 ? "+" : ""
-              }}{{ current.change.toFixed(2) }}% <span>sample</span></small
-            >
+          <div v-if="!filteredAssets.length" class="search-empty" role="status">
+            <p>No matching assets.</p>
+            <button class="inline-button" @click="clearSearch">
+              Clear search
+            </button>
           </div>
         </div>
-        <div v-if="revisitedEntry" class="revisit-banner" role="status">
-          <RotateCcw :size="16" />
-          <p>
-            Revisiting {{ formatDate(revisitedEntry.savedAt)
-            }}<span
-              >Change an assumption to save a new snapshot. Your original is
-              unchanged.</span
-            >
-          </p>
-          <button
-            v-if="previousDraft"
-            class="inline-button"
-            @click="restorePreviousDraft"
-          >
-            Restore previous draft
-          </button>
+      </div>
+    </section>
+
+    <section class="research-main" aria-label="Selected asset research">
+      <div class="asset-heading">
+        <div class="asset-title-group">
+          <p class="small-heading">RESEARCH SUBJECT / {{ current.name }}</p>
+          <h3 id="selected-asset-title" tabindex="-1">
+            {{ current.symbol
+            }}<span :class="['signal-status', current.status.toLowerCase()]">{{
+              current.status
+            }}</span>
+          </h3>
         </div>
-        <div
-          class="research-tabs"
-          role="tablist"
-          aria-label="Research sections"
-          @keydown="navigateTabs"
-        >
-          <button
-            v-for="(tab, index) in tabs"
-            :id="`research-tab-${tab.toLowerCase()}`"
-            :key="tab"
-            role="tab"
-            :aria-selected="activeTab === tab"
-            :aria-controls="`research-panel-${tab.toLowerCase()}`"
-            :tabindex="activeTab === tab ? 0 : -1"
-            :class="{ selected: activeTab === tab }"
-            @click="activeTab = tab"
-          >
-            <span class="tab-number" aria-hidden="true">{{ index + 1 }}</span
-            >{{ tab }}
-          </button>
+        <div class="asset-title-note">
+          <span class="small-heading">THE QUESTION TO KEEP ASKING</span>
+          <p>What would change<br />your mind?</p>
         </div>
-        <p class="research-guide">
-          Read the thesis, inspect its sources, then test a scenario.
+        <div class="main-price">
+          <span class="small-heading">SAMPLE PRICE</span
+          ><strong>${{ current.price.toFixed(2) }}</strong
+          ><small :class="current.change > 0 ? 'positive' : 'negative'"
+            >{{ current.change > 0 ? "+" : "" }}{{ current.change.toFixed(2) }}%
+            <span>illustrative move</span></small
+          >
+        </div>
+      </div>
+      <div v-if="revisitedEntry" class="revisit-banner" role="status">
+        <RotateCcw :size="18" />
+        <p>
+          Revisiting {{ formatDate(revisitedEntry.savedAt)
+          }}<span
+            >Change an assumption to save a new snapshot. Your original is
+            unchanged.</span
+          >
         </p>
-        <div
-          v-if="activeTab === 'Brief'"
-          id="research-panel-brief"
-          class="research-panel"
-          role="tabpanel"
-          aria-labelledby="research-tab-brief"
-          tabindex="0"
+        <button
+          v-if="previousDraft"
+          class="inline-button"
+          @click="restorePreviousDraft"
         >
-          <div class="brief-label">
+          Restore previous draft
+        </button>
+      </div>
+      <div
+        class="research-tabs"
+        role="tablist"
+        aria-label="Research sections"
+        @keydown="navigateTabs"
+      >
+        <button
+          v-for="(tab, index) in tabs"
+          :id="`research-tab-${tab.toLowerCase()}`"
+          :key="tab"
+          role="tab"
+          :aria-label="tab"
+          :aria-selected="activeTab === tab"
+          :aria-controls="`research-panel-${tab.toLowerCase()}`"
+          :tabindex="activeTab === tab ? 0 : -1"
+          :class="{ selected: activeTab === tab }"
+          @click="activeTab = tab"
+        >
+          <span class="tab-number" aria-hidden="true">0{{ index + 1 }}</span
+          ><span class="tab-title"
+            >{{ tab
+            }}<small>{{
+              [
+                "Read the working thesis",
+                "Inspect the evidence",
+                "Explore the assumptions",
+              ][index]
+            }}</small></span
+          ><ArrowRight :size="17" aria-hidden="true" />
+        </button>
+      </div>
+
+      <div
+        v-if="activeTab === 'Brief'"
+        id="research-panel-brief"
+        class="research-panel brief-panel"
+        role="tabpanel"
+        aria-labelledby="research-tab-brief"
+        tabindex="0"
+      >
+        <div class="thesis-column">
+          <p class="brief-label">
             <FileText :size="16" /><span>THE WORKING THESIS</span
             ><span class="sample-tag">SAMPLE</span>
-          </div>
+          </p>
           <p class="thesis-copy">{{ current.thesis }}</p>
+          <button class="next-step" @click="goToTab('Sources')">
+            Next: inspect sources <ArrowRight :size="17" />
+          </button>
+        </div>
+        <div class="context-column">
           <div class="counter-case">
-            <span>What could change the view</span>
+            <span class="small-heading">A REASON TO RECONSIDER</span>
+            <h4>What could change the view.</h4>
             <p>{{ current.counter }}</p>
           </div>
           <div class="evidence-summary">
@@ -617,27 +621,32 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
               Open source context <ArrowUpRight :size="14" />
             </button>
           </div>
-          <button class="next-step" @click="goToTab('Sources')">
-            Next: inspect sources <ArrowRight :size="16" />
-          </button>
         </div>
-        <div
-          v-if="activeTab === 'Sources'"
-          id="research-panel-sources"
-          class="research-panel source-panel"
-          role="tabpanel"
-          aria-labelledby="research-tab-sources"
-          tabindex="0"
-        >
-          <div class="brief-label">
+      </div>
+
+      <div
+        v-if="activeTab === 'Sources'"
+        id="research-panel-sources"
+        class="research-panel source-panel"
+        role="tabpanel"
+        aria-labelledby="research-tab-sources"
+        tabindex="0"
+      >
+        <div class="section-introduction">
+          <p class="brief-label">
             <BookOpen :size="16" /><span>SOURCE CONTEXT</span
             ><span class="sample-tag">PREVIEW</span>
-          </div>
-          <h4>Evidence should be inspectable.</h4>
+          </p>
+          <h4>A thesis deserves<br />a paper trail.</h4>
           <p class="panel-copy">
             This demo contains no live research sources. The working thesis is
             sample copy; it has not been verified against issuer disclosures.
           </p>
+          <button class="next-step" @click="goToTab('Scenario')">
+            Next: test a scenario <ArrowRight :size="17" />
+          </button>
+        </div>
+        <div class="source-ledger">
           <div class="source-record">
             <span class="source-number">01</span>
             <div>
@@ -657,7 +666,7 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
             ><span class="source-number">02</span>
             <div>
               <strong
-                >Robinhood Chain documentation <ExternalLink :size="13"
+                >Robinhood Chain documentation <ExternalLink :size="14"
               /></strong>
               <p>Network reference for the wallet connection.</p>
               <small>REFERENCE / NETWORK ONLY</small>
@@ -671,51 +680,64 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
             ><span class="source-number">03</span>
             <div>
               <strong
-                >Robinhood Chain explorer <ExternalLink :size="13"
+                >Robinhood Chain explorer <ExternalLink :size="14"
               /></strong>
               <p>Inspect onchain activity independently.</p>
               <small>REFERENCE / NETWORK ONLY</small>
             </div></a
           >
-          <button class="next-step" @click="goToTab('Scenario')">
-            Next: test a scenario <ArrowRight :size="16" />
-          </button>
         </div>
-        <div
-          v-if="activeTab === 'Scenario'"
-          id="research-panel-scenario"
-          class="research-panel"
-          role="tabpanel"
-          aria-labelledby="research-tab-scenario"
-          tabindex="0"
-        >
-          <div class="brief-label">
-            <SlidersHorizontal :size="16" /><span>SCENARIO LAB</span
-            ><span class="sample-tag">30 DAYS</span>
+      </div>
+
+      <div
+        v-if="activeTab === 'Scenario'"
+        id="research-panel-scenario"
+        class="research-panel scenario-panel"
+        role="tabpanel"
+        aria-labelledby="research-tab-scenario"
+        tabindex="0"
+      >
+        <div class="scenario-introduction">
+          <div>
+            <p class="brief-label">
+              <SlidersHorizontal :size="16" /><span>SCENARIO STUDY</span
+              ><span class="sample-tag">30 DAYS</span>
+            </p>
+            <h4>One thesis. Three possible paths.</h4>
           </div>
-          <h4>Make the assumptions visible.</h4>
           <p class="panel-copy">
             Explore a hypothetical price move. Each case also carries a separate
             stress drawdown for sizing.
           </p>
-          <div
-            class="scenario-choices"
-            role="group"
-            aria-label="Market scenarios"
+        </div>
+        <div
+          class="scenario-choices"
+          role="group"
+          aria-label="Market scenarios"
+        >
+          <button
+            v-for="item in scenarios"
+            :key="item.id"
+            :class="[item.id, { selected: activeScenario === item.id }]"
+            :aria-pressed="activeScenario === item.id"
+            @click="activeScenario = item.id"
           >
-            <button
-              v-for="item in scenarios"
-              :key="item.id"
-              :class="{ selected: activeScenario === item.id }"
-              :aria-pressed="activeScenario === item.id"
-              @click="activeScenario = item.id"
-            >
-              <span>{{ item.label }} case</span
-              ><strong>{{ item.move > 0 ? "+" : "" }}{{ item.move }}%</strong>
-            </button>
-          </div>
-          <div class="scenario-result">
-            <span>Hypothetical {{ current.symbol }} price</span
+            <span
+              >{{ item.label }} case
+              <Check v-if="activeScenario === item.id" :size="16" /></span
+            ><strong>{{ item.move > 0 ? "+" : "" }}{{ item.move }}%</strong
+            ><small>{{ item.description }}</small
+            ><span class="case-price"
+              >${{ (current.price * (1 + item.move / 100)).toFixed(2) }}
+              <ArrowUpRight :size="16"
+            /></span>
+          </button>
+        </div>
+        <div class="scenario-comparison">
+          <div class="scenario-result" aria-live="polite">
+            <span class="small-heading"
+              >SELECTED / {{ scenario.label.toUpperCase() }} CASE</span
+            ><span>Hypothetical {{ current.symbol }} price</span
             ><strong>${{ projectedPrice }}</strong>
             <p>{{ scenario.description }}</p>
           </div>
@@ -750,24 +772,29 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
               >
             </div>
             <p>
-              Bars show assumed change from the ${{ current.price.toFixed(2) }}
+              Bars show assumed change from the ${{
+                current.price.toFixed(2)
+              }}
               sample price. No historical prices or probabilities are shown.
             </p>
           </figure>
-          <p class="assumption-note">
-            Sample price × (1 + assumed move). These scenarios are neither
-            forecasts nor probability estimates.
-          </p>
         </div>
-      </section>
-      <aside class="risk-sidebar" aria-label="Risk simulator">
-        <div class="small-heading">
-          <span>RISK PARAMETERS</span><ShieldCheck :size="18" />
-        </div>
-        <h4>What is the downside?</h4>
+        <p class="assumption-note">
+          Sample price × (1 + assumed move). These scenarios are neither
+          forecasts nor probability estimates.
+        </p>
+      </div>
+    </section>
+
+    <div class="decision-spread">
+      <section class="risk-sidebar" aria-label="Risk simulator">
+        <p class="small-heading">
+          <ShieldCheck :size="16" />02 / PUT THE DOWNSIDE ON PAPER
+        </p>
+        <h4>Size the uncertainty.</h4>
         <p class="risk-intro">
-          Explore how your {{ current.symbol }} position would affect the whole
-          portfolio.
+          How would your {{ current.symbol }} position affect the whole
+          portfolio?
         </p>
         <fieldset class="compact-scenarios">
           <legend>Scenario</legend>
@@ -779,7 +806,8 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
               :aria-pressed="activeScenario === item.id"
               @click="activeScenario = item.id"
             >
-              {{ item.label }}
+              {{ item.label
+              }}<Check v-if="activeScenario === item.id" :size="13" />
             </button>
           </div>
         </fieldset>
@@ -800,43 +828,40 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
           <span>1% of portfolio</span><span>50%</span>
         </div>
         <div class="stress-result">
-          <span>Portfolio stress impact</span
-          ><strong>−{{ portfolioImpact }}<small>%</small></strong>
+          <div>
+            <span>Portfolio stress impact</span
+            ><strong>−{{ portfolioImpact }}<small>%</small></strong>
+          </div>
           <p>
-            {{ weight }}% position × {{ scenario.drawdown }}% assumed drawdown
+            {{ weight }}% position ×<br />{{ scenario.drawdown }}% assumed
+            drawdown
           </p>
-          <div class="stress-gauge" aria-hidden="true">
-            <i
-              :style="{ width: `${(Number(portfolioImpact) / 12) * 100}%` }"
-            ></i>
-          </div>
-          <div class="stress-scale">
-            <span>0% portfolio stress</span><span>12%</span>
-          </div>
         </div>
-        <ul class="risk-checklist">
-          <li><Check :size="14" />{{ scenario.label }} case selected</li>
-          <li><Check :size="14" />Downside made explicit</li>
-          <li><span class="hollow-dot"></span>No trade is submitted</li>
-        </ul>
-        <button class="next-step risk-note-link" @click="focusDecisionNote">
-          Record this scenario <ArrowRight :size="16" />
-        </button>
+        <div class="stress-gauge" aria-hidden="true">
+          <i :style="{ width: `${(Number(portfolioImpact) / 12) * 100}%` }"></i>
+        </div>
+        <div class="stress-scale">
+          <span>0% portfolio stress</span><span>12%</span>
+        </div>
         <p class="risk-footnote">
           Illustrative sizing only. No leverage; excludes fees and slippage.
-          This estimate does not enforce a loss limit.
+          This estimate does not enforce a loss limit. No trade is submitted.
         </p>
-      </aside>
-      <div class="save-area">
-        <p class="save-heading">
-          DECISION NOTE <span>03 / RECORD THE WHY</span>
+        <button class="inline-button risk-note-link" @click="focusDecisionNote">
+          Record this scenario <ArrowRight :size="16" />
+        </button>
+      </section>
+      <section class="save-area" aria-label="Decision note">
+        <p class="small-heading">03 / RECORD THE WHY</p>
+        <h4>Make a note.<br />Keep your perspective.</h4>
+        <p class="note-intro">
+          A useful decision starts with a reason you can revisit.
         </p>
-        <h4>Leave a note for your future self.</h4>
         <label for="thesis-note">Your decision note <span>optional</span></label
         ><textarea
           id="thesis-note"
           v-model="note"
-          rows="2"
+          rows="4"
           maxlength="500"
           aria-describedby="draft-note"
           placeholder="What would you need to see before acting?"
@@ -847,14 +872,14 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
         </p>
         <div class="save-row">
           <small
-            >{{ scenario.label }} case · {{ weight }}% position<br />
-            Saved on this device. Unencrypted.</small
+            >{{ scenario.label }} case · {{ weight }}% position<br />Saved on
+            this device. Unencrypted.</small
           ><button
             class="save-button"
             :disabled="isSaved || !!journalError"
             @click="saveThesis"
           >
-            <Check v-if="isSaved" :size="15" /><Bookmark v-else :size="15" />{{
+            <Check v-if="isSaved" :size="16" /><Bookmark v-else :size="16" />{{
               isSaved
                 ? "Saved to journal"
                 : revisitedEntry
@@ -871,7 +896,7 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
         >
           View saved entry in My journal <ArrowRight :size="16" />
         </button>
-      </div>
+      </section>
     </div>
     <div v-if="notice || journalError" class="desk-feedback">
       <p v-if="notice" role="status">{{ notice }}</p>
@@ -1021,7 +1046,9 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
       </ol>
     </section>
     <footer class="desk-footer">
-      <span><span class="preview-dot"></span> PRODUCT PREVIEW</span
+      <span
+        ><span class="preview-dot" aria-hidden="true"></span> PRODUCT PREVIEW /
+        SAMPLE DATA</span
       ><span>Research is a process. The decision is yours.</span>
     </footer>
   </div>
@@ -1029,265 +1056,236 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
 
 <style scoped>
 .research-desk {
-  --desk-positive: var(--accent);
-  --desk-negative: var(--red);
+  --desk-positive: #376156;
+  --desk-negative: var(--red, #a93827);
+  --desk-wine: #462c34;
+  --desk-peach: #eedacc;
+  --desk-sage: #dfe9e5;
   width: 100%;
   min-width: 0;
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 18px;
-  font: 14px/1.65 var(--sans);
+  font: 14px/1.6 var(--sans);
   text-align: left;
   color-scheme: light;
-  overflow: clip;
-  box-shadow: 0 14px 45px #1119230a;
 }
 .research-desk *,
 .research-desk *::before,
 .research-desk *::after {
   box-sizing: border-box;
 }
-.research-desk button,
-.research-desk input,
-.research-desk textarea,
-.research-desk select {
+.research-desk :is(p, h3, h4, h5, figure) {
+  margin: 0;
+}
+.research-desk :is(button, input, textarea, select) {
   font: inherit;
 }
 .research-desk button {
   cursor: pointer;
+  transition:
+    background-color 0.18s,
+    color 0.18s;
 }
 .research-desk
   :is(button, input, textarea, select, a, [tabindex]):focus-visible {
-  outline: 2px solid var(--accent, #314d1a);
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
+}
+.research-desk :is(button, a, input, textarea, select) {
+  -webkit-tap-highlight-color: transparent;
 }
 .research-desk button:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
-}
-.research-desk :is(p, h3, h4, h5, figure) {
-  margin: 0;
+  opacity: 0.55;
 }
 .research-desk svg {
   flex-shrink: 0;
 }
+.research-desk .small-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 10px/1.7 var(--mono);
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
 .desk-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 24px;
-  padding: 25px 28px;
-  background: var(--ink);
-  color: var(--surface);
+  padding: 28px 34px;
+  background: var(--desk-wine);
+  color: var(--paper);
 }
 .desk-title {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 21px;
 }
-.desk-index {
-  display: grid;
-  place-items: center;
-  min-width: 48px;
-  height: 48px;
-  border: 1px solid #ffffff38;
-  border-radius: 12px;
-  color: var(--lime);
-  font: 11px var(--mono);
-}
-.desk-title h3 {
-  font: 650 25px/1.2 var(--sans);
-  letter-spacing: -0.7px;
+.folio-mark {
+  font: italic 50px/0.8 var(--serif);
+  padding-right: 23px;
+  border-right: 1px solid #866f73;
 }
 .desk-title small {
   display: block;
-  margin-bottom: 7px;
-  color: #b8c4d0;
-  font: 10px/1.5 var(--mono);
-  letter-spacing: 1px;
+  font: 9px/1.8 var(--mono);
+  letter-spacing: 1.8px;
+  color: #e3c7bd;
 }
-.desk-session {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: auto !important;
-  color: #c9d2dc;
-  font-size: 12px;
-  white-space: nowrap;
+.desk-title h3 {
+  margin-top: 5px;
+  font: normal 25px/1.2 var(--serif);
+  letter-spacing: -0.3px;
 }
-.desk-session > span:last-child {
-  padding-left: 12px;
-  border-left: 1px solid #ffffff38;
-  margin-left: 5px;
-}
-.preview-dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--lime);
-}
-.quiet-button {
+.quiet-button,
+.inline-button,
+.next-step,
+.save-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 9px;
   min-height: 44px;
-  padding: 10px 14px;
+  padding: 10px 16px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
+  background: transparent;
   color: var(--ink);
-  background: var(--surface);
-  font-size: 12px !important;
-  font-weight: 600 !important;
+  font: 600 12px/1.5 var(--sans) !important;
+  text-decoration: none;
 }
 .quiet-button:hover:not(:disabled) {
-  background: var(--accent-soft, #eef7d8);
-  border-color: var(--accent);
-}
-.count {
-  display: inline-grid;
-  place-items: center;
-  min-width: 23px;
-  height: 23px;
-  border-radius: 5px;
-  background: var(--lime);
-  color: var(--ink);
-  font: 11px var(--mono);
+  background: var(--surface-2);
 }
 .journal-toggle {
-  border-color: #ffffff38;
-  background: #ffffff0d;
-  color: #fff;
+  flex-shrink: 0;
+  color: var(--paper);
+  border-color: #89777a;
 }
 .journal-toggle:hover:not(:disabled) {
-  background: #ffffff20;
-  border-color: #ffffff60;
+  background: #61434b;
+  color: var(--paper);
 }
-.desk-grid {
+.count {
   display: grid;
-  grid-template-columns: 200px minmax(0, 1fr) 280px;
-}
-.watchlist {
-  grid-column: 1;
-  grid-row: 1 / 4;
-  padding: 24px 16px;
+  place-items: center;
+  width: 23px;
+  height: 23px;
   background: var(--paper);
-  border-right: 1px solid var(--line);
-  min-width: 0;
+  color: var(--desk-wine);
+  font: 11px var(--mono);
 }
-.watchlist-toolbar {
-  min-width: 0;
+.asset-index {
+  padding: 22px 34px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
 }
-.small-heading {
+.index-label {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  color: var(--muted);
-  font: 10px/1.7 var(--mono);
-  letter-spacing: 0.8px;
+  gap: 14px;
+  margin-bottom: 15px;
 }
-.watchlist > .small-heading > span:last-child {
-  letter-spacing: 0;
+.sample-note {
+  font: 10px var(--mono);
+  color: var(--muted);
+}
+.index-controls {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
 }
 .asset-search {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 44px;
-  padding: 0 10px;
-  margin-top: 9px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
+  border-bottom: 1px solid var(--ink);
   color: var(--muted);
 }
-.asset-search:focus-within {
-  border-color: var(--accent);
-}
 .asset-search input {
-  min-width: 0;
   width: 100%;
-  min-height: 44px;
-  padding: 0;
-  color: var(--ink);
-  background: transparent;
+  min-width: 0;
+  height: 49px;
+  padding: 8px 0;
   border: 0;
+  background: transparent;
+  color: var(--ink);
   font-size: 12px;
 }
 .asset-search input::-webkit-search-cancel-button {
   display: none;
 }
-.asset-search input:focus-visible {
-  outline-offset: 0;
-}
 .asset-search button {
   display: grid;
   place-items: center;
-  flex: 0 0 44px;
+  min-width: 44px;
   min-height: 44px;
-  padding: 0;
-  color: var(--muted);
-  background: transparent;
   border: 0;
+  color: var(--ink);
+  background: transparent;
 }
 .asset-list {
   display: grid;
-  gap: 8px;
-  margin-top: 18px;
-  min-width: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
 }
 .asset-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
   min-width: 0;
-  padding: 15px 10px;
+  min-height: 69px;
+  padding: 11px;
   border: 1px solid transparent;
-  border-radius: 9px;
-  color: var(--ink);
+  border-bottom-color: var(--line);
   background: transparent;
+  color: var(--ink);
   text-align: left;
-  transition:
-    border-color 0.16s,
-    background 0.16s;
 }
 .asset-row:hover {
-  background: var(--accent-soft, #eef7d8);
-  border-color: var(--accent);
+  border-color: var(--line);
+  background: var(--surface);
 }
 .asset-row.selected {
-  background: var(--surface);
-  border-color: var(--line);
-  box-shadow: inset 3px 0 var(--accent);
+  border-color: var(--desk-wine);
+  background: var(--desk-wine);
+  color: var(--paper);
+}
+.asset-name,
+.asset-quote {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
 }
 .asset-name strong {
-  display: block;
-  font-size: 13px;
-  letter-spacing: 0.1px;
+  font: 600 13px var(--sans);
 }
 .asset-name small {
-  display: block;
-  color: var(--muted);
   font-size: 10px;
-  margin-top: 3px;
+  color: var(--muted);
+}
+.asset-row.selected .asset-name small {
+  color: #e4d4ce;
 }
 .asset-quote {
   text-align: right;
 }
 .asset-quote strong {
-  display: block;
-  font: 11px/1.6 var(--mono);
+  font: 11px var(--mono);
 }
 .asset-quote small {
   display: flex;
   align-items: center;
-  justify-content: end;
-  gap: 2px;
-  font: 10px/1.5 var(--mono);
-  margin-top: 5px;
+  justify-content: flex-end;
+  font: 10px var(--mono);
 }
 .positive {
   color: var(--desk-positive);
@@ -1295,460 +1293,462 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
 .negative {
   color: var(--desk-negative);
 }
-.watchlist-note {
-  margin-top: 24px !important;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.8;
-}
-.desk-process {
-  grid-column: 2 / 4;
-  grid-row: 1;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-bottom: 1px solid var(--line);
-}
-.desk-process button {
-  display: grid;
-  grid-template-columns: 25px minmax(0, 1fr) 16px;
-  align-items: center;
-  gap: 1px 8px;
-  padding: 17px 20px;
-  border: 0;
-  border-right: 1px solid var(--line);
-  background: transparent;
-  color: var(--ink);
-  text-align: left;
-}
-.desk-process button:last-child {
-  border-right: 0;
-}
-.desk-process button:hover {
-  background: var(--accent-soft, #eef7d8);
-}
-.desk-process button > span {
-  grid-row: 1 / 3;
-  color: var(--accent);
-  font: 13px var(--mono);
-}
-.desk-process button > strong {
-  font-size: 12px;
-  font-weight: 600;
-}
-.desk-process button > small {
-  grid-column: 2;
-  color: var(--muted);
-  font-size: 10px;
-}
-.desk-process button > svg {
-  grid-column: 3;
-  grid-row: 1 / 3;
-  color: var(--accent);
+.asset-row.selected .positive,
+.asset-row.selected .negative {
+  color: #f2c8b7;
 }
 .search-empty {
-  display: grid;
-  justify-items: start;
-  gap: 8px;
-  padding-top: 24px;
-  color: var(--muted);
-  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  grid-column: 1/-1;
+  font-size: 12px;
+  min-height: 69px;
 }
-.research-main {
-  grid-column: 2;
-  grid-row: 2;
-  min-width: 0;
-  padding: 27px;
+.inline-button {
+  padding: 7px 0;
+  border: 0;
+  color: var(--accent);
+  text-align: left;
+  justify-content: flex-start;
+}
+.inline-button:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .asset-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+  gap: 28px;
+  padding: 38px 34px 33px;
+}
+.asset-title-group h3 {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding-bottom: 22px;
-}
-.asset-heading .small-heading {
-  font-size: 10px;
-  letter-spacing: 0.7px;
-}
-.asset-heading h3 {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
+  gap: 20px;
   margin-top: 7px;
-  font: 700 32px/1.25 var(--sans);
-  letter-spacing: -1px;
-  scroll-margin-top: 105px;
+  font: normal 60px/1.15 var(--serif);
+  letter-spacing: -2px;
+  scroll-margin-top: 100px;
 }
 .signal-status {
-  display: inline-flex;
-  align-items: center;
   padding: 4px 8px;
-  font: 500 10px/1.6 var(--sans);
-  letter-spacing: 0.2px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--accent);
-  background: var(--accent-soft, #eef7d8);
+  border: 1px solid #c6d4cd;
+  color: var(--desk-positive);
+  font: 10px/1.5 var(--mono);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 .signal-status.watch {
-  color: var(--muted);
-  background: var(--paper);
+  color: #6c5440;
+  border-color: #d8c7af;
 }
 .signal-status.caution {
-  color: var(--red, #ad3c38);
-  background: #fcecea;
-  border-color: #e8b5b1;
+  color: var(--accent);
+  border-color: #d9b9ac;
+}
+.asset-title-note {
+  padding-left: 30px;
+  border-left: 1px solid var(--line);
+}
+.asset-title-note p {
+  margin-top: 8px;
+  font: italic 25px/1.2 var(--serif);
+  color: var(--muted);
+}
+.asset-title-note .small-heading {
+  font-size: 9px;
 }
 .main-price {
   text-align: right;
-  font: 25px/1.3 var(--mono);
-  letter-spacing: -0.8px;
 }
-.main-price small {
+.main-price .small-heading {
+  justify-content: flex-end;
+}
+.main-price > strong {
   display: block;
   margin-top: 7px;
-  font: 11px/1.6 var(--mono);
-  letter-spacing: 0;
+  font: normal 37px/1.2 var(--serif);
+  letter-spacing: -1px;
+}
+.main-price > small {
+  display: block;
+  margin-top: 7px;
+  font: 11px var(--mono);
 }
 .main-price small span {
   color: var(--muted);
-  padding-left: 3px;
+  font-size: 9px;
 }
 .revisit-banner {
   display: flex;
-  align-items: start;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 13px 15px;
-  margin-bottom: 20px;
-  background: var(--accent-soft, #eef7d8);
-  border: 1px solid var(--line);
-  color: var(--accent);
-  font-size: 12px;
+  align-items: center;
+  gap: 14px;
+  padding: 17px 34px;
+  border-top: 1px solid var(--line);
+  background: var(--desk-sage);
+  font-size: 13px;
 }
 .revisit-banner p {
   flex: 1;
-  min-width: 180px;
 }
-.revisit-banner button {
-  padding-block: 7px;
-  text-align: left;
-}
-.revisit-banner svg {
-  margin-top: 2px;
-}
-.revisit-banner span {
+.revisit-banner p span {
   display: block;
-  margin-top: 3px;
   color: var(--muted);
   font-size: 11px;
+}
+.revisit-banner button {
+  flex-shrink: 0;
 }
 .research-tabs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 4px;
-  padding: 4px;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  margin: 0 34px;
+  border-block: 1px solid var(--line);
 }
 .research-tabs button {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-height: 44px;
-  padding: 9px 5px;
+  gap: 17px;
+  min-height: 84px;
+  padding: 16px 22px;
   border: 0;
-  border-radius: 7px;
-  color: var(--muted);
+  border-right: 1px solid var(--line);
   background: transparent;
-  font-size: 12px;
-  font-weight: 600;
-  scroll-margin-top: 105px;
+  color: var(--muted);
+  text-align: left;
+}
+.research-tabs button:last-child {
+  border-right: 0;
 }
 .research-tabs button.selected {
-  background: var(--ink);
-  color: var(--surface);
+  background: var(--desk-peach);
+  color: var(--desk-wine);
+}
+.research-tabs button:hover:not(.selected) {
+  background: var(--paper);
 }
 .tab-number {
-  font: 10px var(--mono);
-  opacity: 0.7;
+  font: italic 22px var(--serif);
+  color: var(--accent);
 }
-.selected .tab-number {
-  color: var(--lime);
-  opacity: 1;
+.tab-title {
+  flex: 1;
+  font: normal 23px/1.2 var(--serif);
 }
-.research-guide {
+.tab-title small {
+  display: block;
+  margin-top: 5px;
+  font: 11px/1.5 var(--sans);
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
-  padding: 13px 0 22px;
 }
 .research-panel {
-  min-height: 450px;
+  padding: 34px;
+  scroll-margin-top: 100px;
+}
+.brief-panel {
+  display: grid;
+  grid-template-columns: 1.18fr 1fr;
+  gap: 46px;
+  min-height: 370px;
 }
 .brief-label {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font: 10px/1.7 var(--mono);
-  letter-spacing: 0.8px;
+  gap: 10px;
+  font: 10px/1.6 var(--mono);
+  letter-spacing: 1.2px;
+  color: var(--accent);
 }
-.research-desk .sample-tag {
+.sample-tag {
   margin-left: auto;
-  padding: 3px 6px;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--paper);
+  padding: 2px 6px;
   color: var(--muted);
-  font: 9px/1.5 var(--mono);
-  white-space: nowrap;
+  font-size: 8px;
+  letter-spacing: 0.7px;
 }
 .thesis-copy {
-  margin-top: 18px !important;
-  font: 600 22px/1.5 var(--sans);
-  letter-spacing: -0.45px;
+  margin-top: 24px !important;
+  max-width: 640px;
+  font: normal clamp(24px, 2.6vw, 34px)/1.4 var(--serif);
+  letter-spacing: -0.55px;
 }
-.counter-case {
-  margin-top: 23px;
-  padding: 16px;
-  border-left: 3px solid var(--violet);
-  border-radius: 0 9px 9px 0;
-  background: var(--paper);
+.next-step {
+  min-height: 47px;
+  margin-top: 25px;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+  justify-content: space-between;
+  gap: 28px;
 }
-.counter-case > span {
-  color: var(--red, #ad3c38);
-  font-size: 12px;
-  font-weight: 650;
+.next-step:hover {
+  gap: 36px;
+  background: transparent;
 }
-.counter-case p {
-  margin-top: 7px;
-  font-size: 14px;
-  line-height: 1.75;
+.context-column {
+  padding-left: 35px;
+  border-left: 1px solid var(--line);
+}
+.counter-case h4 {
+  margin-top: 11px;
+  font: normal 25px/1.25 var(--serif);
+}
+.counter-case > p {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--muted);
 }
 .evidence-summary {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin: 25px 0 16px;
+  gap: 25px;
+  margin-top: 23px;
+  padding: 18px 0;
+  border-block: 1px solid var(--line);
 }
 .evidence-summary > div:first-child {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 13px;
 }
 .evidence-summary strong {
   white-space: nowrap;
-  font: 26px var(--mono);
+  font: 28px var(--serif);
 }
 .evidence-summary strong small {
-  font-size: 11px;
+  font: 11px var(--mono);
   color: var(--muted);
 }
 .evidence-summary span {
-  font-size: 11px;
+  max-width: 85px;
+  font-size: 10px;
   line-height: 1.6;
   color: var(--muted);
-  max-width: 105px;
 }
 .signal-track {
-  height: 5px;
   flex: 1;
+  height: 5px;
   background: var(--line);
-  overflow: hidden;
 }
 .signal-track i {
   display: block;
   height: 100%;
-  background: var(--accent);
+  background: var(--desk-wine);
 }
 .evidence-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 15px;
   width: 100%;
   min-height: 48px;
-  padding: 10px 0;
+  padding: 12px 0;
   border: 0;
-  border-top: 1px solid var(--line);
   background: transparent;
   color: var(--ink);
-  font-size: 12px;
-  text-align: left;
+  font-size: 11px !important;
 }
-.evidence-button svg {
-  transition: transform 0.2s;
+.evidence-button:hover {
+  color: var(--accent);
 }
 .evidence-button .rotated {
   transform: rotate(180deg);
 }
 .evidence-detail {
-  padding: 17px;
+  padding: 18px;
   background: var(--paper);
-  border: 1px solid var(--line);
   font-size: 12px;
-  line-height: 1.9;
+  line-height: 1.8;
 }
 .evidence-detail p {
-  margin-top: 9px;
+  margin-top: 10px;
   color: var(--muted);
 }
-.inline-button,
-.next-step {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 10px 0;
-  border: 0;
-  background: transparent;
-  color: var(--accent);
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+.source-panel {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 60px;
 }
-.next-step {
-  width: 100%;
-  justify-content: space-between;
-  padding: 13px 16px;
-  margin-top: 16px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--accent-soft, #eef7d8);
-  text-decoration: none;
-}
-.next-step:hover {
-  border-color: var(--accent);
-  background: var(--surface-2);
-}
-.research-panel h4 {
-  font: 650 29px/1.35 var(--sans);
-  letter-spacing: -0.6px;
-  margin-top: 17px;
+.section-introduction h4 {
+  margin-top: 22px;
+  font: normal 37px/1.14 var(--serif);
+  letter-spacing: -0.8px;
 }
 .panel-copy {
-  color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.9;
-  margin: 10px 0 20px !important;
+  color: var(--muted);
+}
+.section-introduction > .panel-copy {
+  margin-top: 20px;
+}
+.source-ledger {
+  border-top: 1px solid var(--line);
 }
 .source-record {
   display: flex;
-  gap: 14px;
-  padding: 17px 0;
-  border-top: 1px solid var(--line);
-  color: inherit;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 23px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
   text-decoration: none;
 }
 .source-number {
+  font: italic 23px var(--serif);
   color: var(--accent);
-  font: 11px/1.7 var(--mono);
-  padding-top: 2px;
+}
+.source-record > div {
+  flex: 1;
 }
 .source-record strong {
   display: flex;
   align-items: center;
-  gap: 7px;
+  justify-content: space-between;
+  gap: 12px;
   font-size: 13px;
-  font-weight: 600;
 }
 .source-record p {
-  font-size: 14px;
-  color: var(--muted);
+  margin-top: 8px;
+  font-size: 12px;
   line-height: 1.8;
-  margin: 6px 0 8px;
+  color: var(--muted);
 }
 .source-record small {
+  display: block;
+  margin-top: 11px;
+  font: 9px/1.7 var(--mono);
   color: var(--muted);
-  font: 9px/1.6 var(--mono);
-  letter-spacing: 0.4px;
+  letter-spacing: 0.6px;
 }
 .source-link:hover strong {
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+.scenario-introduction {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+.scenario-introduction h4 {
+  margin-top: 17px;
+  font: normal 34px/1.2 var(--serif);
+  letter-spacing: -0.6px;
+}
+.scenario-introduction > .panel-copy {
+  max-width: 320px;
+}
 .scenario-choices {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  margin: 22px 0;
+  gap: 16px;
+  margin-top: 28px;
 }
 .scenario-choices button {
-  padding: 15px 12px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 21px;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--muted);
-  background: var(--surface);
+  background: var(--paper);
+  color: var(--ink);
   text-align: left;
 }
 .scenario-choices button.selected {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: var(--accent-soft, #eef7d8);
+  outline: 1px solid var(--desk-wine);
+  border-color: var(--desk-wine);
+  background: var(--desk-peach);
 }
-.scenario-choices span {
-  display: block;
-  font-size: 12px;
+.scenario-choices button.bull {
+  background: var(--desk-sage);
+}
+.scenario-choices button.bear {
+  background: #f4e4de;
+}
+.scenario-choices button:hover {
+  border-color: var(--ink);
+}
+.scenario-choices button > span:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font: 10px/1.5 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
 }
 .scenario-choices strong {
-  display: block;
-  margin-top: 10px;
-  font: 25px/1.2 var(--mono);
-  letter-spacing: -0.8px;
+  margin-top: 15px;
+  font: normal 43px/1.15 var(--serif);
+  letter-spacing: -1.5px;
 }
-.scenario-result {
-  padding: 22px;
-  background: var(--accent-soft, #eef7d8);
-  border-left: 3px solid var(--accent);
+.scenario-choices small {
+  max-width: 210px;
+  min-height: 43px;
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.case-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px solid #c9baad;
+  font: 12px var(--mono);
+}
+.scenario-comparison {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 40px;
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
 }
 .scenario-result > span {
+  display: block;
   font-size: 12px;
   color: var(--muted);
+}
+.scenario-result > .small-heading {
+  margin-bottom: 17px;
+  font-size: 9px;
 }
 .scenario-result strong {
   display: block;
-  font: 35px/1.2 var(--mono);
+  margin: 6px 0 12px;
+  font: normal 40px/1.2 var(--serif);
   letter-spacing: -1px;
-  margin: 11px 0;
-  color: var(--accent);
 }
-.scenario-result p,
-.assumption-note {
-  color: var(--muted);
+.scenario-result p {
   font-size: 12px;
-  line-height: 1.9;
-}
-.scenario-chart {
-  padding: 22px 0 0;
+  color: var(--muted);
 }
 .scenario-chart figcaption {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 16px;
-  font: 9px/1.7 var(--mono);
-  letter-spacing: 0.5px;
+  gap: 15px;
+  margin-bottom: 12px;
+  font: 9px var(--mono);
   color: var(--muted);
-}
-.scenario-chart figcaption span:last-child {
-  letter-spacing: 0;
+  letter-spacing: 0.5px;
 }
 .scenario-chart-row {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) 81px;
+  grid-template-columns: 38px minmax(0, 1fr) 80px;
   align-items: center;
   gap: 12px;
-  padding: 10px 0;
+  padding: 6px 0;
   font-size: 11px;
   color: var(--muted);
 }
@@ -1757,7 +1757,8 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
 }
 .scenario-bar-track {
   position: relative;
-  height: 22px;
+  height: 23px;
+  border-bottom: 1px solid var(--line);
   background: repeating-linear-gradient(
     90deg,
     transparent,
@@ -1765,7 +1766,6 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
     var(--line) calc(20% - 1px),
     var(--line) 20%
   );
-  border-bottom: 1px solid var(--line);
 }
 .scenario-bar-track::after {
   content: "";
@@ -1778,258 +1778,229 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
 }
 .scenario-bar-track i {
   position: absolute;
-  height: 11px;
-  top: 5px;
-  background: #5262a5;
+  height: 9px;
+  top: 6px;
+  background: #77938a;
 }
 .scenario-bar-track i.downside {
-  background: #ad3c38;
+  background: #c18570;
 }
 .selected .scenario-bar-track i {
-  background: var(--accent);
+  background: var(--desk-wine);
 }
 .selected .scenario-bar-track i.downside {
-  background: var(--desk-negative);
+  background: var(--accent);
 }
 .scenario-chart-row strong {
-  font: 11px var(--mono);
   text-align: right;
+  font: 11px var(--mono);
 }
-.scenario-chart-row small {
+.scenario-chart-row strong small {
   display: block;
   margin-top: 4px;
   font-size: 9px;
 }
 .scenario-chart > p {
-  margin-top: 13px;
-  color: var(--muted);
-  font-size: 11px;
+  margin-top: 15px;
+  font-size: 10px;
   line-height: 1.8;
+  color: var(--muted);
 }
 .assumption-note {
-  margin-top: 19px !important;
+  margin-top: 25px !important;
+  padding-top: 15px;
+  border-top: 1px solid var(--line);
+  font-size: 10px;
+  color: var(--muted);
+}
+.decision-spread {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  border-top: 1px solid var(--line);
 }
 .risk-sidebar {
-  grid-column: 3;
-  grid-row: 2;
-  min-width: 0;
-  padding: 28px 22px;
-  background: var(--paper);
-  border-left: 1px solid var(--line);
-}
-.risk-sidebar > .small-heading {
-  color: var(--accent);
-  font-size: 10px;
-  letter-spacing: 0.6px;
+  padding: 32px 34px;
+  background: var(--desk-sage);
 }
 .risk-sidebar h4 {
-  margin-top: 23px;
-  font: 650 24px/1.3 var(--sans);
+  margin-top: 16px;
+  font: normal 32px/1.2 var(--serif);
   letter-spacing: -0.6px;
 }
 .risk-intro {
+  max-width: 360px;
+  margin-top: 12px !important;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.85;
-  margin-top: 13px !important;
+  font-size: 12px;
+  line-height: 1.8;
 }
 .compact-scenarios {
-  border: 0;
-  padding: 0;
-  margin: 24px 0;
   min-width: 0;
+  padding: 0;
+  border: 0;
+  margin: 23px 0;
 }
 .compact-scenarios legend {
-  font-size: 12px;
-  padding: 0;
   margin-bottom: 9px;
-  color: var(--ink);
+  padding: 0;
+  font-size: 12px;
 }
 .compact-scenarios > div {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-  padding: 3px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid #aebdb4;
 }
 .compact-scenarios button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
   min-height: 44px;
-  padding: 8px 3px;
+  padding: 9px 3px;
   border: 0;
-  border-radius: 6px;
+  border-right: 1px solid #aebdb4;
   background: transparent;
-  color: var(--muted);
+  color: var(--ink);
   font-size: 12px;
 }
+.compact-scenarios button:last-child {
+  border-right: 0;
+}
 .compact-scenarios button.selected {
-  background: var(--ink);
-  color: var(--lime);
-  font-weight: 650;
+  background: var(--desk-wine);
+  color: var(--paper);
+}
+.compact-scenarios button:hover:not(.selected) {
+  background: #f0f4ee;
 }
 .weight-label {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
   font-size: 12px;
-  color: var(--ink);
 }
 .weight-label output {
-  font: 21px var(--mono);
-  color: var(--accent);
+  font: 25px var(--serif);
 }
 .risk-sidebar input[type="range"] {
   width: 100%;
   min-height: 44px;
-  margin: 8px 0 0;
-  accent-color: var(--accent);
+  margin: 0;
+  accent-color: var(--desk-wine);
   cursor: pointer;
 }
-.range-ends {
+.range-ends,
+.stress-scale {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   color: var(--muted);
-  font: 10px/1.7 var(--mono);
+  font: 9px var(--mono);
 }
 .stress-result {
-  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
   margin-top: 24px;
-  padding-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid #bfc9c0;
 }
-.stress-result > span {
-  font-size: 12px;
+.stress-result > div > span {
+  font-size: 11px;
   color: var(--muted);
 }
-.stress-result > strong {
+.stress-result strong {
   display: block;
-  margin: 11px 0;
-  color: var(--red, #ad3c38);
-  font: 47px/1.2 var(--mono);
-  letter-spacing: -2px;
+  margin-top: 5px;
+  font: normal 42px/1.2 var(--serif);
+  letter-spacing: -1.5px;
+  color: var(--accent);
 }
 .stress-result strong small {
   font-size: 25px;
-  letter-spacing: -1px;
 }
 .stress-result p {
-  color: var(--muted);
-  font-size: 11px;
+  max-width: 140px;
+  font-size: 10px;
   line-height: 1.8;
+  color: var(--muted);
 }
 .stress-gauge {
-  height: 5px;
-  background: var(--line);
-  margin-top: 18px;
+  height: 4px;
+  margin-top: 17px;
   overflow: hidden;
+  background: #c1cec4;
 }
 .stress-gauge i {
   display: block;
   height: 100%;
-  background: var(--red, #ad3c38);
+  background: var(--accent);
 }
 .stress-scale {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
   margin-top: 8px;
-  font: 9px/1.7 var(--mono);
-  color: var(--muted);
-}
-.risk-checklist {
-  display: grid;
-  gap: 12px;
-  padding: 0;
-  margin: 23px 0 0;
-  list-style: none;
-}
-.risk-checklist li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: var(--muted);
-}
-.risk-checklist svg {
-  color: var(--accent);
-}
-.hollow-dot {
-  width: 10px;
-  height: 10px;
-  margin: 2px;
-  border: 1px solid var(--muted);
-  border-radius: 50%;
-}
-.risk-note-link {
-  margin-top: 22px;
-  border-color: var(--accent);
-  background: transparent;
+  font-size: 8px;
 }
 .risk-footnote {
-  padding-top: 17px;
-  margin-top: 20px !important;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
+  margin-top: 23px !important;
+  max-width: 400px;
   font-size: 10px;
-  line-height: 1.9;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.risk-note-link {
+  margin-top: 7px;
 }
 .save-area {
-  grid-column: 2 / 4;
-  grid-row: 3;
   min-width: 0;
-  padding: 26px 28px;
-  border-top: 1px solid var(--line);
-  background: var(--surface);
-}
-.save-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 14px;
-  font: 10px/1.6 var(--mono);
-  color: var(--accent);
-  letter-spacing: 0.6px;
-}
-.save-heading span {
-  font-size: 9px;
-  color: var(--muted);
-  letter-spacing: 0.3px;
+  padding: 32px 38px;
+  background: var(--paper);
+  border-left: 1px solid var(--line);
 }
 .save-area h4 {
-  margin-top: 12px;
-  margin-bottom: 20px;
-  font: 650 24px/1.3 var(--sans);
-  letter-spacing: -0.6px;
+  margin-top: 16px;
+  font: normal 36px/1.17 var(--serif);
+  letter-spacing: -0.8px;
+}
+.note-intro {
+  margin-top: 12px !important;
+  color: var(--muted);
+  font-size: 12px;
 }
 .save-area label {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 26px;
   font-size: 12px;
-  font-weight: 600;
 }
 .save-area label span {
+  font-size: 10px;
   color: var(--muted);
-  font-size: 11px;
-  font-weight: 400;
 }
 .save-area textarea {
   display: block;
   width: 100%;
-  min-height: 106px;
-  max-height: 260px;
-  padding: 14px 16px;
-  margin: 9px 0 8px;
+  min-height: 142px;
+  max-height: 320px;
+  margin: 10px 0 9px;
+  padding: 14px 0;
+  border: 0;
+  border-block: 1px solid var(--line);
+  border-radius: 0;
   resize: vertical;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--ink);
-  background: var(--surface);
-  font-size: 14px;
-  line-height: 1.8;
   scroll-margin-top: 120px;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    #d8cec166 28px,
+    transparent 29px
+  );
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 29px;
 }
 .save-area textarea::placeholder,
 .research-desk input::placeholder {
@@ -2037,64 +2008,55 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
   opacity: 1;
 }
 .draft-note {
+  font: 9px/1.8 var(--mono);
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
 }
 .save-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 15px;
-  margin-top: 17px;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 .save-row small {
-  color: var(--muted);
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1.8;
+  color: var(--muted);
 }
 .save-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   min-height: 48px;
-  padding: 12px 22px;
-  border: 1px solid var(--lime);
-  border-radius: 9px;
-  color: var(--ink);
-  background: var(--lime);
-  font-size: 13px !important;
-  font-weight: 700 !important;
   flex-shrink: 0;
+  padding: 12px 23px;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--surface);
 }
 .save-button:hover:not(:disabled) {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--lime);
+  background: var(--desk-wine);
+  border-color: var(--desk-wine);
 }
 .save-button:disabled {
-  color: var(--accent);
-  background: var(--accent-soft, #eef7d8);
-  border-color: var(--line);
   opacity: 1;
+  color: var(--muted);
+  border-color: var(--line);
+  background: var(--surface-2);
 }
 .saved-journal-link {
-  margin-top: 10px;
+  margin-top: 8px;
+  font-size: 11px !important;
 }
 .desk-feedback {
-  padding: 17px 30px;
+  padding: 17px 34px;
   border-top: 1px solid var(--line);
-  background: var(--accent-soft, #eef7d8);
+  background: var(--accent-soft);
   color: var(--accent);
-  font-size: 13px;
-  line-height: 1.9;
+  font-size: 12px;
+  line-height: 1.8;
 }
 .storage-error {
   display: flex;
   align-items: center;
   gap: 20px;
-  color: var(--red, #ad3c38);
 }
 .storage-error span {
   flex: 1;
@@ -2103,10 +2065,10 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
   flex-shrink: 0;
 }
 .local-journal {
-  padding: 28px;
+  padding: 34px;
+  background: var(--surface);
   border-top: 1px solid var(--line);
-  background: var(--paper);
-  scroll-margin-top: 105px;
+  scroll-margin-top: 100px;
 }
 .journal-heading {
   display: flex;
@@ -2115,16 +2077,16 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
   gap: 20px;
 }
 .journal-heading h4 {
-  font: 650 34px/1.3 var(--sans);
-  letter-spacing: -0.8px;
-  margin-top: 7px;
+  margin-top: 8px;
+  font: normal 40px/1.2 var(--serif);
+  letter-spacing: -1px;
   scroll-margin-top: 110px;
 }
 .journal-heading h4 span {
   margin-left: 10px;
-  color: var(--muted);
-  font: 13px var(--mono);
   vertical-align: middle;
+  font: 12px var(--mono);
+  color: var(--muted);
 }
 .journal-actions {
   display: flex;
@@ -2134,33 +2096,31 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
 .journal-close {
   display: grid;
   place-items: center;
-  min-width: 44px;
   min-height: 44px;
+  min-width: 44px;
   padding: 10px;
+  border: 1px solid var(--line);
   color: var(--ink);
   background: transparent;
-  border: 1px solid var(--line);
-  border-radius: 8px;
 }
 .journal-close:hover {
-  background: var(--accent-soft, #eef7d8);
+  background: var(--paper);
 }
 .journal-disclosure {
-  max-width: 780px;
-  margin-top: 15px !important;
-  color: var(--muted);
-  font-size: 13px;
+  max-width: 700px;
+  margin-top: 18px !important;
+  font-size: 11px;
   line-height: 1.9;
+  color: var(--muted);
 }
 .journal-filters {
   display: flex;
   align-items: center;
-  gap: 18px;
   flex-wrap: wrap;
-  margin-top: 23px;
-  padding: 15px;
-  border: 1px solid var(--line);
-  background: var(--paper);
+  gap: 18px;
+  margin-top: 24px;
+  padding: 14px 0;
+  border-block: 1px solid var(--line);
 }
 .journal-search {
   display: flex;
@@ -2171,14 +2131,14 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
   color: var(--muted);
 }
 .journal-search input {
-  min-width: 0;
   width: 100%;
+  min-width: 0;
   min-height: 44px;
-  padding: 9px 12px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
+  background: var(--paper);
   color: var(--ink);
-  background: var(--surface);
   font-size: 12px;
 }
 .journal-asset-filter {
@@ -2190,97 +2150,104 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
 }
 .journal-asset-filter select {
   min-height: 44px;
-  padding: 9px 30px 9px 12px;
-  color: var(--ink);
-  background: var(--surface);
+  padding: 9px 28px 9px 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
   font-size: 12px;
 }
 .journal-filter-count {
-  color: var(--muted);
   font: 10px var(--mono);
+  color: var(--muted);
   white-space: nowrap;
 }
 .undo-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
-  margin-top: 19px;
-  padding: 8px 16px;
-  border: 1px solid var(--line);
-  color: var(--accent);
-  background: var(--accent-soft, #eef7d8);
+  gap: 18px;
+  padding: 10px 18px;
+  margin-top: 20px;
+  background: var(--accent-soft);
   font-size: 12px;
+  color: var(--accent);
 }
 .journal-empty {
-  padding: 45px 20px;
+  padding: 50px 20px;
   text-align: center;
   color: var(--muted);
 }
 .journal-empty h5 {
-  color: var(--ink);
-  font: 650 26px/1.4 var(--sans);
   margin: 16px 0 10px;
+  color: var(--ink);
+  font: normal 30px/1.3 var(--serif);
 }
 .journal-empty p {
   font-size: 13px;
-  line-height: 1.9;
+  line-height: 1.8;
 }
 .journal-entries {
+  counter-reset: entry;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  padding: 0;
-  margin: 24px 0 0;
+  gap: 0 30px;
   list-style: none;
-  counter-reset: decision;
+  padding: 0;
+  margin: 12px 0 0;
 }
 .journal-entries li {
-  padding: 23px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
+  counter-increment: entry;
+  position: relative;
+  min-width: 0;
+  padding: 27px 0 23px 43px;
+  border-bottom: 1px solid var(--line);
   overflow-wrap: anywhere;
+}
+.journal-entries li::before {
+  content: counter(entry, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 28px;
+  font: italic 24px var(--serif);
+  color: var(--accent);
 }
 .entry-heading {
   display: flex;
   align-items: start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 15px;
 }
 .entry-heading strong {
-  font-size: 18px;
-  letter-spacing: 0.2px;
+  font: normal 24px var(--serif);
 }
 .entry-heading span {
   display: block;
-  margin-top: 5px;
-  font-size: 11px;
+  margin-top: 4px;
+  font-size: 10px;
   color: var(--muted);
   text-transform: capitalize;
 }
 .entry-heading time {
-  color: var(--muted);
-  font: 10px/1.8 var(--mono);
+  font: 9px/1.8 var(--mono);
   text-align: right;
+  color: var(--muted);
 }
 .journal-entries li > p {
   margin-top: 18px;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.9;
 }
 .entry-note {
-  border-left: 3px solid var(--violet);
-  padding-left: 13px;
+  padding: 12px 15px;
+  background: var(--paper);
   white-space: pre-wrap;
 }
 .entry-note strong {
   display: block;
-  color: var(--muted);
-  font-size: 10px;
   margin-bottom: 5px;
+  font: 9px var(--mono);
+  color: var(--muted);
 }
 .entry-footer {
   display: flex;
@@ -2288,11 +2255,10 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
   justify-content: space-between;
   gap: 12px;
   margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid var(--line);
 }
 .revisit-entry {
-  font-size: 11px !important;
+  font-size: 10px !important;
+  padding: 8px 12px;
 }
 .delete-entry {
   display: inline-flex;
@@ -2301,333 +2267,525 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
   min-height: 44px;
   padding: 9px 7px;
   border: 0;
-  border-radius: 8px;
-  color: var(--desk-negative);
   background: transparent;
-  font-size: 11px !important;
+  color: var(--accent);
+  font-size: 10px !important;
 }
 .delete-entry:hover {
-  background: #fcecea;
+  background: var(--accent-soft);
 }
 .journal-entries li > .entry-disclosure {
   margin-top: 13px;
-  font: 9px/1.7 var(--mono);
   color: var(--muted);
+  font: 9px/1.7 var(--mono);
 }
 .desk-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 15px 30px;
-  background: var(--paper);
+  padding: 18px 34px;
   border-top: 1px solid var(--line);
+  background: var(--paper);
   color: var(--muted);
   font: 9px/1.8 var(--mono);
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
 }
 .desk-footer > span:first-child {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
 }
 .desk-footer > span:last-child {
-  font: 650 11px/1.8 var(--sans);
+  font: italic 16px/1.4 var(--serif);
   letter-spacing: 0;
 }
-
-@media (max-width: 1200px) {
-  .desk-grid {
-    grid-template-columns: minmax(0, 1fr) 280px;
+.preview-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+@media (min-width: 1400px) {
+  .brief-panel {
+    gap: 70px;
   }
-  .watchlist {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    display: grid;
-    grid-template-columns: 175px minmax(0, 1fr);
-    gap: 12px 18px;
-    padding: 22px;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+  .context-column {
+    padding-left: 50px;
+  }
+}
+@media (max-width: 1100px) {
+  .index-controls {
+    grid-template-columns: 1fr;
+  }
+  .asset-search {
+    max-width: 280px;
   }
   .asset-list {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 5px;
-    margin: 0;
+    gap: 12px;
   }
   .asset-row {
-    padding: 12px 9px;
+    padding: 12px 15px;
   }
-  .asset-name small {
+  .asset-title-note {
     display: none;
   }
-  .watchlist-note {
-    grid-column: 1 / -1;
-    margin-top: 0 !important;
-    padding-top: 0;
-    border: 0;
+  .asset-heading {
+    grid-template-columns: 1fr auto;
   }
-  .search-empty {
-    grid-column: 2;
-    padding: 0;
+  .brief-panel {
+    gap: 30px;
   }
-  .desk-process {
-    grid-column: 1 / -1;
-    grid-row: 2;
+  .context-column {
+    padding-left: 25px;
   }
-  .research-main {
-    grid-column: 1;
-    grid-row: 3;
+  .scenario-introduction {
+    display: block;
   }
-  .risk-sidebar {
-    grid-column: 2;
-    grid-row: 3;
+  .scenario-introduction > .panel-copy {
+    max-width: 600px;
+    margin-top: 16px;
+  }
+  .decision-spread {
+    grid-template-columns: 1fr 1.15fr;
   }
   .save-area {
-    grid-column: 1 / -1;
-    grid-row: 4;
+    padding: 30px;
   }
-  .desk-session > span:last-child {
-    display: none;
+  .stress-result {
+    gap: 10px;
+  }
+  .stress-result strong {
+    font-size: 36px;
+  }
+  .source-panel {
+    gap: 35px;
+  }
+}
+@media (max-width: 780px) {
+  .desk-header {
+    padding: 24px;
   }
   .desk-title h3 {
     font-size: 23px;
   }
-}
-@media (max-width: 960px) {
-  .desk-session {
-    display: none;
+  .desk-title {
+    gap: 16px;
   }
-  .journal-toggle {
-    margin-left: auto;
+  .folio-mark {
+    font-size: 44px;
+    padding-right: 16px;
   }
-  .watchlist {
-    grid-template-columns: 1fr;
+  .asset-index {
+    padding: 22px 24px;
   }
-  .watchlist-toolbar {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  .asset-heading {
+    padding: 30px 24px;
   }
-  .watchlist-toolbar .small-heading {
-    flex: 1;
+  .research-tabs {
+    margin-inline: 24px;
   }
-  .asset-search {
-    width: 240px;
-    margin: 0;
-  }
-  .asset-name small {
-    display: block;
-  }
-  .search-empty {
-    grid-column: 1;
-  }
-  .desk-process button {
+  .research-tabs button {
     padding: 15px;
+    gap: 11px;
   }
-  .desk-process button > small {
+  .tab-title {
+    font-size: 21px;
+  }
+  .tab-title small {
+    font-size: 10px;
+  }
+  .research-tabs button > svg {
     display: none;
   }
-  .research-main {
-    padding: 24px;
+  .research-panel {
+    padding: 30px 24px;
   }
-  .risk-sidebar {
-    padding: 25px 20px;
+  .brief-panel {
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
-  .desk-grid {
-    grid-template-columns: minmax(0, 1fr) 260px;
+  .thesis-copy {
+    font-size: 31px;
+    max-width: none;
   }
-}
-@media (max-width: 800px) {
-  .desk-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .risk-sidebar {
-    grid-column: 1;
-    grid-row: 4;
+  .context-column {
+    padding: 25px 0 0;
     border-left: 0;
     border-top: 1px solid var(--line);
   }
+  .counter-case > p {
+    max-width: 600px;
+  }
+  .evidence-summary {
+    max-width: 500px;
+  }
+  .source-panel {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .section-introduction h4 br {
+    display: none;
+  }
+  .source-record {
+    padding: 20px 0;
+  }
+  .scenario-choices {
+    gap: 10px;
+  }
+  .scenario-choices button {
+    padding: 16px;
+  }
+  .scenario-choices strong {
+    font-size: 38px;
+  }
+  .scenario-comparison {
+    gap: 28px;
+  }
+  .decision-spread {
+    grid-template-columns: 1fr;
+  }
+  .risk-sidebar {
+    padding: 30px 24px;
+  }
+  .risk-intro {
+    max-width: none;
+  }
+  .compact-scenarios {
+    max-width: 500px;
+  }
+  .stress-result strong {
+    font-size: 42px;
+  }
+  .risk-footnote {
+    max-width: none;
+  }
   .save-area {
-    grid-column: 1;
-    grid-row: 5;
+    padding: 30px 24px;
+    border-left: 0;
+    border-top: 1px solid var(--line);
   }
-  .research-panel {
-    min-height: 0;
+  .save-area textarea {
+    min-height: 148px;
   }
-  .risk-sidebar h4 {
-    margin-top: 14px;
+  .save-area h4 br {
+    display: none;
   }
-  .risk-checklist {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px 24px;
+  .save-row {
+    max-width: 620px;
   }
   .journal-entries {
     grid-template-columns: 1fr;
   }
-  .desk-process button {
-    grid-template-columns: 20px 1fr;
-    gap: 7px;
+  .local-journal {
+    padding: 30px 24px;
   }
-  .desk-process button > svg {
-    display: none;
+  .revisit-banner {
+    padding: 18px 24px;
+    flex-wrap: wrap;
+  }
+  .revisit-banner p {
+    flex-basis: 80%;
+  }
+  .revisit-banner button {
+    margin-left: 32px;
+  }
+  .desk-feedback,
+  .desk-footer {
+    padding: 17px 24px;
   }
 }
 @media (max-width: 540px) {
-  .research-desk {
-    border-radius: 12px;
-  }
   .desk-header {
-    padding: 22px 17px;
-    gap: 12px;
+    padding: 22px 18px;
     align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 21px;
   }
-  .desk-index {
-    display: none;
+  .desk-title {
+    gap: 14px;
   }
   .desk-title h3 {
-    font-size: 21px;
+    font-size: 24px;
   }
   .desk-title small {
-    max-width: 175px;
     font-size: 8px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+  }
+  .folio-mark {
+    font-size: 43px;
   }
   .journal-toggle {
-    padding: 8px;
-    gap: 6px;
+    margin-left: auto;
+    min-height: 44px;
+    padding: 8px 12px;
     font-size: 11px !important;
   }
-  .journal-toggle > svg {
-    display: none;
+  .asset-index {
+    padding: 20px 18px;
   }
-  .watchlist {
-    padding: 18px 16px;
-    gap: 13px;
+  .index-label {
+    align-items: flex-start;
+    gap: 10px;
   }
-  .watchlist-toolbar {
-    display: block;
+  .index-label .small-heading {
+    font-size: 9px;
+    letter-spacing: 0.6px;
+  }
+  .sample-note {
+    max-width: 110px;
+    text-align: right;
+    font-size: 9px;
+    line-height: 1.7;
+  }
+  .index-controls {
+    gap: 12px;
   }
   .asset-search {
-    width: 100%;
-    margin-top: 10px;
+    max-width: none;
   }
   .asset-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
-  }
-  .asset-row {
-    padding: 13px 11px;
-  }
-  .watchlist-note {
-    font-size: 11px;
-  }
-  .desk-process button {
-    grid-template-columns: 1fr;
-    gap: 5px;
-    padding: 13px 11px;
-  }
-  .desk-process button > span {
-    grid-row: auto;
-  }
-  .desk-process button > strong {
-    font-size: 11px;
-    line-height: 1.5;
-  }
-  .research-main,
-  .risk-sidebar,
-  .save-area,
-  .local-journal {
-    padding: 24px 18px;
-  }
-  .asset-heading h3 {
-    font-size: 30px;
     gap: 8px;
   }
-  .asset-heading .small-heading {
-    font-size: 9px;
+  .asset-row {
+    padding: 11px 12px;
+    min-height: 70px;
   }
-  .main-price {
-    font-size: 20px;
-  }
-  .main-price small {
+  .asset-name small {
     font-size: 10px;
   }
-  .thesis-copy {
-    font-size: 21px;
+  .asset-heading {
+    gap: 15px;
+    padding: 27px 18px;
   }
-  .evidence-summary {
-    gap: 12px;
+  .asset-title-group > .small-heading {
+    font-size: 8px;
+    letter-spacing: 0.6px;
   }
-  .scenario-choices {
-    gap: 6px;
+  .asset-title-group h3 {
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 43px;
+    letter-spacing: -1px;
   }
-  .scenario-choices button {
-    padding: 13px 9px;
+  .signal-status {
+    padding: 3px 6px;
+    font-size: 8px;
   }
-  .scenario-choices strong {
-    font-size: 21px;
+  .main-price .small-heading {
+    font-size: 8px;
   }
-  .scenario-result {
-    padding: 15px;
+  .main-price > strong {
+    font-size: 28px;
+    letter-spacing: -0.5px;
   }
-  .scenario-result strong {
+  .main-price > small {
+    font-size: 10px;
+  }
+  .main-price small span {
+    display: block;
+    margin-top: 4px;
+    font-size: 8px;
+  }
+  .research-tabs {
+    margin-inline: 18px;
+  }
+  .research-tabs button {
+    display: block;
+    min-height: 92px;
+    padding: 12px 10px;
+  }
+  .tab-number {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 17px;
+  }
+  .tab-title {
     font-size: 20px;
   }
-  .save-heading {
-    flex-wrap: wrap;
-    gap: 4px;
+  .tab-title small {
+    display: none;
+  }
+  .research-panel {
+    padding: 27px 18px;
+  }
+  .brief-label {
+    font-size: 9px;
+    letter-spacing: 0.8px;
+    gap: 8px;
+  }
+  .thesis-copy {
+    margin-top: 19px !important;
+    font-size: 28px;
+    line-height: 1.4;
+  }
+  .counter-case h4 {
+    font-size: 26px;
+  }
+  .source-panel .section-introduction h4 {
+    font-size: 33px;
+  }
+  .scenario-introduction h4 {
+    font-size: 31px;
+  }
+  .scenario-choices {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 23px;
+  }
+  .scenario-choices button {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 20px;
+    padding: 16px 19px;
+  }
+  .scenario-choices button > span:first-child {
+    grid-column: 1;
+    align-self: end;
+  }
+  .scenario-choices strong {
+    grid-column: 2;
+    grid-row: 1/3;
+    margin-top: 0;
+    align-self: center;
+    font-size: 39px;
+  }
+  .scenario-choices small {
+    grid-column: 1;
+    min-height: 0;
+    max-width: none;
+    margin-top: 7px;
+    font-size: 11px;
+  }
+  .case-price {
+    grid-column: 1/-1;
+    margin-top: 13px;
+    padding-top: 9px;
+    font-size: 11px;
+  }
+  .scenario-comparison {
+    grid-template-columns: 1fr;
+    gap: 23px;
+  }
+  .scenario-result {
+    padding-bottom: 23px;
+    border-bottom: 1px solid var(--line);
+  }
+  .scenario-result strong {
+    font-size: 37px;
+  }
+  .scenario-chart-row {
+    grid-template-columns: 33px minmax(0, 1fr) 72px;
+    gap: 8px;
+  }
+  .risk-sidebar,
+  .save-area {
+    padding: 28px 18px;
+  }
+  .risk-sidebar h4 {
+    font-size: 31px;
   }
   .save-area h4 {
-    font-size: 23px;
+    font-size: 33px;
+  }
+  .save-area h4 br {
+    display: initial;
   }
   .save-row {
-    flex-direction: column;
     align-items: stretch;
-    gap: 14px;
+    flex-direction: column;
+    gap: 16px;
   }
   .save-row small br {
     display: none;
   }
-  .save-row small {
-    font-size: 11px;
+  .save-button {
+    min-height: 49px;
+  }
+  .saved-journal-link {
+    font-size: 10px !important;
+    gap: 6px;
+  }
+  .draft-note {
+    font-size: 8px;
+  }
+  .revisit-banner {
+    padding: 17px 18px;
+    gap: 10px;
+  }
+  .revisit-banner p {
+    font-size: 12px;
+  }
+  .revisit-banner p span {
+    font-size: 10px;
+  }
+  .revisit-banner button {
+    margin-left: 28px;
+    font-size: 11px !important;
   }
   .desk-feedback {
     padding: 16px 18px;
   }
   .storage-error {
+    align-items: flex-start;
     flex-direction: column;
-    align-items: start;
-    gap: 4px;
+    gap: 3px;
+  }
+  .local-journal {
+    padding: 28px 18px;
   }
   .journal-heading {
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
   }
   .journal-heading h4 {
-    font-size: 26px;
+    font-size: 34px;
   }
   .journal-actions {
     margin-left: auto;
   }
+  .journal-actions .quiet-button {
+    font-size: 11px !important;
+  }
   .journal-filters {
     gap: 12px;
-    padding: 12px;
   }
   .journal-search {
-    min-width: 0;
     flex-basis: 100%;
+    min-width: 0;
   }
   .journal-filter-count {
     margin-left: auto;
+    font-size: 9px;
+  }
+  .journal-empty {
+    padding: 40px 8px;
+  }
+  .journal-empty h5 {
+    font-size: 27px;
   }
   .journal-entries li {
-    padding: 18px;
+    padding-left: 32px;
+  }
+  .journal-entries li::before {
+    font-size: 21px;
+  }
+  .entry-heading {
+    gap: 10px;
+  }
+  .entry-heading strong {
+    font-size: 23px;
+  }
+  .entry-heading span {
+    font-size: 9px;
+  }
+  .entry-heading time {
+    font-size: 8px;
   }
   .entry-footer {
-    gap: 8px;
     flex-wrap: wrap;
+    gap: 5px;
   }
   .undo-row {
     padding: 10px 12px;
@@ -2635,35 +2793,45 @@ onBeforeUnmount(() => window.removeEventListener("storage", syncJournal));
     gap: 2px;
   }
   .desk-footer {
-    padding: 14px 18px;
+    padding: 17px 18px;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 7px;
+    font-size: 8px;
+  }
+  .desk-footer > span:last-child {
+    font-size: 15px;
   }
 }
 @media (max-width: 360px) {
-  .desk-header {
-    flex-wrap: wrap;
+  .asset-title-group h3 {
+    font-size: 38px;
   }
-  .journal-toggle {
-    margin-left: 0;
+  .main-price > strong {
+    font-size: 24px;
   }
-  .asset-heading {
-    align-items: flex-start;
-  }
-  .asset-heading h3 {
-    max-width: 135px;
-  }
-  .tab-number {
-    display: none;
-  }
-  .asset-row {
+  .research-tabs button {
     padding-inline: 8px;
   }
-  .asset-name strong {
-    font-size: 13px;
+  .tab-title {
+    font-size: 18px;
   }
-  .asset-name small {
+  .asset-row {
+    padding: 10px 8px;
+  }
+  .asset-name strong {
+    font-size: 12px;
+  }
+  .asset-quote strong {
     font-size: 10px;
+  }
+  .asset-quote small {
+    font-size: 9px;
+  }
+  .desk-title h3 {
+    font-size: 21px;
+  }
+  .journal-filter-count {
+    margin-left: 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {

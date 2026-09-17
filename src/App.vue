@@ -2,10 +2,8 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import {
   ArrowRight,
-  LayoutDashboard,
   BookOpen,
   Route,
-  FlaskConical,
   ArrowUpRight,
   Check,
   FileText,
@@ -73,8 +71,8 @@ const layers = [
 ];
 const layer = computed(() => layers[activeLayer.value]);
 const navItems = [
-  { id: "top", label: "Overview", icon: LayoutDashboard },
-  { id: "cockpit", label: "Research", icon: FlaskConical },
+  { id: "top", label: "Overview", icon: FileText },
+  { id: "cockpit", label: "Research desk", icon: FileText },
   { id: "method", label: "Process", icon: Route },
   { id: "journal", label: "Journal", icon: BookOpen },
   { id: "roadmap", label: "Next", icon: ArrowUpRight },
@@ -234,85 +232,81 @@ function forgetEmail() {
     @keydown.esc="escapeMenu"
   >
     <a class="skip-link" href="#cockpit">Skip to research workspace</a>
-    <aside class="navigation-rail" aria-label="Workspace navigation">
-      <a class="rail-brand" href="#top" :aria-label="`${brand.name} home`"
-        ><img :src="`/${brand.slug}-mark.svg`" width="42" height="42" alt=""
-      /></a>
-      <nav>
-        <a
-          v-for="item in navItems"
-          :key="item.id"
-          :href="`#${item.id}`"
-          :class="{ active: activeSection === item.id }"
-          :aria-current="activeSection === item.id ? 'location' : undefined"
-          ><component :is="item.icon" :size="21" /><span>{{
-            item.label
-          }}</span></a
-        >
-      </nav>
-      <div class="rail-bottom">
-        <span class="status-dot"></span><span>LOCAL<br />PREVIEW</span>
-      </div>
-    </aside>
+    <div class="edition-line page-container">
+      <span>INDEPENDENT RESEARCH, CONSIDERED.</span
+      ><span>THE RESEARCH EDITION / 001</span>
+    </div>
     <header class="site-header">
-      <a
-        href="#top"
-        class="brand-lockup"
-        :aria-label="`${brand.name} home`"
-        @click="closeMenu"
-        ><img
-          :src="`/${brand.slug}-mark.svg`"
-          width="32"
-          height="32"
-          alt=""
-        /><span>{{ brand.name }}</span></a
-      >
-      <div class="header-context"><span>/</span> The decision workspace</div>
-      <div class="header-actions">
-        <span class="preview-label"
-          ><span class="status-dot"></span> Research preview</span
+      <div class="header-inner page-container">
+        <a
+          href="#top"
+          class="brand-lockup"
+          :aria-label="`${brand.name} home`"
+          @click="closeMenu"
+          ><img
+            :src="`/${brand.slug}-mark.svg`"
+            width="38"
+            height="38"
+            alt=""
+          /><span>{{ brand.name }}</span></a
         >
-        <button
-          v-if="connectedAccount"
-          class="button wallet-button"
-          @click="invalidateSession"
-          :aria-label="`End local session for ${shortAccount}`"
-        >
-          <Check :size="16" /><span>{{ shortAccount }}</span
-          ><span class="session-end">End session</span>
-        </button>
-        <button
-          v-else
-          class="button wallet-button"
-          aria-label="Connect wallet"
-          @click="walletOpen = true"
-        >
-          <Wallet :size="16" /><span>Connect wallet</span>
-        </button>
-        <button
-          ref="menuButton"
-          class="mobile-menu"
-          :aria-label="menuOpen ? 'Close navigation' : 'Open navigation'"
-          :aria-expanded="menuOpen"
-          aria-controls="mobile-navigation"
-          @click="menuOpen = !menuOpen"
-        >
-          <X v-if="menuOpen" :size="22" /><Menu v-else :size="22" />
-        </button>
+        <nav class="desktop-navigation" aria-label="Main navigation">
+          <a
+            href="#cockpit"
+            :aria-current="activeSection === 'cockpit' ? 'location' : undefined"
+            >Research desk</a
+          >
+          <a
+            href="#method"
+            :aria-current="activeSection === 'method' ? 'location' : undefined"
+            >Our method</a
+          >
+          <button @click="openJournal">
+            Your journal <ArrowUpRight :size="14" />
+          </button>
+        </nav>
+        <div class="header-actions">
+          <button
+            v-if="connectedAccount"
+            class="button wallet-button"
+            @click="invalidateSession"
+            :aria-label="`End local session for ${shortAccount}`"
+          >
+            <Check :size="16" /><span>{{ shortAccount }}</span
+            ><span class="session-end">End session</span>
+          </button>
+          <button
+            v-else
+            class="button wallet-button"
+            aria-label="Connect wallet"
+            @click="walletOpen = true"
+          >
+            <Wallet :size="16" /><span>Connect wallet</span>
+          </button>
+          <button
+            ref="menuButton"
+            class="mobile-menu"
+            :aria-label="menuOpen ? 'Close navigation' : 'Open navigation'"
+            :aria-expanded="menuOpen"
+            aria-controls="mobile-navigation"
+            @click="menuOpen = !menuOpen"
+          >
+            <X v-if="menuOpen" :size="22" /><Menu v-else :size="22" />
+          </button>
+        </div>
       </div>
       <nav
         v-if="menuOpen"
         id="mobile-navigation"
         class="mobile-navigation"
-        aria-label="Main navigation"
+        aria-label="Mobile navigation"
       >
         <a
           v-for="item in navItems"
           :key="item.id"
           :href="`#${item.id}`"
           @click="closeMenu"
-          ><component :is="item.icon" :size="18" />{{ item.label
-          }}<ArrowUpRight :size="16"
+          >{{ item.label }}<ArrowUpRight :size="17"
         /></a>
       </nav>
     </header>
@@ -322,181 +316,70 @@ function forgetEmail() {
         class="hero-section page-container"
         aria-labelledby="hero-title"
       >
-        <div class="page-topline">
-          <span>INDEPENDENT THINKING. STRUCTURED.</span
-          ><span>WORKSPACE / 001</span>
-        </div>
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">
-              <span class="status-dot"></span> A CLEARER WAY TO MAKE A CALL
-            </p>
-            <h1 id="hero-title">Less noise.<br /><em>More perspective.</em></h1>
-            <p class="hero-lede">
-              Build your thesis. Put it under pressure.<br />Keep the reasoning
-              behind every decision.
-            </p>
-            <div class="hero-actions">
-              <button class="button primary" @click="openResearch('Brief')">
-                Start researching <ArrowUpRight :size="19" /></button
-              ><span>Open to explore.<br />No wallet required.</span>
-            </div>
-          </div>
-          <div
-            class="perspective-map"
-            role="group"
-            aria-label="Research process: one thesis branches into bear, base and bull scenarios before a decision is recorded"
-          >
-            <div class="map-topline">
-              <span>THE PERSPECTIVE ENGINE</span
-              ><span class="map-live">ILLUSTRATIVE</span>
-            </div>
-            <svg
-              class="path-diagram"
-              viewBox="0 0 510 285"
-              fill="none"
-              aria-hidden="true"
-            >
-              <defs>
-                <pattern
-                  id="map-grid"
-                  width="30"
-                  height="30"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <circle cx="1" cy="1" r="1" fill="#41505D" />
-                </pattern>
-              </defs>
-              <rect width="510" height="285" fill="url(#map-grid)" />
-              <circle
-                cx="256"
-                cy="143"
-                r="104"
-                stroke="#33404A"
-                stroke-dasharray="3 6"
-              />
-              <circle cx="256" cy="143" r="62" stroke="#33404A" />
-              <path
-                d="M20 143H182C224 143 219 62 264 62H478M182 143H478M182 143C224 143 219 224 264 224H478"
-                stroke="#536270"
-                stroke-width="2"
-              />
-              <path
-                d="M20 143H182C224 143 219 62 264 62H478"
-                stroke="#D5FA5B"
-                stroke-width="3"
-              />
-              <rect
-                x="53"
-                y="114"
-                width="115"
-                height="58"
-                rx="6"
-                fill="#D5FA5B"
-              />
-              <text
-                x="110"
-                y="139"
-                text-anchor="middle"
-                fill="#111923"
-                font-size="11"
-                font-family="Arial"
-                font-weight="700"
-              >
-                YOUR THESIS
-              </text>
-              <text
-                x="110"
-                y="156"
-                text-anchor="middle"
-                fill="#314D1A"
-                font-size="10"
-                font-family="Arial"
-              >
-                Start with a question
-              </text>
-              <circle cx="264" cy="62" r="6" fill="#D5FA5B" />
-              <circle cx="264" cy="143" r="5" fill="#A9B6C1" />
-              <circle cx="264" cy="224" r="5" fill="#A9B6C1" />
-              <text
-                x="318"
-                y="49"
-                fill="#D5FA5B"
-                font-size="12"
-                font-family="Arial"
-                font-weight="700"
-              >
-                BULL CASE
-              </text>
-              <text
-                x="318"
-                y="130"
-                fill="#D7DEE5"
-                font-size="12"
-                font-family="Arial"
-                font-weight="700"
-              >
-                BASE CASE
-              </text>
-              <text
-                x="318"
-                y="211"
-                fill="#D7DEE5"
-                font-size="12"
-                font-family="Arial"
-                font-weight="700"
-              >
-                BEAR CASE
-              </text>
-              <circle cx="478" cy="62" r="4" fill="#D5FA5B" />
-              <circle cx="478" cy="143" r="4" fill="#A9B6C1" />
-              <circle cx="478" cy="224" r="4" fill="#A9B6C1" />
-            </svg>
-            <div class="map-bottom">
-              <span>One view. Multiple possibilities.</span
-              ><button
-                @click="openResearch('Scenario')"
-                aria-label="Explore scenario possibilities"
-              >
-                <ArrowUpRight :size="20" />
-              </button>
-            </div>
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="small-rule"></span> A FIELD GUIDE TO YOUR NEXT DECISION
+          </p>
+          <h1 id="hero-title">Conviction,<br />with <em>context.</em></h1>
+          <p class="hero-lede">
+            Good decisions begin with a better question.<br
+              class="desktop-break"
+            />
+            Explore the evidence, test your assumptions,<br
+              class="desktop-break"
+            />
+            and give your thinking a place to grow.
+          </p>
+          <div class="hero-actions">
+            <button class="button primary" @click="openResearch('Brief')">
+              Open the research desk <ArrowUpRight :size="18" /></button
+            ><span>No wallet needed.<br />Just a curious mind.</span>
           </div>
         </div>
         <div
-          class="hero-index"
-          role="group"
-          aria-label="Choose a research step"
+          class="hero-art"
+          role="img"
+          aria-label="An open research folio with overlapping lenses, a reminder to examine a decision from several perspectives"
         >
-          <button @click="openResearch('Sources')">
-            <span class="index-icon"><FileText :size="22" /></span>
-            <div>
-              <span class="index-number">01 / INVESTIGATE</span
-              ><strong>Find the other side.</strong
-              ><small>Evidence, context &amp; counter-cases</small>
+          <span class="art-annotation annotation-top"
+            >FIG. 01 / A CHANGE OF PERSPECTIVE</span
+          >
+          <div class="folio-shadow"></div>
+          <div class="folio-sheet folio-back"></div>
+          <div class="folio-sheet folio-front">
+            <div class="folio-top">
+              <span>THE OPEN QUESTION</span><span>01 / 03</span>
             </div>
-            <ArrowUpRight :size="19" />
-          </button>
-          <button @click="openResearch('Scenario')">
-            <span class="index-icon"><SlidersHorizontal :size="22" /></span>
-            <div>
-              <span class="index-number">02 / PRESSURE-TEST</span
-              ><strong>Make uncertainty visible.</strong
-              ><small>Three scenarios. Your assumptions.</small>
+            <div class="lens-composition">
+              <div class="lens lens-one"></div>
+              <div class="lens lens-two"></div>
+              <div class="lens lens-three"></div>
+              <span class="lens-cross cross-one">+</span
+              ><span class="lens-cross cross-two">+</span>
             </div>
-            <ArrowUpRight :size="19" />
-          </button>
-          <button @click="openJournal">
-            <span class="index-icon"><BookOpen :size="22" /></span>
-            <div>
-              <span class="index-number">03 / REFLECT</span
-              ><strong>Remember your reasoning.</strong
-              ><small>A decision trail you can revisit</small>
+            <p>What would<br /><em>change your mind?</em></p>
+            <div class="folio-baseline">
+              <span>EVIDENCE</span><span>ASSUMPTION</span><span>JUDGMENT</span>
             </div>
-            <ArrowUpRight :size="19" />
-          </button>
+          </div>
+          <span class="art-annotation annotation-bottom"
+            >A LITTLE DISTANCE. A CLEARER VIEW.</span
+          ><span class="art-seal" aria-hidden="true"
+            >KEEP<br />ASKING<br /><ArrowUpRight :size="23"
+          /></span>
         </div>
       </section>
+      <div class="reading-strip page-container">
+        <span class="eyebrow">A PRACTICE IN THREE PARTS</span
+        ><button @click="openResearch('Sources')">
+          <span>01</span> Read the evidence <ArrowRight :size="16" /></button
+        ><button @click="openResearch('Scenario')">
+          <span>02</span> Test the possibilities
+          <ArrowRight :size="16" /></button
+        ><button @click="openJournal">
+          <span>03</span> Keep the reasoning <ArrowRight :size="16" />
+        </button>
+      </div>
       <section
         id="cockpit"
         class="workspace-section page-container"
@@ -504,21 +387,19 @@ function forgetEmail() {
       >
         <div class="section-intro">
           <div>
-            <p class="eyebrow">YOUR WORKSPACE</p>
-            <h2 id="workspace-title">
-              From a view to a decision<span>.</span>
-            </h2>
+            <p class="eyebrow">01 / THE RESEARCH DESK</p>
+            <h2 id="workspace-title">Make room for <em>another view.</em></h2>
           </div>
-          <span class="sample-badge"
-            ><span class="status-dot"></span> 4 sample assets / Working
-            tools</span
-          >
+          <p class="section-aside">
+            <span class="status-dot"></span> Interactive research preview<br /><span
+              >Four sample assets. Your own perspective.</span
+            >
+          </p>
         </div>
         <MarketCockpit ref="workbench" />
         <div class="workspace-caption">
-          <span
-            >Sample research. Hypothetical scenarios. Real room to think.</span
-          ><span>Not investment advice.</span>
+          <span>Sample research and hypothetical scenarios.</span
+          ><span>For exploration. Not investment advice.</span>
         </div>
       </section>
       <section
@@ -528,10 +409,15 @@ function forgetEmail() {
       >
         <div class="section-intro">
           <div>
-            <p class="eyebrow">THE OPERATING PRINCIPLE</p>
-            <h2 id="method-title">A process, not a prediction.</h2>
+            <p class="eyebrow">02 / THE METHOD</p>
+            <h2 id="method-title">
+              A question before<br />every <em>conclusion.</em>
+            </h2>
           </div>
-          <p>Better questions at every step.</p>
+          <p class="method-intro">
+            A useful research process leaves space for doubt. Move between the
+            evidence, the possibilities, and the reasoning you want to remember.
+          </p>
         </div>
         <div class="method-layout">
           <div
@@ -545,71 +431,62 @@ function forgetEmail() {
               :aria-pressed="activeLayer === index"
               @click="activeLayer = index"
             >
-              <span class="layer-number">0{{ index + 1 }}</span
-              ><component :is="item.icon" :size="22" /><span>{{
-                item.label
-              }}</span
-              ><ArrowRight :size="18" />
+              <span>0{{ index + 1 }}</span
+              ><strong>{{ item.label }}</strong
+              ><ArrowUpRight :size="19" />
             </button>
           </div>
           <article class="method-detail" aria-live="polite">
-            <div class="method-kicker">
-              <span>{{ layer.tag }}</span
-              ><span>{{ layer.note }}</span>
-            </div>
-            <div class="method-body">
-              <h3>{{ layer.headline }}</h3>
-              <div>
-                <p>{{ layer.detail }}</p>
-                <button class="text-link" @click="launchLayer">
-                  {{ layer.action }} <ArrowRight :size="18" />
-                </button>
-              </div>
-            </div>
+            <p class="eyebrow">{{ layer.note }}</p>
+            <h3>{{ layer.headline }}</h3>
+            <p>{{ layer.detail }}</p>
+            <button class="text-link" @click="launchLayer">
+              {{ layer.action }} <ArrowRight :size="18" />
+            </button>
           </article>
         </div>
       </section>
       <section
         id="journal"
-        class="journal-section page-container"
+        class="journal-section"
         aria-labelledby="journal-title"
       >
-        <div class="journal-copy">
-          <p class="eyebrow">THE DECISION TRAIL</p>
-          <h2 id="journal-title">
-            Your thinking.<br />Saved for the next you.
-          </h2>
-          <p>
-            The view. The assumptions. The why. Keep them together, then revisit
-            with a fresh perspective.
-          </p>
-          <button class="button primary" @click="openJournal">
-            Open your decision journal <ArrowUpRight :size="18" /></button
-          ><small>On this device. Exportable. Always yours to delete.</small>
+        <div class="journal-layout page-container">
+          <div class="journal-copy">
+            <p class="eyebrow">03 / THE DECISION JOURNAL</p>
+            <h2 id="journal-title">
+              Your future self<br />will ask <em>why.</em>
+            </h2>
+            <p>
+              Leave a thoughtful answer. Save the view, the assumptions, and the
+              moment behind a decision. Come back when the story changes.
+            </p>
+            <button class="button light-button" @click="openJournal">
+              Open your decision journal <ArrowUpRight :size="18" /></button
+            ><small>Saved on your device. Ready to revisit or export.</small>
+          </div>
+          <article class="example-note">
+            <div class="note-heading">
+              <BookOpen :size="19" /><span>A NOTE TO RETURN TO</span
+              ><span>EXAMPLE</span>
+            </div>
+            <div class="note-asset">
+              <strong>AAPL</strong><span>Apple Inc. / Base case</span>
+            </div>
+            <h3>What is already priced<br />into the story?</h3>
+            <div class="note-row">
+              <span>THE WORKING VIEW</span>
+              <p>Services resilience supports the thesis.</p>
+            </div>
+            <div class="note-row">
+              <span>THE OPEN QUESTION</span>
+              <p>How much optimism does the current price assume?</p>
+            </div>
+            <div class="note-footer">
+              A snapshot of your thinking. Not a fixed conclusion.
+            </div>
+          </article>
         </div>
-        <article class="example-note">
-          <div class="note-heading">
-            <span><BookOpen :size="18" /> DECISION SNAPSHOT</span
-            ><span>EXAMPLE</span>
-          </div>
-          <div class="note-asset">
-            <strong>AAPL</strong><span>Apple Inc.</span
-            ><span class="note-label">BASE CASE</span>
-          </div>
-          <h3>What is already priced<br />into the story?</h3>
-          <div class="note-row">
-            <span>WORKING VIEW</span>
-            <p>Services resilience supports the thesis.</p>
-          </div>
-          <div class="note-row">
-            <span>WATCH NEXT</span>
-            <p>Growth expectations and the price of optimism.</p>
-          </div>
-          <div class="note-footer">
-            <span class="status-dot"></span> A snapshot to revisit. A view that
-            can evolve.
-          </div>
-        </article>
       </section>
       <section
         id="roadmap"
@@ -618,47 +495,47 @@ function forgetEmail() {
       >
         <div class="section-intro">
           <div>
-            <p class="eyebrow">WHAT COMES NEXT</p>
-            <h2 id="roadmap-title">Built one useful step at a time.</h2>
+            <p class="eyebrow">THE NEXT CHAPTER</p>
+            <h2 id="roadmap-title">
+              Useful now.<br /><em>Considered next.</em>
+            </h2>
           </div>
-          <p>Current capabilities. Clear release gates.</p>
+          <p class="method-intro">
+            A working preview, with clear boundaries.<br />Each next step needs
+            evidence of its own.
+          </p>
         </div>
-        <div class="roadmap-grid">
-          <article class="roadmap-card current">
-            <div>
-              <span>01</span><span class="roadmap-status">AVAILABLE NOW</span>
-            </div>
-            <h3>Research workspace</h3>
+        <div class="roadmap-list">
+          <article>
+            <span class="roadmap-number">01</span>
+            <h3>Research &amp; reflection</h3>
             <p>
-              Sample briefs, adjustable scenarios, and a local decision journal.
+              Sample briefs, adjustable scenarios, and your local decision
+              journal.
             </p>
-            <a href="#cockpit"
-              >Explore the preview <ArrowUpRight :size="16"
+            <a href="#cockpit" class="roadmap-status"
+              >EXPLORE NOW <ArrowUpRight :size="16"
             /></a>
           </article>
-          <article class="roadmap-card">
-            <div>
-              <span>02</span><span class="roadmap-status">IN PLANNING</span>
-            </div>
+          <article>
+            <span class="roadmap-number">02</span>
             <h3>Connected context</h3>
             <p>
-              Verified data sources and wallet context, after privacy review.
+              Verified data and wallet context, after data and privacy review.
             </p>
-            <span class="roadmap-note">DATA &amp; PRIVACY REVIEW</span>
+            <span class="roadmap-status">IN PLANNING</span>
           </article>
-          <article class="roadmap-card">
-            <div>
-              <span>03</span><span class="roadmap-status">RESEARCH STAGE</span>
-            </div>
+          <article>
+            <span class="roadmap-number">03</span>
             <h3>Verifiable intent</h3>
-            <p>Testnet intent and proof records, subject to security review.</p>
-            <span class="roadmap-note">SECURITY REVIEW</span>
+            <p>Testnet proof records, subject to security review.</p>
+            <span class="roadmap-status">RESEARCH STAGE</span>
           </article>
-          <article class="roadmap-card">
-            <div><span>04</span><span class="roadmap-status">GATED</span></div>
+          <article>
+            <span class="roadmap-number">04</span>
             <h3>Scoped execution</h3>
             <p>Limited mainnet routing, gated by audit and legal approval.</p>
-            <span class="roadmap-note">AUDIT &amp; LEGAL REVIEW</span>
+            <span class="roadmap-status">GATED</span>
           </article>
         </div>
       </section>
@@ -668,9 +545,9 @@ function forgetEmail() {
         aria-labelledby="interest-title"
       >
         <div>
-          <p class="eyebrow">KEEP IT ON YOUR RADAR</p>
-          <h2 id="interest-title">A reminder to return.</h2>
-          <p>Save your email on this device while you explore.</p>
+          <p class="eyebrow">A PLACE ON YOUR READING LIST</p>
+          <h2 id="interest-title">Come back <em>curious.</em></h2>
+          <p>Keep a reminder on this device while you explore.</p>
         </div>
         <form class="interest-form" @submit.prevent="subscribe">
           <label for="email">Your email address</label>
@@ -698,8 +575,8 @@ function forgetEmail() {
             </button>
           </div>
           <p id="email-help">
-            A local reminder. No email is sent or mailing list subscription
-            created.
+            Saved only in this browser. No email is sent and no mailing list is
+            joined.
           </p>
           <p
             v-if="emailError"
@@ -729,8 +606,8 @@ function forgetEmail() {
           ><img
             :src="`/${brand.slug}-mark.svg`"
             alt=""
-            width="32"
-            height="32"
+            width="36"
+            height="36"
           /><span>{{ brand.name }}</span></a
         >
         <p>{{ brand.tagline }}</p>
@@ -739,23 +616,26 @@ function forgetEmail() {
             :href="`https://x.com/${brand.handle.slice(1)}`"
             target="_blank"
             rel="noopener noreferrer"
-            >X / {{ brand.handle }} <ArrowUpRight :size="15" /></a
+            >X / {{ brand.handle }} <ArrowUpRight :size="14" /></a
           ><a
             href="https://docs.robinhood.com/chain/"
             target="_blank"
             rel="noopener noreferrer"
-            >Network docs <ArrowUpRight :size="15"
+            >Network docs <ArrowUpRight :size="14"
           /></a>
         </div>
       </div>
       <div class="footer-bottom">
         <p>
           {{ brand.name }} is independent and is not affiliated with Robinhood
-          Markets, Inc. Tokenized stocks and onchain services are subject to
-          eligibility, jurisdictional, and market risks. Research is not
-          investment advice.
+          Markets, Inc. This preview uses sample data and browser-local records.
+          Research is not investment advice. Tokenized stocks and onchain
+          services are subject to eligibility, jurisdictional, and market risks.
         </p>
-        <span>&copy; 2026 {{ brand.name }}<br />Think it through.</span>
+        <span
+          >&copy; 2026 {{ brand.name }}<br />An open mind is a good
+          beginning.</span
+        >
       </div>
     </footer>
   </div>

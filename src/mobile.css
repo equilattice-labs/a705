@@ -1,662 +1,622 @@
-﻿@media (min-width: 1700px) {
-  .hero-grid {
-    min-height: 460px;
+@media (min-width: 1600px) {
+  .hero-section {
+    padding-block: 90px;
   }
-  .hero-copy {
-    padding: 55px;
+  .hero-art {
+    height: 490px;
+  }
+  .folio-sheet {
+    height: 380px;
+  }
+  .lens-composition {
+    height: 200px;
+  }
+}
+@media (max-width: 1100px) {
+  .page-container {
+    width: calc(100% - 64px);
+  }
+  .header-inner {
+    gap: 16px;
+  }
+  .desktop-navigation {
+    gap: 19px;
+    font-size: 12px;
+  }
+  .brand-lockup span {
+    font-size: 25px;
+  }
+  .brand-lockup img {
+    width: 32px;
+    height: 32px;
+  }
+  .hero-section {
+    gap: 15px;
+    padding-block: 54px;
   }
   .hero-copy h1 {
     font-size: 76px;
+    letter-spacing: -4px;
   }
-  .perspective-map {
-    margin-right: 48px;
+  .hero-art {
+    height: 420px;
+  }
+  .folio-sheet {
+    width: 83%;
+    height: 320px;
+    top: 42px;
+    padding: 18px;
+  }
+  .lens-composition {
+    height: 152px;
+  }
+  .lens {
+    width: 108px;
+    height: 108px;
+  }
+  .lens-one {
+    left: calc(50% - 90px);
+  }
+  .lens-two {
+    left: calc(50% - 24px);
+  }
+  .lens-three {
+    width: 78px;
+    height: 78px;
+    left: calc(50% - 32px);
+    top: 56px;
+  }
+  .folio-front > p {
+    font-size: 24px;
+  }
+  .folio-shadow {
+    height: 305px;
+  }
+  .art-seal {
+    width: 74px;
+    height: 74px;
+    font-size: 8px;
   }
   .hero-lede {
-    font-size: 16px;
+    font-size: 14px;
   }
-}
-@media (max-width: 1250px) {
-  .page-container {
-    width: calc(100% - 56px);
+  .hero-actions {
+    gap: 12px;
   }
-  .site-header {
-    padding-inline: 28px;
-  }
-  .header-context {
-    display: none;
-  }
-  .hero-copy {
-    padding-left: 30px;
-  }
-  .hero-copy h1 {
-    font-size: 49px;
-    letter-spacing: -2.5px;
-  }
-  .hero-grid {
-    grid-template-columns: 1.1fr 1fr;
-    min-height: 380px;
-  }
-  .perspective-map {
-    margin-inline: 20px;
-  }
-  .map-topline {
-    font-size: 7px;
-  }
-  .hero-index button {
-    gap: 10px;
-    padding-inline: 14px;
-  }
-  .index-icon {
-    width: 38px;
-    height: 42px;
-  }
-  .hero-index small {
+  .hero-actions > span {
     font-size: 9px;
   }
-  .hero-index strong {
+  .hero-actions .button {
+    padding-inline: 15px;
+    font-size: 12px;
+  }
+  .reading-strip > span {
+    font-size: 8px;
+    letter-spacing: 0.6px;
+  }
+  .reading-strip button {
+    padding-inline: 12px;
+    gap: 10px;
     font-size: 11px;
   }
-  .hero-index button > svg {
-    display: none;
+  .section-intro h2 {
+    font-size: 42px;
   }
-  .method-layout {
-    grid-template-columns: 220px 1fr;
-  }
-  .method-detail {
-    padding: 26px;
-  }
-  .method-body {
-    gap: 25px;
-  }
-  .method-body h3 {
-    font-size: 22px;
-  }
-  .journal-section {
-    padding: 35px;
-    gap: 36px;
+  .journal-layout {
+    gap: 45px;
   }
   .journal-copy h2 {
-    font-size: 34px;
+    font-size: 46px;
   }
-  .roadmap-grid {
-    gap: 10px;
+  .example-note {
+    padding: 23px;
   }
-  .roadmap-card {
-    padding: 20px 15px 12px;
-  }
-  .roadmap-card > div {
-    font-size: 7px;
-  }
-  .roadmap-card h3 {
-    font-size: 15px;
+  .roadmap-list article {
+    grid-template-columns: 28px 1fr 1.1fr 130px;
+    gap: 15px;
   }
   .interest-section {
+    gap: 35px;
+  }
+  .footer-top > p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 820px) {
+  .desktop-navigation {
+    display: none;
+  }
+  .mobile-menu {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    background: transparent;
+  }
+  .header-inner {
+    min-height: 70px;
+  }
+  .mobile-navigation {
+    display: block;
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    padding: 15px 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .mobile-navigation a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .mobile-navigation a:last-child {
+    border-bottom: 0;
+  }
+  .hero-copy h1 {
+    font-size: 64px;
+    letter-spacing: -3px;
+  }
+  .hero-copy .eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
+  .hero-actions {
+    flex-wrap: wrap;
+  }
+  .hero-actions > span br {
+    display: none;
+  }
+  .hero-art {
+    height: 380px;
+  }
+  .folio-sheet {
+    height: 295px;
+    padding: 15px;
+  }
+  .folio-front > p {
+    font-size: 22px;
+  }
+  .folio-top {
+    font-size: 6px;
+  }
+  .folio-baseline {
+    font-size: 5px;
+  }
+  .lens-composition {
+    height: 140px;
+  }
+  .lens {
+    width: 96px;
+    height: 96px;
+  }
+  .lens-one {
+    left: calc(50% - 80px);
+  }
+  .lens-three {
+    width: 70px;
+    height: 70px;
+    left: calc(50% - 30px);
+  }
+  .art-annotation {
+    font-size: 6px;
+    letter-spacing: 0.6px;
+  }
+  .annotation-top {
+    left: 16px;
+  }
+  .annotation-bottom {
+    right: 15px;
+  }
+  .art-seal {
+    bottom: 9px;
+  }
+  .reading-strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .reading-strip > span {
+    grid-column: 1/-1;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .reading-strip button:first-of-type {
+    border-left: 0;
+  }
+  .reading-strip button {
+    padding-block: 12px;
+    min-height: 64px;
+  }
+  .reading-strip button svg {
+    display: none;
+  }
+  .workspace-section,
+  .method-section,
+  .roadmap-section {
+    padding-block: 65px;
+  }
+  .section-intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .section-intro h2 {
+    font-size: 42px;
+  }
+  .section-aside br {
+    display: none;
+  }
+  .section-aside > span:last-child {
+    margin-left: 7px;
+  }
+  .method-intro {
+    max-width: 520px;
+  }
+  .method-layout {
+    grid-template-columns: 1fr 1.55fr;
+  }
+  .method-tabs button {
+    padding: 22px;
+    gap: 14px;
+  }
+  .method-tabs strong {
+    font-size: 24px;
+  }
+  .method-detail {
+    padding: 28px;
+  }
+  .method-detail h3 {
+    font-size: 29px;
+  }
+  .method-detail .eyebrow {
+    font-size: 8px;
+  }
+  .journal-layout {
     gap: 30px;
+  }
+  .journal-copy h2 {
+    font-size: 39px;
+  }
+  .example-note {
+    padding: 21px;
+  }
+  .example-note h3 {
+    font-size: 25px;
+  }
+  .note-heading {
+    gap: 7px;
+    font-size: 7px;
+  }
+  .note-heading > span:last-child {
+    font-size: 6px;
+  }
+  .journal-copy .button {
+    font-size: 11px;
+    padding-inline: 14px;
+  }
+  .interest-section {
+    grid-template-columns: 1fr;
   }
   .footer-top {
     flex-wrap: wrap;
   }
+  .footer-top > p {
+    margin-right: 0;
+  }
   .footer-links {
-    margin-left: auto;
-  }
-}
-@media (max-width: 1000px) {
-  .site-shell {
-    padding-left: 72px;
-  }
-  .navigation-rail {
-    width: 72px;
-  }
-  .navigation-rail nav {
-    padding-inline: 6px;
-  }
-  .navigation-rail nav a {
-    font-size: 9px;
-  }
-  .rail-brand img {
-    width: 36px;
-    height: 36px;
-  }
-  .hero-grid {
-    grid-template-columns: 1fr;
-    position: relative;
-  }
-  .hero-copy {
-    padding: 35px;
-    max-width: 75%;
-    z-index: 1;
-  }
-  .hero-copy h1 {
-    font-size: 57px;
-  }
-  .perspective-map {
-    position: absolute;
-    right: -120px;
-    bottom: 10px;
-    width: 460px;
-    opacity: 0.22;
-    pointer-events: none;
-  }
-  .perspective-map .map-topline,
-  .perspective-map .map-bottom {
-    display: none;
-  }
-  .hero-lede {
-    color: #d4dee5;
-  }
-  .hero-index .index-icon {
-    display: none;
-  }
-  .hero-index button {
-    padding-block: 20px;
-  }
-  .hero-index strong {
-    font-size: 12px;
-  }
-  .hero-index small {
-    font-size: 9px;
-  }
-  .section-intro {
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-  .section-intro h2 {
-    font-size: 27px;
-  }
-  .method-body {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  .method-kicker > span:last-child {
-    display: none;
-  }
-  .method-detail {
-    padding: 24px;
-  }
-  .method-body h3 {
-    font-size: 23px;
-    max-width: 340px;
-  }
-  .method-tabs {
-    justify-content: center;
-  }
-  .journal-section {
-    grid-template-columns: 1fr 0.95fr;
-    padding: 28px;
+    flex-direction: row;
+    width: 100%;
     gap: 25px;
   }
-  .journal-copy h2 {
-    font-size: 29px;
-  }
-  .journal-copy .button {
-    font-size: 10px;
-    padding-inline: 12px;
-    gap: 8px;
-  }
-  .example-note {
-    padding: 22px 20px;
-  }
-  .example-note h3 {
-    font-size: 21px;
-  }
-  .note-label {
-    display: none;
-  }
-  .note-row {
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
-  .roadmap-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-  .roadmap-card {
-    padding: 22px;
-  }
-  .roadmap-card h3 {
-    font-size: 18px;
-  }
-  .roadmap-card p {
-    min-height: 40px;
-    font-size: 12px;
-  }
-  .roadmap-card > div {
-    font-size: 9px;
-  }
-  .interest-section {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .email-controls {
-    max-width: 600px;
-  }
-  .footer-links {
-    width: 100%;
-    margin: 0;
-  }
-  .footer-top > p {
-    font-size: 11px;
-  }
-  .workspace-caption {
-    font-size: 9px;
+  .footer-links a {
+    min-height: 44px;
   }
 }
-@media (max-width: 720px) {
+@media (max-width: 600px) {
   html {
-    scroll-padding-top: 89px;
-  }
-  .site-shell {
-    padding-left: 0;
-  }
-  .navigation-rail {
-    display: none;
+    scroll-padding-top: 84px;
   }
   .page-container {
     width: calc(100% - 36px);
   }
-  .site-header {
-    min-height: 70px;
-    padding-inline: 18px;
-    gap: 12px;
+  .edition-line {
+    padding-block: 9px;
+    font-size: 7px;
+    letter-spacing: 0.7px;
   }
-  .site-header .brand-lockup img {
-    display: block;
+  .edition-line > span:last-child {
+    display: none;
+  }
+  .header-inner {
+    gap: 8px;
+    min-height: 68px;
+  }
+  .brand-lockup {
+    gap: 7px;
+  }
+  .brand-lockup span {
+    font-size: 23px;
+    letter-spacing: -0.8px;
+  }
+  .brand-lockup img {
     width: 29px;
     height: 29px;
   }
-  .brand-lockup {
-    font-size: 24px;
-    gap: 8px;
+  .wallet-button {
+    min-height: 44px;
+    width: 44px;
+    padding: 10px;
+  }
+  .wallet-button span {
+    display: none;
   }
   .header-actions {
-    gap: 8px;
+    gap: 6px;
   }
-  .preview-label {
-    display: none;
+  .mobile-navigation {
+    padding-inline: 18px;
   }
-  .wallet-button {
-    width: 44px;
-    height: 44px;
-    padding: 0;
-  }
-  .wallet-button > span {
-    display: none;
-  }
-  .mobile-menu {
-    display: flex;
-  }
-  .skip-link {
-    left: 16px;
-  }
-  .page-topline {
-    padding: 21px 0 15px;
-    font-size: 8px;
-    letter-spacing: 0.4px;
-  }
-  .page-topline > span:last-child {
-    display: none;
-  }
-  .hero-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    border-radius: 12px;
-  }
-  .hero-copy {
-    max-width: none;
-    padding: 30px 25px 15px;
+  .hero-section {
+    grid-template-columns: 1fr;
+    padding-block: 43px 24px;
+    gap: 25px;
   }
   .hero-copy .eyebrow {
     font-size: 8px;
     letter-spacing: 0.5px;
   }
   .hero-copy h1 {
-    font-size: clamp(39px, 8.8vw, 59px);
-    letter-spacing: -2.2px;
-    line-height: 1.05;
-    margin: 22px 0;
+    font-size: clamp(57px, 16vw, 86px);
+    letter-spacing: -3.5px;
+    margin-block: 25px;
   }
   .hero-lede {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.8;
-    margin-bottom: 22px;
+    margin-bottom: 23px;
   }
-  .hero-actions {
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-  .hero-actions .button {
-    font-size: 12px;
-    padding-inline: 15px;
-  }
-  .hero-actions > span {
-    font-size: 9px;
-  }
-  .perspective-map {
-    position: relative;
-    width: auto;
-    right: auto;
-    bottom: auto;
-    opacity: 1;
-    pointer-events: auto;
-    margin: 14px 25px 22px;
-  }
-  .path-diagram {
-    margin: 0;
-    width: 100%;
-    max-height: 225px;
-  }
-  .perspective-map .map-bottom {
-    display: flex;
-    padding-top: 8px;
-    font-size: 10px;
-  }
-  .perspective-map .map-topline {
+  .desktop-break {
     display: none;
   }
-  .hero-index {
+  .hero-actions {
+    gap: 15px;
+    flex-wrap: nowrap;
+  }
+  .hero-actions > span {
+    max-width: 92px;
+    font-size: 9px;
+  }
+  .hero-actions .button {
+    min-height: 50px;
+    padding-inline: 15px;
+    gap: 12px;
+    font-size: 12px;
+  }
+  .hero-art {
+    width: min(370px, 100%);
+    height: 370px;
+    margin-inline: auto;
+  }
+  .folio-sheet {
+    top: 39px;
+    height: 288px;
+    width: 80%;
+  }
+  .folio-front {
+    padding: 18px;
+  }
+  .lens-composition {
+    height: 132px;
+  }
+  .folio-front > p {
+    font-size: 23px;
+  }
+  .folio-top {
+    font-size: 7px;
+  }
+  .folio-baseline {
+    font-size: 6px;
+  }
+  .art-annotation {
+    font-size: 7px;
+  }
+  .folio-shadow {
+    height: 270px;
+    top: 65px;
+  }
+  .art-seal {
+    bottom: 13px;
+    right: 0;
+  }
+  .reading-strip {
     grid-template-columns: 1fr;
-    margin-top: 10px;
   }
-  .hero-index button,
-  .hero-index button:first-child {
-    padding: 17px 0;
-    gap: 14px;
+  .reading-strip > span {
+    padding-block: 13px;
+    font-size: 8px;
   }
-  .hero-index button + button {
+  .reading-strip button {
     border-left: 0;
-    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 13px 2px;
+    min-height: 52px;
+    font-size: 12px;
+    gap: 22px;
   }
-  .hero-index .index-icon {
-    display: grid;
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
+  .reading-strip button:last-child {
+    border-bottom: 0;
   }
-  .hero-index button > svg {
+  .reading-strip button svg {
     display: block;
   }
-  .hero-index strong {
-    font-size: 13px;
-  }
-  .hero-index small {
-    font-size: 10px;
-  }
-  .index-number {
-    margin-bottom: 4px;
-  }
-  .workspace-section {
-    padding-top: 36px;
+  .workspace-section,
+  .method-section,
+  .roadmap-section {
+    padding-block: 50px;
   }
   .section-intro {
-    margin-bottom: 20px;
+    gap: 18px;
+    margin-bottom: 26px;
   }
   .section-intro h2 {
-    font-size: 28px;
-    letter-spacing: -1px;
+    font-size: 37px;
+    letter-spacing: -1.3px;
   }
-  .sample-badge {
+  .eyebrow {
     font-size: 9px;
-    padding: 0;
+  }
+  .section-aside {
+    font-size: 11px;
+  }
+  .section-aside br {
+    display: block;
+  }
+  .section-aside > span:last-child {
+    margin-left: 0;
   }
   .workspace-caption {
     flex-direction: column;
-    gap: 4px;
-  }
-  .method-section {
-    padding-block: 43px 38px;
+    gap: 3px;
+    font-size: 9px;
   }
   .method-layout {
     grid-template-columns: 1fr;
   }
   .method-tabs {
-    flex-direction: row;
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    padding: 10px;
-    gap: 5px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
   }
   .method-tabs button {
+    min-height: 80px;
+    display: flex;
     flex-direction: column;
-    min-height: 76px;
     justify-content: center;
-    gap: 4px;
-    padding: 9px 4px;
-    font-size: 11px;
+    gap: 7px;
+    padding: 10px 3px;
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
   }
-  .method-tabs button > svg {
-    display: none;
+  .method-tabs button:last-child {
+    border-right: 0;
   }
-  .layer-number {
+  .method-tabs button > span {
     font-size: 9px;
+  }
+  .method-tabs strong {
+    font-size: 19px;
+  }
+  .method-tabs svg {
+    display: none;
   }
   .method-detail {
-    padding: 24px;
+    padding: 25px;
   }
-  .method-kicker {
-    margin-bottom: 16px;
+  .method-detail h3 {
+    font-size: 30px;
   }
-  .method-body h3 {
-    font-size: 26px;
-    max-width: none;
+  .method-detail .eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.5px;
   }
-  .method-body p {
-    font-size: 13px;
+  .method-intro {
+    font-size: 12px;
   }
   .journal-section {
+    padding-block: 48px 55px;
+  }
+  .journal-layout {
     grid-template-columns: 1fr;
-    padding: 27px 23px;
-    gap: 28px;
+    gap: 38px;
   }
   .journal-copy h2 {
-    font-size: 34px;
+    font-size: 46px;
+  }
+  .journal-copy > p:not(.eyebrow) {
+    font-size: 13px;
+    max-width: 100%;
   }
   .journal-copy .button {
-    font-size: 11px;
-    padding-inline: 14px;
-    gap: 10px;
-  }
-  .journal-copy > small {
-    font-size: 9px;
+    font-size: 12px;
   }
   .example-note {
-    padding: 23px 20px;
+    margin-inline: 5px;
+    padding: 23px;
   }
   .example-note h3 {
-    font-size: 25px;
-  }
-  .note-label {
-    display: block;
-  }
-  .note-heading {
-    font-size: 7px;
-  }
-  .note-row {
-    grid-template-columns: 85px 1fr;
-    gap: 9px;
-  }
-  .note-row p {
-    font-size: 10px;
-  }
-  .note-footer {
-    font-size: 8px;
-  }
-  .roadmap-section {
-    padding-block: 43px 35px;
-  }
-  .roadmap-grid {
-    gap: 11px;
-  }
-  .roadmap-card {
-    padding: 18px 14px 10px;
-  }
-  .roadmap-card > div {
-    flex-wrap: wrap;
-    font-size: 7px;
-    gap: 5px;
-    margin-bottom: 16px;
-  }
-  .roadmap-card > div > span:first-child {
-    width: 100%;
-  }
-  .roadmap-card h3 {
-    font-size: 17px;
-    line-height: 1.25;
-  }
-  .roadmap-card p {
-    font-size: 11px;
-    min-height: 76px;
-  }
-  .roadmap-note {
-    font-size: 7px;
-  }
-  .roadmap-card a {
-    font-size: 10px;
-    gap: 5px;
-  }
-  .interest-section {
-    padding-block: 27px;
-    gap: 22px;
-    margin-bottom: 25px;
-  }
-  .interest-section h2 {
     font-size: 28px;
   }
-  .email-controls .button {
-    padding-inline: 11px;
-    font-size: 10px;
-    gap: 6px;
+  .note-heading {
+    font-size: 8px;
   }
-  .email-controls .button svg {
-    display: none;
+  .note-heading > span:last-child {
+    font-size: 7px;
+  }
+  .roadmap-list article {
+    grid-template-columns: 24px 1fr;
+    align-items: start;
+    gap: 10px 13px;
+    padding-block: 24px;
+  }
+  .roadmap-number {
+    margin-top: 6px;
+  }
+  .roadmap-list h3 {
+    font-size: 23px;
+  }
+  .roadmap-list p,
+  .roadmap-status {
+    grid-column: 2;
+  }
+  .roadmap-status {
+    justify-content: flex-start;
+    font-size: 9px;
+  }
+  .roadmap-list p {
+    font-size: 12px;
+  }
+  .interest-section {
+    padding-block: 36px;
+    gap: 28px;
+  }
+  .interest-section h2 {
+    font-size: 36px;
+  }
+  .email-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .email-controls input {
+    border-right: 1px solid var(--line);
+    min-height: 48px;
+  }
+  .email-controls .button {
+    min-height: 48px;
+  }
+  .site-footer {
+    padding-block: 30px 24px;
   }
   .footer-top {
-    gap: 13px;
+    gap: 22px;
   }
   .footer-top > p {
     width: 100%;
-    font-size: 12px;
   }
   .footer-links {
-    gap: 18px;
-  }
-  .footer-links a {
-    font-size: 10px;
+    gap: 16px;
+    flex-wrap: wrap;
   }
   .footer-bottom {
     flex-direction: column;
-    gap: 15px;
-    font-size: 9px;
+    gap: 18px;
+    margin-top: 20px;
   }
   .footer-bottom > span {
     text-align: left;
-  }
-}
-@media (max-width: 360px) {
-  .page-container {
-    width: calc(100% - 28px);
-  }
-  .site-header {
-    padding-inline: 14px;
-  }
-  .brand-lockup {
-    font-size: 21px;
-  }
-  .hero-copy {
-    padding-inline: 20px;
-  }
-  .hero-copy h1 {
-    font-size: 37px;
-    letter-spacing: -1.9px;
-  }
-  .hero-lede {
-    font-size: 12px;
-  }
-  .hero-actions {
-    gap: 12px;
-  }
-  .hero-actions > span br {
-    display: none;
-  }
-  .perspective-map {
-    margin-inline: 20px;
-  }
-  .map-bottom {
-    font-size: 9px !important;
-  }
-  .section-intro h2 {
-    font-size: 25px;
-  }
-  .method-detail {
-    padding: 20px;
-  }
-  .journal-section {
-    padding-inline: 20px;
-  }
-  .journal-copy h2 {
-    font-size: 30px;
-  }
-  .example-note {
-    padding-inline: 15px;
-  }
-  .note-label {
-    display: none;
-  }
-  .note-row {
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
-  .email-controls {
-    flex-wrap: wrap;
-  }
-  .email-controls .button {
-    width: 100%;
-  }
-  .roadmap-card {
-    padding-inline: 12px;
-  }
-  .roadmap-card h3 {
-    font-size: 15px;
-  }
-  .roadmap-card p {
-    min-height: 96px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-@media (forced-colors: active) {
-  button,
-  input,
-  textarea,
-  select {
-    border: 1px solid ButtonText;
-  }
-  :focus-visible {
-    outline: 2px solid Highlight;
-  }
-  .status-dot {
-    background: CanvasText;
-  }
-  .hero-grid,
-  .example-note,
-  .navigation-rail {
-    border: 1px solid CanvasText;
-  }
-  .path-diagram {
-    forced-color-adjust: none;
-  }
-  .navigation-rail nav a.active {
-    outline: 2px solid Highlight;
   }
 }
