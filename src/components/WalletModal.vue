@@ -503,9 +503,9 @@ onBeforeUnmount(() => {
   place-items: center;
   overflow-y: auto;
   padding: 24px;
-  background: #462c3499;
+  background: #040910bf;
   backdrop-filter: blur(6px);
-  color: var(--ink, #462c34);
+  color: var(--ink, #edf3f8);
   font: 14px/1.65 var(--sans, "Segoe UI", Arial, sans-serif);
 }
 .wallet-dialog {
@@ -515,14 +515,14 @@ onBeforeUnmount(() => {
   padding: 28px;
   overflow-y: auto;
   overscroll-behavior: contain;
-  background: var(--surface, #fff);
-  border: 1px solid var(--line, #d8cec1);
-  border-radius: 2px;
-  box-shadow: 0 28px 90px #462c3438;
+  background: var(--surface, #121c2b);
+  border: 1px solid var(--line, #263247);
+  border-radius: 10px;
+  box-shadow: 0 28px 90px #0007;
   text-align: left;
   box-sizing: border-box;
-  scrollbar-color: var(--muted, #726563) var(--surface, #fff);
-  color-scheme: light;
+  scrollbar-color: var(--muted, #a5b1c2) var(--surface, #121c2b);
+  color-scheme: dark;
 }
 .wallet-dialog *,
 .wallet-dialog *::before,
@@ -538,21 +538,22 @@ onBeforeUnmount(() => {
   cursor: pointer;
 }
 .wallet-dialog :is(button, a, [tabindex]):focus-visible {
-  outline: 3px solid var(--violet, #725b85);
+  outline: 2px solid var(--accent, #c4f06a);
   outline-offset: 4px;
 }
 .wallet-dialog svg {
   flex-shrink: 0;
 }
 .wallet-heading {
+  border-bottom: 1px solid var(--line);
   display: grid;
   grid-template-columns: 40px minmax(0, 1fr);
   align-items: center;
   gap: 0 13px;
   margin: -28px -28px 0;
   padding: 28px;
-  background: var(--ink, #462c34);
-  color: var(--surface, #fff);
+  background: var(--surface-2, #192639);
+  color: var(--ink, #edf3f8);
 }
 .wallet-close {
   position: absolute;
@@ -564,7 +565,7 @@ onBeforeUnmount(() => {
   width: 44px;
   height: 44px;
   border: 1px solid #ffffff30;
-  border-radius: 2px;
+  border-radius: 10px;
   color: #fff;
   background: #ffffff08;
 }
@@ -576,9 +577,9 @@ onBeforeUnmount(() => {
   place-items: center;
   width: 40px;
   height: 40px;
-  border-radius: 2px;
+  border-radius: 10px;
   overflow: hidden;
-  background: var(--lime, #f1b29d);
+  background: var(--paper, #0b111b);
 }
 .wallet-emblem img {
   display: block;
@@ -588,7 +589,7 @@ onBeforeUnmount(() => {
 }
 .wallet-eyebrow {
   padding-right: 38px;
-  color: #dfcdd0;
+  color: var(--muted, #a5b1c2);
   font: 10px/1.7 var(--mono, Consolas, monospace);
   letter-spacing: 0.6px;
   text-transform: uppercase;
@@ -597,13 +598,13 @@ onBeforeUnmount(() => {
   grid-column: 1 / -1;
   max-width: 410px;
   margin-top: 25px;
-  font: 400 38px/1.2 var(--serif, Georgia, serif);
+  font: 500 32px/1.2 var(--sans, "Segoe UI", Arial, sans-serif);
   letter-spacing: -1px;
 }
 .wallet-description {
   grid-column: 1 / -1;
   margin-top: 13px !important;
-  color: #dfcdd0;
+  color: var(--muted, #a5b1c2);
   font-size: 14px;
   line-height: 1.75;
 }
@@ -614,7 +615,7 @@ onBeforeUnmount(() => {
   margin: 23px 0 0;
   padding: 4px;
   border: 1px solid var(--line);
-  border-radius: 2px;
+  border-radius: 10px;
   background: var(--paper);
   list-style: none;
   font-size: 12px;
@@ -627,7 +628,7 @@ onBeforeUnmount(() => {
   min-width: 0;
   min-height: 50px;
   padding: 9px 10px;
-  border-radius: 2px;
+  border-radius: 10px;
 }
 .connection-steps li > span {
   display: grid;
@@ -636,7 +637,7 @@ onBeforeUnmount(() => {
   height: 25px;
   flex-shrink: 0;
   border: 1px solid var(--line);
-  border-radius: 2px;
+  border-radius: 10px;
   background: var(--surface);
   color: var(--ink);
   font: 11px var(--mono);
@@ -706,9 +707,9 @@ onBeforeUnmount(() => {
   margin-top: 20px;
   padding: 12px 15px;
   border: 1px solid var(--lime);
-  border-radius: 2px;
+  border-radius: 10px;
   background: var(--lime);
-  color: var(--ink);
+  color: var(--paper);
   font-size: 14px !important;
   font-weight: 700 !important;
 }
@@ -719,9 +720,9 @@ onBeforeUnmount(() => {
   margin-right: auto;
 }
 .wallet-primary:hover:not(:disabled) {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--lime);
+  background: #d5ff83;
+  border-color: #d5ff83;
+  color: var(--paper);
 }
 .wallet-primary:active:not(:disabled) {
   transform: translateY(1px);
@@ -741,7 +742,7 @@ onBeforeUnmount(() => {
   margin-top: 20px;
   padding: 14px;
   border: 1px solid var(--line);
-  border-radius: 2px;
+  border-radius: 10px;
   background: var(--accent-soft);
   color: var(--accent);
   font-size: 14px;
@@ -769,10 +770,10 @@ onBeforeUnmount(() => {
 .wallet-error {
   margin-top: 16px !important;
   padding: 13px 15px;
-  border: 1px solid #e8b5b1;
-  border-radius: 2px;
-  background: #fcecea;
-  color: var(--red, #ad3c38);
+  border: 1px solid #ff9e9c50;
+  border-radius: 10px;
+  background: #ff9e9c0c;
+  color: var(--red, #ff9e9c);
   font-size: 13px;
   line-height: 1.75;
   overflow-wrap: anywhere;
@@ -843,9 +844,10 @@ onBeforeUnmount(() => {
   .wallet-dialog {
     max-height: calc(100dvh - 24px);
     padding: 22px 18px;
-    border-radius: 2px;
+    border-radius: 10px;
   }
   .wallet-heading {
+    border-bottom: 1px solid var(--line);
     margin: -22px -18px 0;
     padding: 24px 18px;
     gap: 0 10px;

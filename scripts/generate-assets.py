@@ -1,8 +1,5 @@
-"""Generate the editorial research-folio identity and social kit.
-
-Run: python website/scripts/generate-assets.py
-Identity comes from src/brand.js. Local Chromium renders without network access.
-Requires: pip install -r website/scripts/requirements-assets.txt
+"""Generate Scenarill's original branch identity and dark research-lab social kit.
+Identity comes from src/brand.js; Chromium renders locally with network blocked.
 """
 import base64
 import json
@@ -20,227 +17,138 @@ PUBLIC, TWITTER = WEBSITE / 'public', ROOT / 'twitter'
 SOCIAL = PUBLIC / 'social'
 identity_source = (WEBSITE / 'src' / 'brand.js').read_text(encoding='utf-8')
 
-
 def identity_value(key):
     match = re.search(rf'\b{key}:\s*[\"\']([^\"\']+)[\"\']', identity_source)
     if not match:
-        raise ValueError(f'Missing identity value in src/brand.js: {key}')
+        raise ValueError(f'Missing identity: {key}')
     return match.group(1)
 
-
 BRAND, SLUG, DOMAIN, HANDLE, TAGLINE = map(identity_value, ('name', 'slug', 'domain', 'handle', 'tagline'))
-PAPER, WINE, CLAY, PEACH, SAGE = '#f8f3e9', '#462c34', '#b5412c', '#eedacc', '#dfe9e5'
-MUTED, RULE, WHITE = '#715e60', '#cdbdb4', '#fffdf8'
+PAPER, WINE, CLAY, PEACH, SAGE = '#0b111b', '#edf3f8', '#c4f06a', '#121c2b', '#8fb9ff'
+MUTED, RULE, WHITE = '#a5b1c2', '#263247', '#192638'
 
+def text(x, y, value, size=24, fill=WINE, weight=400, spacing=0, mono=False):
+    font = 'Consolas, monospace' if mono else 'Segoe UI, Arial, sans-serif'
+    return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{font}" font-size="{size}" font-weight="{weight}" letter-spacing="{spacing}">{escape(value)}</text>'
 
-def text(x, y, value, size=24, fill=WINE, weight=400, spacing=0, serif=False, italic=False):
-    font = 'Georgia, Times New Roman, serif' if serif else 'Arial, Helvetica, sans-serif'
-    style = ' font-style="italic"' if italic else ''
-    return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{font}" font-size="{size}" font-weight="{weight}" letter-spacing="{spacing}"{style}>{escape(value)}</text>'
+def title(x, y, value, size=88, fill=WINE):
+    return text(x, y, value, size, fill, 650, -3)
 
-
-def title(x, y, value, size=88, fill=WINE, italic=False):
-    return text(x, y, value, size, fill, spacing=-2.8, serif=True, italic=italic)
-
-
-def rect(x, y, width, height, fill, radius=0, stroke=None, stroke_width=1):
-    border = f' stroke="{stroke}" stroke-width="{stroke_width}"' if stroke else ''
-    return f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="{radius}" fill="{fill}"{border}/>'
-
+def rect(x, y, w, h, fill, radius=0, stroke=None):
+    border = f' stroke="{stroke}"' if stroke else ''
+    return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{fill}"{border}/>'
 
 def line(x1, y1, x2, y2, color=RULE, width=1):
     return f'<path d="M{x1} {y1}L{x2} {y2}" fill="none" stroke="{color}" stroke-width="{width}"/>'
 
-
-def circle(x, y, radius, fill='none', stroke=None, width=1):
-    border = f' stroke="{stroke}" stroke-width="{width}"' if stroke else ''
-    return f'<circle cx="{x}" cy="{y}" r="{radius}" fill="{fill}"{border}/>'
-
+def circle(x, y, radius, fill):
+    return f'<circle cx="{x}" cy="{y}" r="{radius}" fill="{fill}"/>'
 
 def mark(x=0, y=0, size=256, tile=True):
-    """Three offset folio leaves and an eccentric reading lens, original SVG geometry."""
-    body = rect(0, 0, 256, 256, PAPER, 48) if tile else ''
-    body += rect(36, 79, 131, 143, CLAY, 7)
-    body += rect(64, 53, 131, 143, PEACH, 7)
-    body += rect(92, 27, 131, 143, WINE, 7)
-    body += circle(157.5, 95, 40, SAGE)
-    body += circle(168.5, 84, 26, WINE)
-    body += line(112, 148, 185, 148, PAPER, 5)
-    return f'<g transform="translate({x} {y}) scale({size / 256})">{body}</g>'
+    body = rect(0, 0, 256, 256, PAPER, 58) if tile else ''
+    body += '<g fill="none" stroke="#c4f06a" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path d="M54 195V160Q54 128 91 128H165Q202 128 202 91V59"/><path d="M54 195V160Q54 128 91 128H165Q202 128 202 165V195"/><path d="M54 59V91Q54 128 91 128H202"/></g>'
+    for cx, cy in [(54,59),(202,59),(202,195)]:
+        body += circle(cx, cy, 12, SAGE)
+    return f'<g transform="translate({x} {y}) scale({size/256})">{body}</g>'
 
+def svg(w, h, label, body):
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-labelledby="title desc"><title id="title">{escape(label)}</title><desc id="desc">Original {escape(BRAND)} branching research diagram. Sample data, hypothetical scenarios, browser-local journal.</desc>{body}</svg>\n'
 
-def svg(width, height, label, body):
-    description = f'Original {BRAND} editorial research-folio artwork. Sample equity research, hypothetical scenarios, and a browser-local decision journal.'
-    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc"><title id="title">{escape(label)}</title><desc id="desc">{escape(description)}</desc>{body}</svg>\n'
+def lockup(x, y, size=52):
+    return mark(x,y,size,False) + text(x+size+15,y+size*.73,BRAND,size*.62,WINE,650,-1.5)
 
+def label(x,y,value,fill=MUTED,size=13):
+    return text(x,y,value.upper(),size,fill,600,1.5,True)
 
-def lockup(x, y, size=52, light=False):
-    return mark(x, y, size, False) + text(x + size + 13, y + size * .74, BRAND, size * .62, PAPER if light else WINE, spacing=-1.6, serif=True)
+def grid(w,h):
+    return ''.join(line(x,0,x,h,'#182231') for x in range(0,w,80)) + ''.join(line(0,y,w,y,'#182231') for y in range(0,h,80))
 
+def branches(x,y,w=500,h=360):
+    body = ''
+    for end, color, value in [(0.1,CLAY,'BULL'),(.5,SAGE,'BASE'),(.9,'#f2a5a7','BEAR')]:
+        yy=y+h*end
+        body += f'<path d="M{x} {y+h*.5}C{x+w*.44} {y+h*.5} {x+w*.44} {yy} {x+w} {yy}" fill="none" stroke="{color}" stroke-width="3"/>'
+        body += circle(x+w,yy,6,color) + label(x+w-60,yy-20,value,color,10)
+    body += circle(x,y+h*.5,8,WINE)
+    return body
 
-def label(x, y, value, fill=MUTED, size=13):
-    return text(x, y, value.upper(), size, fill, 700, 2)
-
-
-def header(index, section):
-    return lockup(56, 28, 64) + label(1000, 68, 'Research notes / ' + section) + line(64, 116, 1536, 116) + label(1490, 69, f'{index:02d}', CLAY)
-
+def header(index,section):
+    return lockup(54,28,64)+label(1040,68,section)+label(1482,68,f'{index:02d}',CLAY)+line(64,118,1536,118)
 
 def footer(disclosure='RESEARCH PREVIEW / SAMPLE DATA'):
-    return line(64, 812, 1536, 812) + label(64, 855, disclosure, size=11) + text(1080, 854, f'{DOMAIN}  /  {HANDLE}', 17, WINE)
-
-
-def reading_lens(x, y, radius=90):
-    body = circle(x, y, radius, SAGE)
-    body += circle(x, y, radius * .7, 'none', WINE, 1.5)
-    body += circle(x - radius * .18, y + radius * .03, radius * .41, CLAY)
-    body += circle(x + radius * .07, y - radius * .2, radius * .41, SAGE)
-    body += line(x - radius * 1.18, y, x + radius * 1.18, y, WINE)
-    body += line(x, y - radius * 1.18, x, y + radius * 1.18, WINE)
-    return body
-
-
-def folio(x, y, width=445, height=470):
-    body = rect(x + 24, y + 22, width, height, PEACH)
-    body += rect(x + 12, y + 11, width, height, PAPER, stroke=RULE)
-    body += rect(x, y, width, height, WHITE, stroke=WINE)
-    body += label(x + 32, y + 41, 'A working thesis', CLAY)
-    body += line(x + 32, y + 63, x + width - 32, y + 63)
-    body += title(x + 31, y + 119, 'Read closely.', 43)
-    body += text(x + 33, y + 155, 'Leave room for another view.', 18, MUTED)
-    body += reading_lens(x + width / 2, y + 282, 87)
-    body += line(x + 32, y + height - 72, x + width - 32, y + height - 72)
-    body += label(x + 33, y + height - 37, 'Evidence / assumptions / judgment', size=9)
-    return body
-
+    return line(64,812,1536,812)+label(64,854,disclosure,size=11)+text(1090,854,f'{DOMAIN} / {HANDLE}',17,MUTED)
 
 def post_signal():
-    body = rect(0, 0, 1600, 900, PAPER) + header(1, 'The evidence')
-    body += label(66, 186, '01 / Start with a better question', CLAY)
-    body += title(59, 291, 'Read the case.', 91)
-    body += title(59, 396, 'Find the gaps.', 91, CLAY, True)
-    body += text(66, 467, 'A considered view makes room for doubt.', 26, MUTED)
-    rows = [('Evidence', 'What can you inspect?'), ('Interpretation', 'What does it suggest?'), ('Counter-case', 'What would change your view?')]
-    for i, (name, detail) in enumerate(rows):
-        yy = 558 + i * 75
-        body += text(66, yy, f'0{i + 1}', 16, CLAY, serif=True)
-        body += text(112, yy, name, 24, WINE, serif=True)
-        body += text(349, yy, detail, 20, MUTED)
-        body += line(65, yy + 23, 739, yy + 23)
-    body += rect(847, 148, 689, 627, SAGE)
-    body += folio(950, 203, 465, 494)
-    body += circle(1456, 712, 45, CLAY) + text(1434, 722, '01', 28, PAPER, serif=True)
-    return svg(1600, 900, f'{BRAND}: Read the case. Find the gaps.', body + footer())
-
+    body=rect(0,0,1600,900,PAPER)+header(1,'The research')
+    body+=label(64,194,'01 / Establish the case',CLAY)
+    body+=title(58,304,'A view is only',83)+title(58,402,'the beginning.',83,CLAY)
+    body+=text(65,476,'Make space for the evidence that challenges it.',24,MUTED)
+    for i,(a,b) in enumerate([('THESIS','What supports your view?'),('EVIDENCE','What can you verify?'),('COUNTER-CASE','What would change your mind?')]):
+        yy=557+i*76
+        body+=label(65,yy,a,SAGE,12)+text(267,yy,b,21)+line(65,yy+24,754,yy+24)
+    body+=rect(848,160,688,600,PEACH,24,RULE)
+    body+=label(884,207,'Research topology / conceptual',SAGE,11)
+    body+=branches(904,284,558,298)
+    body+=text(885,688,'One question. Multiple perspectives.',23,MUTED)
+    return svg(1600,900,f'{BRAND}: A view is only the beginning.',body+footer())
 
 def post_risk():
-    body = rect(0, 0, 1600, 900, PAPER) + header(2, 'The assumptions')
-    body += label(66, 186, '02 / Give uncertainty a little space', CLAY)
-    body += title(60, 288, 'One case.', 87) + title(492, 288, 'Three possibilities.', 87, CLAY, True)
-    body += text(66, 353, 'Change the assumptions. Consider what each outcome would mean.', 27, MUTED)
-    cases = [('BEAR CASE', '-12%', 'Where does it weaken?', PEACH), ('BASE CASE', '+6%', 'What must remain true?', SAGE), ('BULL CASE', '+18%', 'What might optimism miss?', WHITE)]
-    for i, (name, value, question, fill) in enumerate(cases):
-        xx = 64 + i * 496
-        body += rect(xx, 417, 464, 303, fill)
-        body += label(xx + 27, 459, name, WINE)
-        body += text(xx + 24, 580, value, 94, WINE, spacing=-4, serif=True)
-        body += line(xx + 28, 614, xx + 436, 614, WINE)
-        body += text(xx + 28, 664, question, 24, WINE, serif=True)
-    body += label(64, 768, 'Illustrative 30-day price moves. Not forecasts, probabilities, or expected returns.', size=11)
-    return svg(1600, 900, f'{BRAND}: One case. Three possibilities.', body + footer())
-
+    body=rect(0,0,1600,900,PAPER)+header(2,'The scenario')
+    body+=label(64,194,'02 / Change the assumptions',CLAY)
+    body+=title(58,305,'Think in branches.',92)
+    body+=text(65,371,'Compare what could happen before you record what you think.',28,MUTED)
+    cases=[('BEAR','-12%','Expectations reset.','#f2a5a7'),('BASE','+6%','The thesis develops.',SAGE),('BULL','+18%','Growth surprises.',CLAY)]
+    for i,(name,value,note,color) in enumerate(cases):
+        xx=64+i*496
+        body+=rect(xx,435,464,279,PEACH,20,RULE)+label(xx+29,481,name,color)
+        body+=text(xx+24,596,value,86,color,600,-5,True)+text(xx+29,665,note,23,MUTED)
+    body+=label(65,767,'Hypothetical 30-day moves. Not forecasts or probabilities.',size=12)
+    return svg(1600,900,f'{BRAND}: Think in branches.',body+footer())
 
 def post_journal():
-    body = rect(0, 0, 1600, 900, PAPER) + header(3, 'The record')
-    body += label(66, 186, '03 / A note for your future self', CLAY)
-    body += title(59, 294, 'Keep the why.', 90)
-    body += title(59, 398, 'Return to it.', 90, CLAY, True)
-    body += text(66, 473, 'A decision is more useful when', 27, MUTED)
-    body += text(66, 515, 'you can revisit the thinking behind it.', 27, MUTED)
-    body += mark(61, 584, 137, False)
-    body += label(220, 638, 'Your own research journal', WINE, 12)
-    body += text(220, 680, 'Stored in this browser.', 22, MUTED, serif=True, italic=True)
-    body += rect(873, 194, 636, 573, PEACH)
-    body += rect(848, 171, 636, 573, WHITE, stroke=WINE)
-    body += label(882, 219, 'Decision record / 001', CLAY)
-    body += line(882, 241, 1450, 241)
-    entries = [('THE CONTEXT', 'Asset. Scenario. Source.'), ('THE THESIS', 'A view and its conditions.'), ('THE NEXT REVIEW', 'What would change my mind?')]
-    for i, (name, value) in enumerate(entries):
-        yy = 294 + i * 144
-        body += label(883, yy, name, size=11)
-        body += text(883, yy + 51, value, 31, WINE, serif=True)
-        body += line(883, yy + 86, 1450, yy + 86)
-    return svg(1600, 900, f'{BRAND}: Keep the why. Return to it.', body + footer('RESEARCH PREVIEW / BROWSER-LOCAL JOURNAL'))
-
+    body=rect(0,0,1600,900,PAPER)+header(3,'The decision')
+    body+=label(64,194,'03 / Build a record',CLAY)
+    body+=title(58,308,'Keep your',91)+title(58,416,'reasoning.',91,CLAY)
+    body+=text(65,496,'The assumptions. The context. The why.',26,MUTED)
+    body+=mark(57,558,133,False)+text(211,633,'Ready to revisit.',28)+text(211,679,'Stored in this browser.',22,MUTED)
+    body+=rect(843,177,691,579,PEACH,24,RULE)
+    body+=label(877,227,'Decision snapshot / example',SAGE,12)
+    for i,(k,v) in enumerate([('ASSET / SCENARIO','AAPL / Base case'),('YOUR REASONING','What must remain true?'),('REVIEW','Revisit. Revise. Keep the original.')]):
+        yy=296+i*140
+        body+=line(877,yy-27,1500,yy-27)+label(877,yy,k,size=11)+text(877,yy+50,v,28)
+    return svg(1600,900,f'{BRAND}: Keep your reasoning.',body+footer('RESEARCH PREVIEW / BROWSER-LOCAL JOURNAL'))
 
 def tagline_lines():
-    words = TAGLINE.split()
-    if len(words) < 2:
-        return TAGLINE, ''
-    split = min(range(1, len(words)), key=lambda i: abs(len(' '.join(words[:i])) - len(' '.join(words[i:]))))
-    return ' '.join(words[:split]), ' '.join(words[split:])
-
+    return 'Explore the branches.', 'Keep the reasoning.'
 
 def post_preview():
-    body = rect(0, 0, 1600, 900, WINE)
-    body += rect(0, 0, 1000, 900, PAPER)
-    body += lockup(55, 28, 64) + label(1090, 69, 'An invitation to think', PAPER)
-    body += line(64, 116, 936, 116)
-    body += label(66, 195, 'The research folio', CLAY)
-    first, second = tagline_lines()
-    size = min(101, 845 / max(len(first), len(second), 1) * 1.95)
-    body += title(59, 315, first, size)
-    body += title(59, 429, second, size, CLAY, True)
-    body += text(65, 510, 'Equity research. Considered from every side.', 27, MUTED)
-    steps = ['Choose an asset', 'Read the case', 'Test a scenario', 'Keep the record']
-    for i, value in enumerate(steps):
-        yy = 588 + i * 48
-        body += text(65, yy, f'0{i + 1}', 17, CLAY, serif=True) + text(114, yy, value, 25, WINE, serif=True)
-    body += mark(1111, 222, 376, False)
-    body += text(1081, 680, 'A place for evidence.', 26, PAPER, serif=True)
-    body += text(1081, 723, 'And your own judgment.', 26, PAPER, serif=True, italic=True)
-    body += line(65, 812, 937, 812)
-    body += label(65, 855, 'Sample data / local journal / optional wallet / no trades', size=10)
-    body += text(1115, 854, DOMAIN, 21, PAPER)
-    return svg(1600, 900, f'{BRAND}: {TAGLINE}', body)
-
+    body=rect(0,0,1600,900,PAPER)+grid(1600,900)
+    body+=lockup(55,27,70)+label(1150,77,'Research starts here',CLAY,11)
+    body+=label(65,215,'The independent research lab',SAGE)
+    body+=title(58,333,'Explore the branches.',83)+title(58,435,'Keep the reasoning.',83,CLAY)
+    body+=text(65,520,'Equity research, scenarios, and a decision journal.',28,MUTED)
+    for i,word in enumerate(['CHOOSE','INSPECT','TEST','RECORD']):
+        xx=64+i*264
+        body+=rect(xx,615,240,93,PEACH,14,RULE)+label(xx+22,648,f'0{i+1}',SAGE,10)+text(xx+22,684,word,20,WINE,600)
+    body+=mark(1215,290,303,False)
+    return svg(1600,900,f'{BRAND}: {TAGLINE}',body+footer('SAMPLE DATA / LOCAL JOURNAL / OPTIONAL WALLET / NO TRADES'))
 
 def banner():
-    body = rect(0, 0, 1500, 500, PAPER)
-    body += rect(0, 0, 412, 500, PEACH)
-    body += reading_lens(206, 194, 139)
-    body += lockup(481, 25, 54)
-    body += label(1163, 63, 'Research preview', CLAY, 11)
-    body += line(487, 109, 1438, 109)
-    first, second = tagline_lines()
-    size = min(77, 932 / max(len(first), len(second), 1) * 1.88)
-    body += title(479, 214, first, size)
-    body += title(479, 302, second, size, CLAY, True)
-    body += text(486, 366, 'Evidence. Assumptions. Your judgment.', 25, MUTED)
-    # X overlays the profile avatar at the lower left; all essential text is right of it.
-    body += line(487, 420, 1438, 420)
-    body += label(487, 462, 'Read / test / record / revisit', size=11)
-    body += text(1210, 462, DOMAIN, 18, WINE)
-    return svg(1500, 500, f'{BRAND}: {TAGLINE}', body)
-
+    body=rect(0,0,1500,500,PAPER)+grid(1500,500)
+    body+=mark(62,75,280,False)+lockup(450,24,53)
+    body+=title(449,194,'Explore the branches.',66)+title(449,280,'Keep the reasoning.',66,CLAY)
+    body+=text(455,351,'An independent lab for your next decision.',25,MUTED)
+    body+=line(455,411,1440,411)+label(455,459,'RESEARCH / SCENARIOS / JOURNAL',size=11)+text(1210,459,DOMAIN,18,SAGE)
+    return svg(1500,500,f'{BRAND}: {TAGLINE}',body)
 
 def og_card():
-    body = rect(0, 0, 1200, 630, PAPER)
-    body += lockup(37, 23, 61) + label(914, 65, 'Research preview', CLAY, 11)
-    body += line(45, 111, 1155, 111)
-    first, second = tagline_lines()
-    size = min(75, 746 / max(len(first), len(second), 1) * 1.95)
-    body += title(39, 234, first, size)
-    body += title(39, 324, second, size, CLAY, True)
-    body += text(47, 404, 'Equity research. Scenario testing.', 25, MUTED)
-    body += text(47, 446, 'A record of your own reasoning.', 25, MUTED)
-    body += rect(857, 162, 298, 329, PEACH)
-    body += mark(872, 196, 266, False)
-    body += line(45, 537, 1155, 537)
-    body += label(47, 583, 'A research folio / sample data', size=11)
-    body += text(925, 583, DOMAIN, 18, WINE)
-    return svg(1200, 630, f'{BRAND} research preview', body)
-
+    body=rect(0,0,1200,630,PAPER)+grid(1200,630)+lockup(40,24,61)
+    body+=label(903,68,'Research preview',CLAY,11)
+    body+=title(40,235,'Explore the',77)+title(40,327,'branches.',77,CLAY)
+    body+=text(45,406,'Keep the reasoning.',34)+text(45,457,'Equity research. Scenarios. A local journal.',24,MUTED)
+    body+=branches(720,196,384,226)
+    body+=line(45,537,1155,537)+label(45,583,'Sample data / independent judgment',size=11)+text(939,583,DOMAIN,18,SAGE)
+    return svg(1200,630,f'{BRAND} research preview',body)
 
 def find_browser():
     configured = os.environ.get('ASSET_BROWSER_PATH') or os.environ.get(f'{SLUG.upper()}_BROWSER_PATH')
@@ -303,7 +211,7 @@ def main():
         lockup_page.close()
         contact_page = browser.new_page(viewport={'width': 1640, 'height': 1500}, device_scale_factor=1)
         contact_page.route('**/*', lambda route: route.abort())
-        contact_page.set_content(f'<!doctype html><meta charset="utf-8"><style>body{{margin:0;padding:24px;background:{PEACH};font:16px Arial;color:{WINE}}}h1{{font:36px Georgia;margin:0 0 24px}}main{{display:grid;grid-template-columns:1fr 1fr;gap:24px}}figure{{margin:0;background:{PAPER};padding:14px}}img{{width:100%;height:386px;object-fit:contain;background:{PAPER}}}figcaption{{padding:12px 0 0}}</style><h1>{escape(BRAND)} — research folio asset review</h1><main>{"".join(contact_images)}</main>')
+        contact_page.set_content(f'<!doctype html><meta charset="utf-8"><style>body{{margin:0;padding:24px;background:{PEACH};font:16px Arial;color:{WINE}}}h1{{font:600 36px Arial;margin:0 0 24px}}main{{display:grid;grid-template-columns:1fr 1fr;gap:24px}}figure{{margin:0;background:{PAPER};padding:14px}}img{{width:100%;height:386px;object-fit:contain;background:{PAPER}}}figcaption{{padding:12px 0 0}}</style><h1>{escape(BRAND)} — research lab asset review</h1><main>{"".join(contact_images)}</main>')
         contact_page.locator('img').evaluate_all('(nodes) => Promise.all(nodes.map(n => n.decode()))')
         contact_page.screenshot(path=str(evidence / 'contact-sheet.jpg'), type='jpeg', quality=90, full_page=True)
         contact_page.close()

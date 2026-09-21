@@ -1,15 +1,15 @@
 export const brand = Object.freeze({
-  name: "Premicairn",
-  slug: "premicairn",
-  domain: "premicairn.xyz",
-  handle: "@premicairn",
-  tagline: "See the premise. Shape the decision.",
+  name: "Scenarill",
+  slug: "scenarill",
+  domain: "scenarill.xyz",
+  handle: "@scenarill",
+  tagline: "Explore the branches. Keep the reasoning.",
 });
 
 export const storageKeys = Object.freeze({
-  session: "premicairn:session",
-  email: "premicairn:beta-email",
-  journal: "premicairn:journal",
+  session: "scenarill:session",
+  email: "scenarill:beta-email",
+  journal: "scenarill:journal",
 });
 
 function validPreference(key, value) {
@@ -56,6 +56,7 @@ export function migrateBrandStorage() {
     [
       "sessionStorage",
       [
+        "premicairn:session",
         "thesivellum:session",
         "evidune:session",
         "folivect:session",
@@ -67,6 +68,7 @@ export function migrateBrandStorage() {
     [
       "localStorage",
       [
+        "premicairn:beta-email",
         "thesivellum:beta-email",
         "evidune:beta-email",
         "folivect:beta-email",
@@ -93,6 +95,7 @@ export function migrateBrandStorage() {
   try {
     const storage = window.localStorage;
     for (const previousKey of [
+      "premicairn:journal",
       "thesivellum:journal",
       "evidune:journal",
       "folivect:journal",
