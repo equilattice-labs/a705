@@ -368,7 +368,7 @@ onBeforeUnmount(() => {
           <div class="wallet-heading">
             <div class="wallet-emblem">
               <img
-                :src="`/${brand.slug}-mark.svg`"
+                src="/icon.svg"
                 alt=""
                 width="40"
                 height="40"
