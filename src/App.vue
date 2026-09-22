@@ -114,16 +114,19 @@ async function focusHeading() {
 }
 async function navigate(to) {
   menuOpen.value = false;
-  if (to === path.value) return;
+  const [targetPath, targetHash = ""] = to.split("#", 2);
+  const normalizedTarget = normalizePath(targetPath || "/");
+  if (normalizedTarget === path.value && !targetHash) return;
   history.pushState({}, "", to);
-  path.value = to;
-  window.scrollTo({
-    top: 0,
-    behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-      ? "instant"
-      : "smooth",
-  });
+  path.value = normalizedTarget;
   await focusHeading();
+  const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "instant"
+    : "smooth";
+  if (targetHash) {
+    await nextTick();
+    document.getElementById(targetHash)?.scrollIntoView({ behavior });
+  } else window.scrollTo({ top: 0, behavior });
 }
 function onPop() {
   path.value = normalizePath(location.pathname);
@@ -379,7 +382,7 @@ onBeforeUnmount(() => {
               ><a
                 href="/docs"
                 class="btn btn-outline"
-                @click.prevent="navigate('/docs')"
+                @click.prevent="navigate('/docs#storage')"
                 >Explore the method <ChevronRight :size="16"
               /></a>
             </div>

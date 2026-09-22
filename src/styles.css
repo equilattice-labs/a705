@@ -309,7 +309,7 @@ a svg {
     0 30px 30px #b2544325;
 }
 .pulse-dot:after {
-  content: "\00D0";
+  content: "D";
   display: grid;
   place-items: center;
   width: 100%;
