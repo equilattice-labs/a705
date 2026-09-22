@@ -1,0 +1,52 @@
+{
+  "capturedAt": "2026-09-22T02:27:18.319Z",
+  "method": "(mark/open - 1) * 100; saved quote comparison, not a popularity ranking",
+  "provider": "Robinhood public quote pages",
+  "coins": [
+    {
+      "symbol": "DOGE",
+      "price": 0.099869125,
+      "open": 0.08849843,
+      "changePct": 12.848470871178167,
+      "updatedAt": "2026-09-22T02:27:11.618Z",
+      "retrievedAt": "2026-09-22T02:27:12.576Z",
+      "source": "https://robinhood.com/us/en/crypto/DOGE/"
+    },
+    {
+      "symbol": "BTC",
+      "price": 85727.03917655,
+      "open": 81418.68,
+      "changePct": 5.291610201184789,
+      "updatedAt": "2026-09-22T02:27:11.741Z",
+      "retrievedAt": "2026-09-22T02:27:12.814Z",
+      "source": "https://robinhood.com/us/en/crypto/BTC/"
+    },
+    {
+      "symbol": "ETH",
+      "price": 2746.32311175,
+      "open": 2665.39,
+      "changePct": 3.036445388854914,
+      "updatedAt": "2026-09-22T02:27:12.474Z",
+      "retrievedAt": "2026-09-22T02:27:14.055Z",
+      "source": "https://robinhood.com/us/en/crypto/ETH/"
+    },
+    {
+      "symbol": "SHIB",
+      "price": 5.99755e-06,
+      "open": 5.555e-06,
+      "changePct": 7.966696669666967,
+      "updatedAt": "2026-09-22T02:27:12.048Z",
+      "retrievedAt": "2026-09-22T02:27:12.736Z",
+      "source": "https://robinhood.com/us/en/crypto/SHIB/"
+    },
+    {
+      "symbol": "SOL",
+      "price": 117.66583068,
+      "open": 111.52955,
+      "changePct": 5.501932608891545,
+      "updatedAt": "2026-09-22T02:27:10.98Z",
+      "retrievedAt": "2026-09-22T02:27:12.468Z",
+      "source": "https://robinhood.com/us/en/crypto/SOL/"
+    }
+  ]
+}

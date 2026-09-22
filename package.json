@@ -1,5 +1,5 @@
 {
-  "name": "zecpass-website",
+  "name": "dogepulse-website",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -7,7 +7,8 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "assets": "python scripts/generate-assets.py",
-    "preview": "vite preview --host 127.0.0.1"
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test scripts/scenario.test.mjs"
   },
   "dependencies": {
     "lucide-vue-next": "^0.468.0",
