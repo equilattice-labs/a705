@@ -1,0 +1,8 @@
+[   67757ms] [ERROR] Underlying wallet-standard connect error TypeError: Cannot read properties of undefined (reading 'create')
+    at _MetaMaskConnectMultichain2.<anonymous> (http://127.0.0.1:4176/node_modules/.vite/deps/@metamask_connect-solana.js?v=7fd42a9c:23621:53)
+    at Generator.next (<anonymous>)
+    at fulfilled (http://127.0.0.1:4176/node_modules/.vite/deps/@metamask_connect-solana.js?v=7fd42a9c:20035:24) @ http://127.0.0.1:4176/src/solana.js?t=1790250113620:266
+[  181818ms] [LOG] [vite] server connection lost. Polling for restart... @ http://127.0.0.1:4176/@vite/client:963
+[  181819ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:4176/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:4176/@vite/client:1034
+[  848032ms] [LOG] [vite] server connection lost. Polling for restart... @ http://127.0.0.1:4176/@vite/client:963
+[  848034ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:4176/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:4176/@vite/client:1034

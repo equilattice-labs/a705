@@ -1,0 +1,131 @@
+- generic [ref=f2e3]:
+  - link "Skip to content" [ref=f2e4] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=f2e5]:
+    - generic [ref=f2e6]:
+      - link "Lumquira home" [ref=f2e7] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f2e14]:
+          - generic [ref=f2e15]: LUMQUIRA
+          - generic [ref=f2e16]: SOLANA / RESEARCH DESK
+      - navigation "Primary navigation" [ref=f2e17]:
+        - link "Overview" [ref=f2e18] [cursor=pointer]:
+          - /url: /
+        - link "Scenario" [ref=f2e19] [cursor=pointer]:
+          - /url: /signal
+        - link "Board" [ref=f2e20] [cursor=pointer]:
+          - /url: /stats
+        - link "Notes" [ref=f2e21] [cursor=pointer]:
+          - /url: /docs
+      - button "Connect wallet" [ref=f2e24] [cursor=pointer]
+    - generic [ref=f2e28]:
+      - generic [ref=f2e29]: SOLANA REFERENCE LIST
+      - generic [ref=f2e31]:
+        - generic [ref=f2e32]: SOL
+        - strong [ref=f2e33]: No feed
+        - emphasis [ref=f2e34]: read only
+      - generic [ref=f2e35]:
+        - generic [ref=f2e36]: JUP
+        - strong [ref=f2e37]: No feed
+        - emphasis [ref=f2e38]: read only
+      - generic [ref=f2e39]:
+        - generic [ref=f2e40]: BONK
+        - strong [ref=f2e41]: No feed
+        - emphasis [ref=f2e42]: read only
+      - generic [ref=f2e43]:
+        - generic [ref=f2e44]: WIF
+        - strong [ref=f2e45]: No feed
+        - emphasis [ref=f2e46]: read only
+      - generic [ref=f2e47]: No live feed / illustrative context
+  - main [ref=f2e48]:
+    - generic [ref=f2e49]:
+      - generic [ref=f2e50]:
+        - generic [ref=f2e51]: SOLANA MARKET WORKSPACE
+        - heading [level=1] [ref=f2e53]:
+          - text: Make the move.
+          - emphasis [ref=f2e54]: Keep the why.
+        - paragraph [ref=f2e55]: Lumquira is a private desk for reading public context, testing a price thesis and keeping the evidence close.
+        - generic [ref=f2e56]:
+          - link "Open scenario lab" [ref=f2e57] [cursor=pointer]:
+            - /url: /signal
+          - link "View board" [ref=f2e61] [cursor=pointer]:
+            - /url: /stats
+      - generic [ref=f2e64]:
+        - generic [ref=f2e65]:
+          - generic [ref=f2e66]: LMQR / USER INPUT
+          - generic [ref=f2e67]: MINT READY
+        - generic [ref=f2e68]: —USD
+        - generic [ref=f2e69]:
+          - text: "-- market data provider is not configured"
+          - generic [ref=f2e70]: TESTNET
+        - generic [ref=f2e71]:
+          - generic [ref=f2e72]:
+            - generic [ref=f2e73]: MINT
+            - strong [ref=f2e74]: Configured
+          - generic [ref=f2e75]:
+            - generic [ref=f2e76]: QUOTE FEED
+            - strong [ref=f2e77]: Offline
+          - generic [ref=f2e78]:
+            - generic [ref=f2e79]: CLUSTER
+            - strong [ref=f2e80]: testnet
+        - generic [ref=f2e81]:
+          - generic [ref=f2e82]: Use your own reference
+          - generic [ref=f2e83]: Illustrative only
+    - generic [ref=f2e84]:
+      - generic [ref=f2e85]:
+        - generic [ref=f2e86]:
+          - text: DESK STATUS
+          - heading "One desk for the next decision." [level=2] [ref=f2e87]
+        - generic [ref=f2e88]: NO WALLET EXECUTION
+      - generic [ref=f2e89]:
+        - article [ref=f2e90]:
+          - generic [ref=f2e91]: NETWORK
+          - strong [ref=f2e92]: Solana
+          - text: testnet / RPC endpoint selected
+        - article [ref=f2e93]:
+          - generic [ref=f2e94]: MINT
+          - strong [ref=f2e95]: Address set
+          - text: testnet address format checked
+        - article [ref=f2e96]:
+          - generic [ref=f2e97]: JOURNAL
+          - strong [ref=f2e98]: Empty
+          - text: Stored in this browser only
+        - article [ref=f2e99]:
+          - generic [ref=f2e100]: WALLET
+          - strong [ref=f2e101]: Offline
+          - text: Public address display only
+    - generic [ref=f2e102]:
+      - generic [ref=f2e103]:
+        - text: THE LUMQUIRA LOOP
+        - heading "Observe. Stress test. Record." [level=2] [ref=f2e104]
+        - paragraph [ref=f2e105]: Keep the chain boundary simple while market data is being prepared. Enter a reference price yourself; every assumption stays visible.
+        - link "Read protocol notes" [ref=f2e106] [cursor=pointer]:
+          - /url: /docs
+      - generic [ref=f2e110]:
+        - generic [ref=f2e111]:
+          - generic [ref=f2e112]: "01"
+          - strong [ref=f2e113]: Inputs recorded
+          - generic [ref=f2e114]: Choose the asset context.
+        - generic [ref=f2e115]:
+          - generic [ref=f2e116]: "02"
+          - strong [ref=f2e117]: Assumption reviewed
+          - generic [ref=f2e118]: Set amount, price and move.
+        - generic [ref=f2e119]:
+          - generic [ref=f2e120]: "03"
+          - strong [ref=f2e121]: Limits reviewed
+          - generic [ref=f2e122]: Review fees and execution limits.
+        - generic [ref=f2e123]:
+          - generic [ref=f2e124]: "04"
+          - strong [ref=f2e125]: Review complete
+          - generic [ref=f2e126]: Export your reasoning.
+  - contentinfo [ref=f2e127]:
+    - generic [ref=f2e128]:
+      - text: LUMQUIRA
+      - generic [ref=f2e129]: Solana-native research desk
+    - navigation [ref=f2e130]:
+      - link "Protocol notes" [ref=f2e131] [cursor=pointer]:
+        - /url: /docs
+      - link "X" [ref=f2e132] [cursor=pointer]:
+        - /url: https://x.com/Lumquira
+      - button "Copy mint address" [ref=f2e137] [cursor=pointer]
+    - generic [ref=f2e141]: Not financial advice. Wallet transactions are not enabled in this interface.

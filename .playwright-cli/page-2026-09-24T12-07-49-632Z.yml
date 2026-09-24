@@ -1,0 +1,156 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e3]:
+    - link "Skip to content" [ref=f4e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - banner [ref=f4e5]:
+      - generic [ref=f4e6]:
+        - link "Lumquira home" [ref=f4e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f4e14]:
+            - generic [ref=f4e15]: LUMQUIRA
+            - generic [ref=f4e16]: SOLANA / RESEARCH DESK
+        - navigation "Primary navigation" [ref=f4e17]:
+          - link "Overview" [ref=f4e18] [cursor=pointer]:
+            - /url: /
+          - link "Scenario" [ref=f4e19] [cursor=pointer]:
+            - /url: /signal
+          - link "Board" [ref=f4e20] [cursor=pointer]:
+            - /url: /stats
+          - link "Notes" [ref=f4e21] [cursor=pointer]:
+            - /url: /docs
+        - button "Connecting…" [disabled] [expanded] [ref=f4e183]
+      - generic [ref=f4e28]:
+        - generic [ref=f4e29]: SOLANA REFERENCE LIST
+        - generic [ref=f4e31]:
+          - generic [ref=f4e32]: SOL
+          - strong [ref=f4e33]: No feed
+          - emphasis [ref=f4e34]: read only
+        - generic [ref=f4e35]:
+          - generic [ref=f4e36]: JUP
+          - strong [ref=f4e37]: No feed
+          - emphasis [ref=f4e38]: read only
+        - generic [ref=f4e39]:
+          - generic [ref=f4e40]: BONK
+          - strong [ref=f4e41]: No feed
+          - emphasis [ref=f4e42]: read only
+        - generic [ref=f4e43]:
+          - generic [ref=f4e44]: WIF
+          - strong [ref=f4e45]: No feed
+          - emphasis [ref=f4e46]: read only
+        - generic [ref=f4e47]: No live feed / illustrative context
+    - main [ref=f4e48]:
+      - generic [ref=f4e49]:
+        - generic [ref=f4e50]:
+          - generic [ref=f4e51]: SOLANA MARKET WORKSPACE
+          - heading [level=1] [ref=f4e53]:
+            - text: Make the move.
+            - emphasis [ref=f4e54]: Keep the why.
+          - paragraph [ref=f4e55]: Lumquira is a private desk for reading public context, testing a price thesis and keeping the evidence close.
+          - generic [ref=f4e56]:
+            - link "Open scenario lab" [ref=f4e57] [cursor=pointer]:
+              - /url: /signal
+            - link "View board" [ref=f4e61] [cursor=pointer]:
+              - /url: /stats
+        - generic [ref=f4e64]:
+          - generic [ref=f4e65]:
+            - generic [ref=f4e66]: LMQR / USER INPUT
+            - generic [ref=f4e67]: MINT READY
+          - generic [ref=f4e68]: —USD
+          - generic [ref=f4e69]:
+            - text: "-- market data provider is not configured"
+            - generic [ref=f4e70]: TESTNET
+          - generic [ref=f4e71]:
+            - generic [ref=f4e72]:
+              - generic [ref=f4e73]: MINT
+              - strong [ref=f4e74]: Configured
+            - generic [ref=f4e75]:
+              - generic [ref=f4e76]: QUOTE FEED
+              - strong [ref=f4e77]: Offline
+            - generic [ref=f4e78]:
+              - generic [ref=f4e79]: CLUSTER
+              - strong [ref=f4e80]: testnet
+          - generic [ref=f4e81]:
+            - generic [ref=f4e82]: Use your own reference
+            - generic [ref=f4e83]: Illustrative only
+      - generic [ref=f4e84]:
+        - generic [ref=f4e85]:
+          - generic [ref=f4e86]:
+            - text: DESK STATUS
+            - heading "One desk for the next decision." [level=2] [ref=f4e87]
+          - generic [ref=f4e88]: NO WALLET EXECUTION
+        - generic [ref=f4e89]:
+          - article [ref=f4e90]:
+            - generic [ref=f4e91]: NETWORK
+            - strong [ref=f4e92]: Solana
+            - text: testnet / RPC endpoint selected
+          - article [ref=f4e93]:
+            - generic [ref=f4e94]: MINT
+            - strong [ref=f4e95]: Address set
+            - text: testnet address format checked
+          - article [ref=f4e96]:
+            - generic [ref=f4e97]: JOURNAL
+            - strong [ref=f4e98]: Empty
+            - text: Stored in this browser only
+          - article [ref=f4e99]:
+            - generic [ref=f4e100]: WALLET
+            - strong [ref=f4e101]: Offline
+            - text: Public address display only
+      - generic [ref=f4e102]:
+        - generic [ref=f4e103]:
+          - text: THE LUMQUIRA LOOP
+          - heading "Observe. Stress test. Record." [level=2] [ref=f4e104]
+          - paragraph [ref=f4e105]: Keep the chain boundary simple while market data is being prepared. Enter a reference price yourself; every assumption stays visible.
+          - link "Read protocol notes" [ref=f4e106] [cursor=pointer]:
+            - /url: /docs
+        - generic [ref=f4e110]:
+          - generic [ref=f4e111]:
+            - generic [ref=f4e112]: "01"
+            - strong [ref=f4e113]: Inputs recorded
+            - generic [ref=f4e114]: Choose the asset context.
+          - generic [ref=f4e115]:
+            - generic [ref=f4e116]: "02"
+            - strong [ref=f4e117]: Assumption reviewed
+            - generic [ref=f4e118]: Set amount, price and move.
+          - generic [ref=f4e119]:
+            - generic [ref=f4e120]: "03"
+            - strong [ref=f4e121]: Limits reviewed
+            - generic [ref=f4e122]: Review fees and execution limits.
+          - generic [ref=f4e123]:
+            - generic [ref=f4e124]: "04"
+            - strong [ref=f4e125]: Review complete
+            - generic [ref=f4e126]: Export your reasoning.
+    - contentinfo [ref=f4e127]:
+      - generic [ref=f4e128]:
+        - text: LUMQUIRA
+        - generic [ref=f4e129]: Solana-native research desk
+      - navigation [ref=f4e130]:
+        - link "Protocol notes" [ref=f4e131] [cursor=pointer]:
+          - /url: /docs
+        - link "X" [ref=f4e132] [cursor=pointer]:
+          - /url: https://x.com/Lumquira
+        - button "Copy mint address" [ref=f4e137] [cursor=pointer]
+      - generic [ref=f4e141]: Not financial advice. Wallet transactions are not enabled in this interface.
+  - dialog [ref=f4e143]:
+    - banner [ref=f4e144]:
+      - generic [ref=f4e145]:
+        - text: SOLANA / TESTNET
+        - heading "Choose a wallet" [level=2] [ref=f4e146]
+      - button "Close wallet dialog" [ref=f4e147] [cursor=pointer]
+    - paragraph [ref=f4e151]: Connect a Solana account to display its public address. This site does not ask for transaction signatures.
+    - paragraph [ref=f4e152]: Use a Solana account on MetaMask; an Ethereum-only account cannot connect to Solana.
+    - generic "Available Solana wallets" [ref=f4e176]:
+      - button "MetaMask Connecting…" [disabled] [ref=f4e184]:
+        - generic [ref=f4e178]: MetaMask
+        - generic [ref=f4e185]: Connecting…
+    - paragraph [ref=f4e175]: Only the selected wallet’s public Solana address is read.
+  - generic [ref=f4e187]:
+    - generic [ref=f4e190] [cursor=pointer]
+    - heading "Connect with Metamask" [level=2] [ref=f4e195]
+    - generic [ref=f4e197]:
+      - generic [ref=f4e198]:
+        - heading "Use mobile" [level=3] [ref=f4e199]
+        - paragraph [ref=f4e200]: Scan to connect with the MetaMask mobile app.
+      - generic [ref=f4e214]:
+        - heading "Use extension" [level=3] [ref=f4e215]
+        - paragraph [ref=f4e216]: Install and try the MetaMask browser extension.
+        - button "Install MetaMask Extension" [ref=f4e217] [cursor=pointer]
