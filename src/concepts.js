@@ -75,7 +75,7 @@ export const concepts = [
   {
     "id": "tokenized-markets",
     "title": "Tokenized Markets",
-    "description": "Stock Tokens on Robinhood Chain. A token with a Chainlink feed and a USDG pool can be listed.",
+    "description": "Stock Tokens on Solana Chain. A token with a Chainlink feed and a USDG pool can be listed.",
     "image": "/hero.webp"
   },
   {

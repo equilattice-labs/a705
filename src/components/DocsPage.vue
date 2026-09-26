@@ -72,7 +72,7 @@ function go(to) { emit('navigate', to) }
       <p class="docs-kicker">Docs</p>
       <h1 tabindex="-1">How Scenovia works.</h1>
       <p class="docs-lead">Deposit a Stock Token into a series. Receive one Income position and one Upside position per unit. At settlement, Upside pays the amount of one unit's value above the cap price K, in Stock Tokens; its maximum loss is the price paid for it. Income keeps everything up to K plus whatever the auction paid for Upside. Income is not protected: if the Stock Token falls, Income falls with it. One Income position plus one Upside position of the same series merge back into one Stock Token at any time, free.</p>
-      <p class="demo-note">Robinhood Chain interface preview. The scenario lab and contract references are read-only; this build has no trade execution or live oracle integration.</p>
+      <p class="demo-note">Solana Chain interface preview. The scenario lab and contract references are read-only; this build has no trade execution or live oracle integration.</p>
     </div>
 
     <div class="container docs-layout">

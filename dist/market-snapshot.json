@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "preview",
-  "network": "robinhood-chain",
+  "network": "Solana-chain",
   "token": {
     "symbol": "SCNV",
     "status": "proposed-unissued",
@@ -14,5 +14,5 @@
     { "symbol": "SOLX", "quote": null, "priceStatus": "illustrative" },
     { "symbol": "USDCX", "quote": null, "priceStatus": "illustrative" }
   ],
-  "note": "No market data provider or Robinhood Chain integration is configured. Visible prices and markets are local model examples, not live listings."
+  "note": "No market data provider or Solana Chain integration is configured. Visible prices and markets are local model examples, not live listings."
 }

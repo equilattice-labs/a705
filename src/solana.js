@@ -17,7 +17,7 @@ const DEFAULT_RPC_URLS = Object.freeze({
   localnet: 'http://127.0.0.1:8899',
 })
 
-// Legacy Solana fixture retained for migration tests. It is not a Scenovia or Robinhood Chain asset.
+// Legacy Solana fixture retained for migration tests. It is not a Scenovia or Solana Chain asset.
 const DEFAULT_TOKEN_MINTS = Object.freeze({
   'mainnet-beta': null,
   devnet: null,

@@ -92,7 +92,7 @@ function explore() {
       <div class="helper-chip"><span class="helper-icon upside-icon">⌁</span><span><strong>Upside</strong><small>Value above the cap</small></span></div>
       <a href="/docs#mechanism" @click.prevent="emit('navigate', '/docs#mechanism')">Learn how the model works <ArrowUpRight :size="14" /></a>
     </div>
-    <p class="market-disclosure"><Info :size="14" /> Prices and markets on this page are illustrative. Robinhood Chain is the target network; this preview has no live data, wallet connection or transaction execution.</p>
+    <p class="market-disclosure"><Info :size="14" /> Prices and markets on this page are illustrative. Solana Chain is the target network; this preview has no live data, wallet connection or transaction execution.</p>
   </div>
 
   <PayoffExplorer />
