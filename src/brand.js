@@ -1,12 +1,12 @@
 export const brand = Object.freeze({
-  name: 'Lumquira',
-  slug: 'lumquira',
-  asset: 'LMQR',
-  network: 'Solana',
-  domain: 'lumquira.xyz',
-  handle: '@Lumquira',
-  tagline: 'Read the signal, keep the proof.',
-  supportingLine: 'A Solana-native journal for measured moves.',
+  name: 'Kovrane',
+  slug: 'kovrane',
+  asset: 'KVRN',
+  network: 'Robinhood Chain',
+  domain: 'kovrane.xyz',
+  handle: '@Kovrane',
+  tagline: 'See the move. Keep the proof.',
+  supportingLine: 'A Robinhood Chain market desk for measured moves.',
 })
 
-export const storageKeys = Object.freeze({ journal: 'lumquira:journal:v1' })
+export const storageKeys = Object.freeze({ journal: 'kovrane:journal:v1' })

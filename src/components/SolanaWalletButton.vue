@@ -9,6 +9,7 @@ import {
   initializeSolanaWallets,
   watchAvailableSolanaWallets,
   watchSolanaWallet,
+  solanaConfig,
 } from '../solana.js'
 
 const emit = defineEmits(['connected', 'disconnected'])
@@ -148,7 +149,7 @@ onBeforeUnmount(() => {
         <section ref="dialogPanel" class="solana-wallet-dialog" role="dialog" aria-modal="true" aria-labelledby="wallet-dialog-title" tabindex="-1" @keydown.stop="onDialogKeydown">
           <header class="wallet-dialog-header">
             <div>
-              <span class="eyebrow">SOLANA / TESTNET</span>
+              <span class="eyebrow">SOLANA / {{ solanaConfig.cluster.toUpperCase() }}</span>
               <h2 id="wallet-dialog-title">{{ address ? 'Wallet connected' : 'Choose a wallet' }}</h2>
             </div>
             <button class="wallet-dialog-close" type="button" aria-label="Close wallet dialog" @click="closeModal"><X :size="18" /></button>
@@ -197,35 +198,41 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.solana-wallet-backdrop { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(3, 6, 9, .76); backdrop-filter: blur(9px); }
-.solana-wallet-dialog { width: min(100%, 440px); max-height: min(680px, calc(100vh - 40px)); overflow: auto; padding: 25px; color: var(--ink, #f2f4f7); background: #10151b; border: 1px solid #33404c; border-radius: 14px; box-shadow: 0 26px 90px rgba(0,0,0,.48); }
+.wallet-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 38px; padding: 9px 17px; color: #faf9f5; background: #006838; border: 1px solid #006838; border-radius: 99px; font: inherit; font-size: 11px; font-weight: 550; cursor: pointer; }
+.wallet-button:hover { background: #002a18; border-color: #002a18; }
+.wallet-button.connected { background: #d5f000; border-color: #d5f000; color: #002a18; }
+.wallet-button:disabled { opacity: .58; cursor: wait; }
+.wallet-button:focus-visible, .solana-wallet-dialog button:focus-visible, .wallet-install-links a:focus-visible { outline: 2px solid #006838; outline-offset: 3px; }
+.solana-wallet-backdrop { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(0, 42, 24, .36); backdrop-filter: blur(9px); }
+.solana-wallet-dialog { width: min(100%, 440px); max-height: min(680px, calc(100vh - 40px)); overflow: auto; padding: 25px; color: #002a18; background: #faf9f5; border: 1px solid #d8dbcd; border-radius: 12px; box-shadow: 0 26px 90px rgba(0,42,24,.2); }
 .wallet-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-.wallet-dialog-header h2 { margin: 9px 0 0; font: 29px/1.05 var(--serif, Georgia, serif); }
-.wallet-dialog-close { display: grid; place-items: center; width: 36px; height: 36px; color: #cad0d7; background: #1b232b; border: 1px solid #33404c; border-radius: 8px; cursor: pointer; }
-.wallet-dialog-copy { margin: 22px 0 12px; color: #aab4bf; font-size: 13px; line-height: 1.6; }
-.wallet-network-note { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 20px; padding: 11px 12px; color: #c5d8b6; background: rgba(183,243,107,.07); border: 1px solid rgba(183,243,107,.18); border-radius: 8px; font-size: 11px; line-height: 1.5; }
-.wallet-network-note svg { flex: 0 0 auto; color: var(--lime, #b7f36b); }
-.wallet-discovery { padding: 18px 0; color: #aab4bf; font-size: 13px; }
+.wallet-dialog-header .eyebrow { color: #006838; font-size: 10px; font-weight: 600; letter-spacing: .08em; }
+.wallet-dialog-header h2 { margin: 9px 0 0; font-family: inherit; font-size: 29px; font-weight: 600; line-height: 1.05; letter-spacing: -.035em; }
+.wallet-dialog-close { display: grid; place-items: center; width: 36px; height: 36px; color: #002a18; background: #e7eadc; border: 1px solid #cbd3be; border-radius: 8px; cursor: pointer; }
+.wallet-dialog-copy { margin: 22px 0 12px; color: #607263; font-size: 13px; line-height: 1.6; }
+.wallet-network-note { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 20px; padding: 11px 12px; color: #006838; background: #eaf0df; border: 1px solid #cad8bc; border-radius: 8px; font-size: 11px; line-height: 1.5; }
+.wallet-network-note svg { flex: 0 0 auto; color: #006838; }
+.wallet-discovery { padding: 18px 0; color: #607263; font-size: 13px; }
 .wallet-options { display: grid; gap: 9px; }
-.wallet-option { display: flex; align-items: center; min-height: 58px; gap: 12px; padding: 9px 12px; color: #f2f4f7; text-align: left; background: #171e25; border: 1px solid #303b46; border-radius: 9px; cursor: pointer; }
-.wallet-option:hover:not(:disabled) { border-color: var(--lime, #b7f36b); background: #1b2528; }
+.wallet-option { display: flex; align-items: center; min-height: 58px; gap: 12px; padding: 9px 12px; color: #002a18; text-align: left; background: #f0f1e8; border: 1px solid #d8dbcd; border-radius: 9px; cursor: pointer; }
+.wallet-option:hover:not(:disabled) { border-color: #006838; background: #e7eadc; }
 .wallet-option:disabled, .wallet-disconnect:disabled { opacity: .58; cursor: wait; }
 .wallet-option-icon { display: grid; place-items: center; width: 36px; height: 36px; object-fit: contain; border-radius: 8px; }
-.wallet-option-placeholder { color: var(--lime, #b7f36b); background: #28332a; }
+.wallet-option-placeholder { color: #006838; background: #d5f000; }
 .wallet-option-name { font-weight: 650; font-size: 13px; }
 .wallet-option-state, .wallet-option-arrow { margin-left: auto; color: #98a4af; font-size: 11px; }
-.wallet-option-arrow { color: var(--lime, #b7f36b); }
+.wallet-option-arrow { color: #006838; }
 .wallet-empty-state { padding: 7px 0 2px; }
-.wallet-empty-state p { margin: 0 0 7px; color: #e6e9ed; font-size: 13px; }
-.wallet-empty-state .wallet-empty-help { color: #9ba6b2; font-size: 11px; line-height: 1.5; }
+.wallet-empty-state p { margin: 0 0 7px; color: #002a18; font-size: 13px; }
+.wallet-empty-state .wallet-empty-help { color: #6c8064; font-size: 11px; line-height: 1.5; }
 .wallet-install-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
-.wallet-install-links a { display: inline-flex; align-items: center; gap: 5px; padding: 8px 10px; color: var(--lime, #b7f36b); background: #1b2329; border: 1px solid #303b46; border-radius: 7px; font-size: 11px; text-decoration: none; }
-.wallet-account-card { display: grid; gap: 15px; margin-top: 22px; padding: 16px; background: #171e25; border: 1px solid #303b46; border-radius: 9px; }
-.wallet-account-name { display: flex; align-items: center; gap: 8px; color: var(--lime, #b7f36b); font-size: 12px; }
-.wallet-account-card code { overflow-wrap: anywhere; color: #e0e5ea; font-size: 12px; }
-.wallet-disconnect { min-height: 38px; color: #ffaaa4; background: rgba(255,117,109,.07); border: 1px solid rgba(255,117,109,.3); border-radius: 7px; cursor: pointer; font: inherit; font-size: 12px; }
-.wallet-dialog-error, .wallet-dialog-setup { margin: 14px 0 0; color: #ffaaa4; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
-.wallet-dialog-setup { color: #d8c991; }
-.wallet-dialog-footnote { margin: 18px 0 0; padding-top: 14px; color: #798591; border-top: 1px solid #27313a; font: 10px/1.5 var(--mono, monospace); }
+.wallet-install-links a { display: inline-flex; align-items: center; gap: 5px; padding: 8px 10px; color: #006838; background: #e7eadc; border: 1px solid #cbd3be; border-radius: 7px; font-size: 11px; text-decoration: none; }
+.wallet-account-card { display: grid; gap: 15px; margin-top: 22px; padding: 16px; background: #f0f1e8; border: 1px solid #d8dbcd; border-radius: 9px; }
+.wallet-account-name { display: flex; align-items: center; gap: 8px; color: #006838; font-size: 12px; }
+.wallet-account-card code { overflow-wrap: anywhere; color: #002a18; font-size: 12px; }
+.wallet-disconnect { min-height: 38px; color: #a45138; background: #f9e6d8; border: 1px solid #e8cbb9; border-radius: 7px; cursor: pointer; font: inherit; font-size: 12px; }
+.wallet-dialog-error, .wallet-dialog-setup { margin: 14px 0 0; color: #a45138; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+.wallet-dialog-setup { color: #925115; }
+.wallet-dialog-footnote { margin: 18px 0 0; padding-top: 14px; color: #76826c; border-top: 1px solid #d8dbcd; font: 10px/1.5 var(--mono, monospace); }
 @media (max-width: 480px) { .solana-wallet-backdrop { padding: 12px; }.solana-wallet-dialog { padding: 20px; border-radius: 12px; }.wallet-dialog-header h2 { font-size: 26px; } }
 </style>
