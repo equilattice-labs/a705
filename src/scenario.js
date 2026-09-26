@@ -1,8 +1,9 @@
 export const SCHEMA_VERSION = 3
 export const MAX_NOTE_LENGTH = 1000
 export const DEFAULT_BASE_PRICE = '1.00'
-const ASSET = 'LMQR'
+const ASSET = 'SCNV'
 const LEGACY_ASSET = 'KNVR'
+const LEGACY_ASSETS = new Set(['LMQR', 'KSTR', 'KVRN'])
 const LEGACY_SNAPSHOT_SOURCE = 'https://solscan.io/tokens'
 const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value)
 
@@ -30,7 +31,7 @@ export function validateScenarioInputs(input) {
   const amount = decimal(value.amount, 8)
   const basePrice = decimal(value.basePrice, 12)
   const movePct = decimal(value.movePct, 2)
-  if (amount === null || amount.units <= 0n || amount.units > 100000000000000000n) errors.amount = 'Enter more than 0 and at most 1,000,000,000 LMQR, with up to 8 decimal places.'
+  if (amount === null || amount.units <= 0n || amount.units > 100000000000000000n) errors.amount = 'Enter more than 0 and at most 1,000,000,000 SCNV units, with up to 8 decimal places.'
   if (basePrice === null || basePrice.units <= 0n || basePrice.number > 1e9) errors.basePrice = 'Enter a price greater than $0 and no more than $1,000,000,000, with up to 12 decimal places.'
   if (movePct === null || movePct.units < -9000n || movePct.units > 10000n) errors.movePct = 'Enter a price change from -90% to +100%, with up to 2 decimal places.'
   const note = value.note === undefined ? '' : value.note
@@ -52,15 +53,15 @@ export function calculateScenario(input) {
 export function validateJournalRecord(record) {
   const errors = {}
   if (!isObject(record)) return { valid: false, errors: { record: 'Journal record is not an object.' }, value: null }
-  if (record.schemaVersion !== SCHEMA_VERSION || record.asset !== ASSET) errors.schema = 'This is not a supported LMQR journal record.'
-  if (typeof record.id !== 'string' || !/^LM-[A-Za-z0-9-]{1,64}$/.test(record.id)) errors.id = 'Journal ID is invalid.'
+  if (record.schemaVersion !== SCHEMA_VERSION || (record.asset !== ASSET && !LEGACY_ASSETS.has(record.asset))) errors.schema = 'This is not a supported Scenovia journal record.'
+  if (typeof record.id !== 'string' || !/^(?:SC|LM|KV)-[A-Za-z0-9-]{1,64}$/.test(record.id)) errors.id = 'Journal ID is invalid.'
   if (!isUtcTimestamp(record.createdAt)) errors.createdAt = 'Journal creation timestamp is invalid.'
   if (!Number.isInteger(record.stage) || record.stage < 0 || record.stage > 3) errors.stage = 'Journal stage must be between 0 and 3.'
   const inputs = validateScenarioInputs(record)
   Object.assign(errors, inputs.errors)
   if (record.note === undefined) errors.note = 'Journal note is missing.'
   const valid = Object.keys(errors).length === 0
-  return { valid, errors, value: valid ? { schemaVersion: SCHEMA_VERSION, asset: ASSET, id: record.id, createdAt: record.createdAt, ...inputs.value, stage: record.stage } : null }
+  return { valid, errors, value: valid ? { schemaVersion: SCHEMA_VERSION, asset: ASSET, id: record.id.replace(/^(?:LM|KV)-/, 'SC-'), createdAt: record.createdAt, ...inputs.value, stage: record.stage } : null }
 }
 
 export function createJournalRecord(input, { id, createdAt, stage = 0 } = {}) {
@@ -75,7 +76,7 @@ export function createJournalRecord(input, { id, createdAt, stage = 0 } = {}) {
 /** Restore a current record or convert the previous placeholder snapshot into an explicit user assumption. */
 export function restoreJournalRecord(record) {
   const current = validateJournalRecord(record)
-  if (current.valid) return { ...current, migrated: false }
+  if (current.valid) return { ...current, migrated: record.asset !== ASSET || record.id !== current.value.id }
   const legacySnapshot = record?.snapshot
   if (
     !isObject(record) || record.schemaVersion !== 2 || record.asset !== LEGACY_ASSET ||
@@ -87,7 +88,7 @@ export function restoreJournalRecord(record) {
 
   try {
     const value = createJournalRecord({ amount: record.amount, basePrice: legacySnapshot.price, movePct: record.movePct, note: record.note }, {
-      id: `LM-${record.id.slice(3)}`,
+      id: `SC-${record.id.slice(3)}`,
       createdAt: record.createdAt,
       stage: record.stage,
     })

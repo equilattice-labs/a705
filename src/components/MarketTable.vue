@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { ArrowRight } from 'lucide-vue-next'
 import { calculatePayoff } from '../payoff.js'
 
 const props = defineProps({
@@ -18,10 +19,10 @@ const money = value => new Intl.NumberFormat('en-US', {
 }).format(value)
 
 const assets = Object.freeze([
-  { symbol: 'AAPL', name: 'Apple Inc.', spot: 250, initials: 'A' },
-  { symbol: 'NVDA', name: 'NVIDIA Corp.', spot: 130, initials: 'N' },
-  { symbol: 'MSFT', name: 'Microsoft Corp.', spot: 430, initials: 'M' },
-  { symbol: 'TSLA', name: 'Tesla Inc.', spot: 350, initials: 'T' },
+  { symbol: 'ETHX', name: 'Ethereum', spot: 250, initials: 'E' },
+  { symbol: 'BTCX', name: 'Bitcoin', spot: 130, initials: 'B' },
+  { symbol: 'SOLX', name: 'Solana', spot: 430, initials: 'S' },
+  { symbol: 'USDCX', name: 'USD Coin', spot: 1, initials: '$' },
 ])
 
 const allRows = assets.map(asset => ({
@@ -113,6 +114,13 @@ function resetSearch() {
         </tbody>
       </table>
     </div>
+    <div v-if="rows.length" class="market-cards" aria-label="Market cards">
+      <a v-for="asset in rows" :key="`card-${asset.symbol}`" class="market-mobile-card" :href="`/app/markets/${asset.symbol}`" @click.prevent="navigate(asset.symbol)">
+        <span class="token-circle" aria-hidden="true">{{ asset.initials }}</span>
+        <span class="mobile-asset-copy"><b>{{ asset.symbol }}</b><small>{{ asset.name }} · Example quote</small></span>
+        <span class="mobile-asset-values"><span><small>Income</small><b>{{ money(asset.payoff.incomePrice) }}</b></span><span><small>Upside</small><b>{{ money(asset.payoff.upsidePrice) }}</b></span><ArrowRight :size="14" /></span>
+      </a>
+    </div>
     <div v-else class="empty-market-state" role="status" aria-live="polite">
       <p>No model markets match “{{ props.query.trim() }}”.</p>
       <button type="button" @click="resetSearch">Reset search</button>
@@ -124,6 +132,8 @@ function resetSearch() {
 
 <style scoped>
 .market-table-section{color:var(--fg,#0f1f18)}
+.compact-market-table .market-table{min-width:0;table-layout:fixed}.compact-market-table .market-table th:nth-child(5),.compact-market-table .market-table td:nth-child(5),.compact-market-table .market-table th:nth-child(6),.compact-market-table .market-table td:nth-child(6){display:none}.compact-market-table .market-table th,.compact-market-table .market-table td{padding-inline:8px}.compact-market-table .market-table th:first-child,.compact-market-table .market-table td:first-child{width:42%}
+.market-cards{display:none}.market-mobile-card{display:flex;align-items:center;gap:10px;padding:13px 2px;border-bottom:1px solid var(--line,rgba(15,31,24,.12));color:inherit;text-decoration:none}.mobile-asset-copy{display:grid;gap:2px;min-width:0}.mobile-asset-copy b{font-family:var(--mono,monospace);font-size:12px}.mobile-asset-copy small{overflow:hidden;color:var(--muted,#4d5f56);font-size:9px;text-overflow:ellipsis;white-space:nowrap}.mobile-asset-values{display:flex;align-items:center;gap:9px;margin-left:auto}.mobile-asset-values>span{display:grid;gap:2px;text-align:right}.mobile-asset-values small{color:var(--muted,#4d5f56);font-size:8px}.mobile-asset-values b{font-family:var(--mono,monospace);font-size:10px;font-weight:500}.mobile-asset-values>span:first-child b{color:var(--green,#006838)}.mobile-asset-values>span:nth-child(2) b{color:#829000}.mobile-asset-values svg{color:var(--muted,#4d5f56)}
 .market-table-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;margin-bottom:27px}.market-eyebrow{margin:0 0 9px;color:var(--muted,#4d5f56);font-size:10px;letter-spacing:1.4px;text-transform:uppercase}.market-table-heading h2{margin:0;font-size:27px;font-weight:500;letter-spacing:-.8px;line-height:1.08}.market-feed-note{display:flex;align-items:center;gap:7px;margin:0 0 3px;color:var(--muted,#4d5f56);font-size:11px}.feed-dot{display:block;width:6px;height:6px;border:1px solid #7b8c84;border-radius:50%;background:transparent}
 .on-chain-stats{padding:18px 20px 20px;border:1px solid var(--line,rgba(15,31,24,.12));border-radius:15px;background:rgba(255,255,255,.34)}.stats-heading{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:14px;color:var(--fg,#0f1f18);font-size:12px;font-weight:550}.stats-note{color:var(--muted,#4d5f56);font-size:10px;font-weight:400}.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.stat-card{min-height:80px;padding:14px 14px 12px;border:1px solid var(--line,rgba(15,31,24,.1));border-radius:11px;background:rgba(240,235,229,.57)}.stat-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:7px;color:var(--muted,#4d5f56);font-size:10px;line-height:1.3}.preview-badge{flex:none;padding:3px 6px;border:1px solid rgba(0,104,56,.22);border-radius:100px;color:var(--green,#006838);font-size:8px;letter-spacing:.4px;text-transform:uppercase}.stat-value{display:block;margin:9px 0 2px;font-family:var(--mono,monospace);font-size:21px;font-weight:400;line-height:1;color:var(--fg,#0f1f18)}.stat-card small{color:var(--muted,#4d5f56);font-size:9px}
 .market-table-toolbar{display:flex;justify-content:space-between;gap:20px;align-items:baseline;margin:27px 0 12px}.table-intro,.search-state{margin:0;color:var(--muted,#4d5f56);font-size:10px}.search-state{font-family:var(--mono,monospace);text-align:right}.table-scroll{overflow-x:auto;border-top:1px solid var(--line,rgba(15,31,24,.12));border-bottom:1px solid var(--line,rgba(15,31,24,.12))}.market-table{width:100%;min-width:730px;border-collapse:collapse;font-size:12px}.market-table th,.market-table td{padding:14px 12px;border-bottom:1px solid var(--line,rgba(15,31,24,.1));text-align:right;vertical-align:middle}.market-table th{color:var(--muted,#4d5f56);font-size:10px;font-weight:450;letter-spacing:.3px;white-space:nowrap}.market-table th:first-child,.market-table td:first-child{text-align:left;padding-left:5px}.market-table tbody tr:last-child td{border-bottom:0}.market-table tbody tr:hover{background:rgba(255,255,255,.32)}.market-table th.is-emphasized{color:var(--fg,#0f1f18)}.market-table td.is-emphasized{background:rgba(0,104,56,.045)}
@@ -131,5 +141,6 @@ function resetSearch() {
 .empty-market-state{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:26px 12px;border-top:1px solid var(--line,rgba(15,31,24,.12));border-bottom:1px solid var(--line,rgba(15,31,24,.12));color:var(--muted,#4d5f56);font-size:12px}.empty-market-state p{margin:0}.empty-market-state button{padding:8px 12px;border:1px solid var(--line,rgba(15,31,24,.2));border-radius:100px;background:transparent;color:var(--fg,#0f1f18);font:inherit;font-size:11px;cursor:pointer}.empty-market-state button:hover{background:rgba(255,255,255,.4)}.empty-market-state button:focus-visible{outline:2px solid var(--green,#006838);outline-offset:3px}.market-table-footnote{display:flex;justify-content:space-between;gap:20px;margin-top:12px;color:var(--muted,#4d5f56);font-size:9px;line-height:1.5}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:780px){.market-table-heading{align-items:flex-start;flex-direction:column;gap:12px}.market-feed-note{margin:0}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.market-table-toolbar{align-items:flex-start;flex-direction:column;gap:6px}.search-state{text-align:left}.market-table-footnote{flex-direction:column;gap:4px}}
+@media(max-width:580px){.table-scroll{display:none}.market-cards{display:block}.market-table-footnote{margin-top:10px}}
 @media(max-width:430px){.on-chain-stats{padding:14px}.stats-heading{align-items:flex-start;flex-direction:column;gap:5px}.stats-grid{gap:7px}.stat-card{padding:11px 10px;min-height:72px}.stat-card-top{font-size:9px}.preview-badge{font-size:7px}.stat-value{font-size:18px}.market-table-heading h2{font-size:25px}}
 </style>

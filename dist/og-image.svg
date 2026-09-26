@@ -1,12 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-<title id="title">Kovrane | Robinhood Chain</title><desc id="desc">Explore Stock Token Income and Upside. Keep a what-if journal.</desc>
-<rect width="1200" height="630" fill="#080b0f"/>
-<polygon points="60,56 73.8,56 73.8,116 60,116" fill="#b7ff59"/>
-<polygon points="78.0,84.8 103.19999999999999,56 120,56 93.6,85.4 120,116 102.0,116" fill="#b7ff59"/>
-<text x="143" y="100" fill="#b7ff59" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" text-anchor="start">KOVRANE</text>
-<text x="56" y="249" fill="#f2f5ed" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">TWO VIEWS.</text>
-<text x="56" y="341" fill="#b7ff59" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">ONE MARKET.</text>
-<text x="61" y="430" fill="#f2f5ed" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start">Stock Token / Income + Upside</text>
-<text x="61" y="478" fill="#9aa7a5" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" text-anchor="start">What-if calculator + local journal</text>
-<text x="61" y="575" fill="#9aa7a5" font-family="Consolas, monospace" font-size="18" font-weight="400" text-anchor="start">ROBINHOOD CHAIN / PRODUCT PREVIEW</text>
+<title id="title">Scenovia | Robinhood Chain</title><desc id="desc">See the move. Test the path. Consumer crypto market app preview.</desc>
+<rect width="1200" height="630" fill="#0b1016"/>
+<defs>
+  <linearGradient id="badge" x1="56" y1="52" x2="120" y2="122" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#122b33"/><stop offset=".55" stop-color="#11645e"/><stop offset="1" stop-color="#36c99c"/></linearGradient>
+  <linearGradient id="mark" x1="73" y1="73" x2="106" y2="108" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ecfff7"/><stop offset="1" stop-color="#9ef6d2"/></linearGradient>
+  <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(110 65) rotate(135) scale(50)"><stop stop-color="#a4ffe0" stop-opacity=".24"/><stop offset="1" stop-color="#a4ffe0" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="56" y="52" width="64" height="64" rx="18" fill="url(#badge)"/>
+<rect x="56" y="52" width="64" height="64" rx="18" fill="url(#glow)"/>
+<rect x="57.5" y="53.5" width="61" height="61" rx="17" fill="none" stroke="#b5ffe3" stroke-opacity=".3"/>
+<path d="M101 69H82.8c-4.5 0-7.7 2.6-7.7 6.4 0 3.2 2.3 5.4 6.7 6.3l14.3 3c3.7.8 5.7 2.7 5.7 5.6 0 4-3.5 6.7-8.4 6.7H77" fill="none" stroke="url(#mark)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="105.5" cy="68" r="2" fill="#d8fff0" fill-opacity=".75"/>
+<text x="143" y="100" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" text-anchor="start">SCENOVIA</text>
+<text x="56" y="249" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">SEE THE MOVE.</text>
+<text x="56" y="341" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">TEST THE PATH.</text>
+<text x="61" y="430" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start">Markets / payoff model / local journal</text>
+<text x="61" y="478" fill="#9ca9b8" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" text-anchor="start">User-priced scenarios, no live quote</text>
+<text x="61" y="575" fill="#9ca9b8" font-family="Consolas, monospace" font-size="18" font-weight="400" text-anchor="start">ROBINHOOD CHAIN / MARKET APP PREVIEW</text>
 </svg>

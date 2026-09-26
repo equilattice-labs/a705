@@ -3,7 +3,6 @@ import { computed, nextTick, onMounted, ref } from 'vue'
 import { ArrowDownToLine, ArrowUpRight, Check, ChevronRight, FlaskConical, ShieldCheck } from 'lucide-vue-next'
 import { storageKeys } from '../brand.js'
 import { DEFAULT_BASE_PRICE, MAX_NOTE_LENGTH, calculateScenario, createJournalRecord, restoreJournalRecord, validateScenarioInputs } from '../scenario.js'
-import { solanaConfig } from '../solana.js'
 
 defineProps({ wallet: { type: String, default: '' } })
 
@@ -20,6 +19,7 @@ const feedback = ref('')
 const storageNotice = ref('')
 const isSaved = ref(false)
 const stages = ['Inputs recorded', 'Assumption reviewed', 'Limits reviewed', 'Review complete']
+const legacyJournalKeys = ['Kovrane:journal:v1', 'kinovra:journal:v1']
 const input = computed(() => ({ amount: amount.value, basePrice: basePrice.value, movePct: movePct.value, note: note.value }))
 const result = computed(() => record.value ? calculateScenario(record.value) : null)
 const remaining = computed(() => MAX_NOTE_LENGTH - note.value.length)
@@ -47,7 +47,7 @@ async function review() {
     root.value?.querySelector('[aria-invalid="true"]')?.focus()
     return
   }
-  record.value = createJournalRecord(validation.value, { id: `LM-${crypto.randomUUID()}`, createdAt: new Date().toISOString() })
+  record.value = createJournalRecord(validation.value, { id: `SC-${crypto.randomUUID()}`, createdAt: new Date().toISOString() })
   isSaved.value = false
   step.value = 'review'
   await focusHeading()
@@ -87,7 +87,7 @@ async function removeJournal() {
   feedback.value = ''
   try {
     // Remove the older namespace too, so a deleted record cannot reappear on reload.
-    localStorage.removeItem('kinovra:journal:v1')
+    legacyJournalKeys.forEach(key => localStorage.removeItem(key))
     localStorage.removeItem(storageKeys.journal)
   } catch {
     storageNotice.value = 'The browser could not delete your saved journal. Your current record is still available; try again or export a copy.'
@@ -122,7 +122,7 @@ function downloadJournal() {
   const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }))
   const link = document.createElement('a')
   link.href = url
-  link.download = `lumquira-${record.value.id.toLowerCase()}.json`
+    link.download = `scenovia-${record.value.id.toLowerCase()}.json`
   link.click()
   URL.revokeObjectURL(url)
   feedback.value = 'Journal export prepared.'
@@ -131,7 +131,8 @@ function downloadJournal() {
 onMounted(() => {
   try {
     const activeRaw = localStorage.getItem(storageKeys.journal)
-    const legacyRaw = activeRaw ? null : localStorage.getItem('kinovra:journal:v1')
+    const legacyKey = legacyJournalKeys.find(key => localStorage.getItem(key))
+    const legacyRaw = legacyKey ? localStorage.getItem(legacyKey) : null
     const raw = activeRaw || legacyRaw
     if (!raw) return
     const restored = restoreJournalRecord(JSON.parse(raw))
@@ -168,8 +169,8 @@ defineExpose({ focusHeading })
       <form class="sl-card sl-form" @submit.prevent="review">
         <div class="sl-card-heading"><div><span class="sl-step">01 / INPUTS</span><h2>Set your assumption.</h2></div><span class="sl-badge">LOCAL ONLY</span></div>
         <div class="sl-field-pair">
-          <div><label for="amount">Amount <span>LMQR</span></label><input id="amount" v-model="amount" inputmode="decimal" :aria-invalid="Boolean(errors.amount)" :aria-describedby="errors.amount ? 'amount-error' : undefined" /><p v-if="errors.amount" id="amount-error" class="sl-error">{{ errors.amount }}</p></div>
-          <div><label for="base-price">Reference price <span>USD / LMQR</span></label><input id="base-price" v-model="basePrice" inputmode="decimal" :aria-invalid="Boolean(errors.basePrice)" :aria-describedby="errors.basePrice ? 'price-error' : undefined" /><p v-if="errors.basePrice" id="price-error" class="sl-error">{{ errors.basePrice }}</p></div>
+          <div><label for="amount">Amount <span>SCNV units</span></label><input id="amount" v-model="amount" inputmode="decimal" :aria-invalid="Boolean(errors.amount)" :aria-describedby="errors.amount ? 'amount-error' : undefined" /><p v-if="errors.amount" id="amount-error" class="sl-error">{{ errors.amount }}</p></div>
+          <div><label for="base-price">Reference price <span>USD / SCNV</span></label><input id="base-price" v-model="basePrice" inputmode="decimal" :aria-invalid="Boolean(errors.basePrice)" :aria-describedby="errors.basePrice ? 'price-error' : undefined" /><p v-if="errors.basePrice" id="price-error" class="sl-error">{{ errors.basePrice }}</p></div>
         </div>
         <label for="move">Hypothetical move <output>{{ movePct }}%</output></label>
         <input id="move" v-model="movePct" class="sl-range" type="range" min="-90" max="100" step="0.5" />
@@ -178,12 +179,12 @@ defineExpose({ focusHeading })
         <label for="note">Thesis note <span>OPTIONAL</span></label><textarea id="note" v-model="note" :maxlength="MAX_NOTE_LENGTH" :aria-invalid="Boolean(errors.note)" :aria-describedby="errors.note ? 'note-error' : 'note-count'" placeholder="What would make this move plausible?"></textarea><p v-if="errors.note" id="note-error" class="sl-error">{{ errors.note }}</p><p id="note-count" class="sl-char-count">{{ remaining }} characters remaining</p>
         <button class="sl-button sl-primary sl-wide" type="submit">Review scenario <ArrowUpRight :size="17" /></button>
       </form>
-      <aside class="sl-card sl-aside"><div class="sl-aside-icon"><ShieldCheck :size="27" /></div><span class="sl-step">A LITTLE SPACE TO THINK</span><h2>Your idea.<br />Your assumptions.</h2><p>This is a private what-if calculator. Reference prices are entered by you; they are not live quotes or execution prices.</p><dl><div><dt>Asset</dt><dd>KVRN / USD</dd></div><div><dt>Network</dt><dd>Robinhood Chain · testnet</dd></div><div><dt>Wallet</dt><dd>{{ wallet ? 'Connected' : 'Optional' }}</dd></div><div><dt>Storage</dt><dd>This browser only</dd></div></dl><p class="sl-aside-foot">Fees, slippage and taxes are excluded. No transaction is created.</p></aside>
+      <aside class="sl-card sl-aside"><div class="sl-aside-icon"><ShieldCheck :size="27" /></div><span class="sl-step">A LITTLE SPACE TO THINK</span><h2>Your idea.<br />Your assumptions.</h2><p>This is a private what-if calculator. Reference prices are entered by you; they are not live quotes or execution prices.</p><dl><div><dt>Asset</dt><dd>SCNV / USD</dd></div><div><dt>Network</dt><dd>Robinhood Chain · preview</dd></div><div><dt>Wallet</dt><dd>Not required</dd></div><div><dt>Storage</dt><dd>This browser only</dd></div></dl><p class="sl-aside-foot">Fees, slippage and taxes are excluded. No transaction is created.</p></aside>
     </div>
 
     <div v-else-if="step === 'review'" class="sl-card sl-review">
       <div class="sl-card-heading"><div><span class="sl-step">02 / REVIEW</span><h2>Check the numbers.</h2></div><ShieldCheck :size="26" /></div><p class="sl-muted">Calculated from your assumptions.</p>
-      <dl class="sl-review-rows"><div><dt>Reference amount</dt><dd>{{ Number(record.amount).toLocaleString() }} LMQR</dd></div><div><dt>Reference price</dt><dd>{{ currency(result.basePrice, 4) }}</dd></div><div><dt>Reference value</dt><dd>{{ currency(result.baselineValue, 4) }}</dd></div><div><dt>Scenario move</dt><dd :class="record.movePct >= 0 ? 'sl-positive' : 'sl-negative'">{{ percent(record.movePct) }}</dd></div><div><dt>Scenario value</dt><dd>{{ currency(result.scenarioValue, 4) }}</dd></div></dl>
+      <dl class="sl-review-rows"><div><dt>Reference amount</dt><dd>{{ Number(record.amount).toLocaleString() }} SCNV</dd></div><div><dt>Reference price</dt><dd>{{ currency(result.basePrice, 4) }}</dd></div><div><dt>Reference value</dt><dd>{{ currency(result.baselineValue, 4) }}</dd></div><div><dt>Scenario move</dt><dd :class="record.movePct >= 0 ? 'sl-positive' : 'sl-negative'">{{ percent(record.movePct) }}</dd></div><div><dt>Scenario value</dt><dd>{{ currency(result.scenarioValue, 4) }}</dd></div></dl>
       <div class="sl-delta"><span>Change in reference value</span><strong :class="result.deltaUsd >= 0 ? 'sl-positive' : 'sl-negative'">{{ result.deltaUsd >= 0 ? '+' : '' }}{{ currency(result.deltaUsd, 4) }}</strong></div>
       <div class="sl-actions"><button class="sl-button sl-primary" @click="save">Save to journal <Check :size="17" /></button><button class="sl-button sl-secondary" @click="edit">Edit inputs</button></div>
     </div>
@@ -191,7 +192,7 @@ defineExpose({ focusHeading })
     <div v-else class="sl-card sl-journal">
       <div class="sl-card-heading"><div><span class="sl-step">03 / JOURNAL</span><h2>Your local record.</h2></div><span class="sl-badge" :class="{ 'sl-unsaved': !isSaved }"><Check v-if="isSaved" :size="13" />{{ isSaved ? 'SAVED' : 'NOT SAVED' }}</span></div>
       <div class="sl-stage-track" aria-label="Journal review stages"><button v-for="(label, i) in stages" :key="label" :class="{ current: record.stage === i, done: record.stage > i }" :aria-current="record.stage === i ? 'step' : undefined" @click="changeStage(i)"><span class="sl-stage-number"><Check v-if="record.stage > i" :size="13" /><template v-else>{{ i + 1 }}</template></span><span>{{ label }}</span><ChevronRight v-if="i < stages.length - 1" class="sl-stage-arrow" :size="14" /></button></div>
-      <dl class="sl-summary"><div><dt>Amount</dt><dd>{{ Number(record.amount).toLocaleString() }} LMQR</dd></div><div><dt>Reference price</dt><dd>{{ currency(record.basePrice, 4) }}</dd></div><div><dt>Move</dt><dd :class="record.movePct >= 0 ? 'sl-positive' : 'sl-negative'">{{ percent(record.movePct) }}</dd></div><div><dt>Scenario value</dt><dd>{{ currency(result.scenarioValue, 4) }}</dd></div></dl>
+      <dl class="sl-summary"><div><dt>Amount</dt><dd>{{ Number(record.amount).toLocaleString() }} SCNV</dd></div><div><dt>Reference price</dt><dd>{{ currency(record.basePrice, 4) }}</dd></div><div><dt>Move</dt><dd :class="record.movePct >= 0 ? 'sl-positive' : 'sl-negative'">{{ percent(record.movePct) }}</dd></div><div><dt>Scenario value</dt><dd>{{ currency(result.scenarioValue, 4) }}</dd></div></dl>
       <blockquote v-if="record.note">{{ record.note }}</blockquote><p class="sl-muted">Created {{ new Date(record.createdAt).toLocaleString() }}. {{ isSaved ? 'Stored only in this browser.' : 'Export a copy to keep this record.' }}</p>
       <div class="sl-actions"><button class="sl-button sl-primary" @click="downloadJournal">Export JSON <ArrowDownToLine :size="16" /></button><button v-if="!isSaved" class="sl-button sl-secondary" @click="persist">Retry saving</button><button class="sl-button sl-secondary" @click="edit">Edit</button><button class="sl-delete" @click="removeJournal">Delete local record</button></div>
     </div>

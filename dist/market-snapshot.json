@@ -1,21 +1,18 @@
 {
   "schemaVersion": 1,
-  "status": "no-live-feed",
-  "network": "solana-testnet",
+  "status": "preview",
+  "network": "robinhood-chain",
   "token": {
-    "symbol": "LMQR",
-    "status": "testnet-mint-deployed",
-    "mints": {
-      "devnet": null,
-      "testnet": "EtzFpGbJ4ex4bsaYvviQGWA2NEEa8HMz3oxdxaES5Q7j"
-    },
+    "symbol": "SCNV",
+    "status": "proposed-unissued",
+    "contractAddress": null,
     "quote": null
   },
   "watchlist": [
-    { "symbol": "SOL", "quote": null },
-    { "symbol": "JUP", "quote": null },
-    { "symbol": "BONK", "quote": null },
-    { "symbol": "WIF", "quote": null }
+    { "symbol": "ETHX", "quote": null, "priceStatus": "illustrative" },
+    { "symbol": "BTCX", "quote": null, "priceStatus": "illustrative" },
+    { "symbol": "SOLX", "quote": null, "priceStatus": "illustrative" },
+    { "symbol": "USDCX", "quote": null, "priceStatus": "illustrative" }
   ],
-  "note": "No market data provider is configured. Scenario prices are user-entered assumptions, not live quotes."
+  "note": "No market data provider or Robinhood Chain integration is configured. Visible prices and markets are local model examples, not live listings."
 }
