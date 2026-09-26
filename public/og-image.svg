@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">Kovrane | Robinhood Chain</title><desc id="desc">Explore Stock Token Income and Upside. Keep a what-if journal.</desc>
+<rect width="1200" height="630" fill="#080b0f"/>
+<polygon points="60,56 73.8,56 73.8,116 60,116" fill="#b7ff59"/>
+<polygon points="78.0,84.8 103.19999999999999,56 120,56 93.6,85.4 120,116 102.0,116" fill="#b7ff59"/>
+<text x="143" y="100" fill="#b7ff59" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" text-anchor="start">KOVRANE</text>
+<text x="56" y="249" fill="#f2f5ed" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">TWO VIEWS.</text>
+<text x="56" y="341" fill="#b7ff59" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">ONE MARKET.</text>
+<text x="61" y="430" fill="#f2f5ed" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start">Stock Token / Income + Upside</text>
+<text x="61" y="478" fill="#9aa7a5" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" text-anchor="start">What-if calculator + local journal</text>
+<text x="61" y="575" fill="#9aa7a5" font-family="Consolas, monospace" font-size="18" font-weight="400" text-anchor="start">ROBINHOOD CHAIN / PRODUCT PREVIEW</text>
+</svg>

@@ -31,7 +31,7 @@ const allRows = assets.map(asset => ({
 
 const rows = computed(() => {
   const needle = props.query.trim().toLocaleLowerCase()
-  const source = props.compact ? allRows.slice(1) : allRows
+  const source = allRows
   if (!needle) return source
   return source.filter(asset => `${asset.symbol} ${asset.name}`.toLocaleLowerCase().includes(needle))
 })
@@ -58,16 +58,16 @@ function resetSearch() {
 </script>
 
 <template>
-  <section class="market-table-section" aria-labelledby="market-table-title">
-    <div class="market-table-heading">
+  <section class="market-table-section" :class="{ 'compact-market-table': compact }" :aria-label="compact ? 'Market quote table' : undefined" :aria-labelledby="!compact ? 'market-table-title' : undefined">
+    <div v-if="!compact" class="market-table-heading">
       <div>
         <p class="market-eyebrow">Markets</p>
-        <h2 id="market-table-title">Live markets</h2>
+        <h2 id="market-table-title">Market quotes</h2>
       </div>
       <p class="market-feed-note"><span class="feed-dot" aria-hidden="true"></span>Example quotes · no live feed</p>
     </div>
 
-    <div class="on-chain-stats" aria-label="On chain stats preview">
+    <div v-if="!compact" class="on-chain-stats" aria-label="On chain stats preview">
       <div class="stats-heading"><span>On chain stats</span><span class="stats-note">Interface preview · no live feed</span></div>
       <div class="stats-grid">
         <article v-for="stat in stats" :key="stat.label" class="stat-card">
@@ -79,7 +79,7 @@ function resetSearch() {
     </div>
 
     <div class="market-table-toolbar">
-      <p class="table-intro">Example quotes · cap +5% · indicative model values per unit</p>
+      <p class="table-intro">Cap +5% · 30-day epoch · model values per unit</p>
       <p v-if="props.query.trim()" class="search-state" aria-live="polite">{{ rows.length }} result{{ rows.length === 1 ? '' : 's' }} for “{{ props.query.trim() }}”</p>
     </div>
 

@@ -1,12 +1,12 @@
 export const brand = Object.freeze({
-  name: 'Kovrane',
-  slug: 'kovrane',
-  asset: 'KVRN',
+  name: 'Kestovra',
+  slug: 'kestovra',
+  asset: 'KSTR',
   network: 'Robinhood Chain',
-  domain: 'kovrane.xyz',
-  handle: '@Kovrane',
+  domain: 'kestovra.xyz',
+  handle: '@Kestovra',
   tagline: 'See the move. Keep the proof.',
   supportingLine: 'A Robinhood Chain market desk for measured moves.',
 })
 
-export const storageKeys = Object.freeze({ journal: 'kovrane:journal:v1' })
+export const storageKeys = Object.freeze({ journal: 'kestovra:journal:v1' })
