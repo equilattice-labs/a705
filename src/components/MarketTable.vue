@@ -19,9 +19,9 @@ const money = value => new Intl.NumberFormat('en-US', {
 }).format(value)
 
 const assets = Object.freeze([
-  { symbol: 'ETHX', name: 'Ethereum', spot: 250, initials: 'E' },
-  { symbol: 'BTCX', name: 'Bitcoin', spot: 130, initials: 'B' },
-  { symbol: 'RBNX', name: 'Robinhood', spot: 430, initials: 'R' },
+  { symbol: 'SOLX', name: 'Solana', spot: 182, initials: 'S' },
+  { symbol: 'JUPX', name: 'Jupiter', spot: 1.12, initials: 'J' },
+  { symbol: 'BONKX', name: 'Bonk', spot: 0.000021, initials: 'B' },
   { symbol: 'USDCX', name: 'USD Coin', spot: 1, initials: '$' },
 ])
 

@@ -5,6 +5,7 @@ import HomePage from './components/HomePage.vue'
 import MarketWorkspace from './components/MarketWorkspace.vue'
 import DocsPage from './components/DocsPage.vue'
 import ScenarioLab from './components/ScenarioLab.vue'
+import SolanaWalletButton from './components/SolanaWalletButton.vue'
 import { brand } from './brand.js'
 
 const pathname = ref(location.pathname.replace(/\/$/, '') || '/')
@@ -73,6 +74,7 @@ onBeforeUnmount(() => {
         <a v-for="[label, to] in nav" :key="to" :href="to" :aria-current="pathname === to ? 'page' : undefined" @click.prevent="navigate(to)">{{ label }}</a>
       </nav>
       <div class="header-actions">
+        <SolanaWalletButton class="header-wallet" />
         <span class="network-pill header-network"><i></i>{{ brand.network }} <span>Preview</span></span>
         <span v-if="appPage || pathname === '/signal'" class="preview-mode">Local preview</span>
         <a v-else href="/app/markets" class="button primary header-launch" @click.prevent="navigate('/app/markets')">Browse markets <ArrowUpRight :size="15" /></a>

@@ -24,8 +24,8 @@ const sections = [
 ]
 
 const steps = [
-  ['01', 'Deposit a Stock Token', 'Into a series: one Stock Token, one epoch, one cap. The vault holds it.'],
-  ['02', 'Split into Income + Upside', 'One Income position and one Upside position per unit, as two ERC-20s.'],
+  ['01', 'Deposit an SPL market unit', 'Into a series: one SPL unit, one epoch, one cap. The vault holds it.'],
+  ['02', 'Split into Income + Upside', 'One Income position and one Upside position per unit, represented by Solana program accounts.'],
   ['03', 'Auction Upside', "Subscribers' Upside is sold in a descending-clock auction; the proceeds are their premium."],
   ['04', 'Review the epoch', 'Both positions are shown as model examples. This preview does not run a venue or route a trade.'],
   ['05', 'Settle or recompose', 'At settlement Upside takes the amount above K, Income the rest. Or merge Income + Upside back, any time, free.'],
@@ -37,7 +37,7 @@ const legalTitle = computed(() => ({ '/risk': 'Risk notice.', '/terms': 'Terms o
 const legalBody = computed(() => ({
   '/risk': [
     'This local interface is an educational scenario lab. It does not create, sell, or settle a financial product.',
-    'Income positions retain downside exposure to the underlying Stock Token. Upside can expire without a payoff and its maximum loss is the premium paid. Verify the underlying, oracle, liquidity, and legal status independently before relying on any model output.',
+    'Income positions retain downside exposure to the underlying SPL market unit. Upside can expire without a payoff and its maximum loss is the premium paid. Verify the underlying, oracle, liquidity, and legal status independently before relying on any model output.',
   ],
   '/terms': [
     'This website is a local product demonstration. Buttons, prices, markets, wallets, and contract references are illustrative unless a connected production integration says otherwise.',
@@ -72,7 +72,7 @@ function go(to) { emit('navigate', to) }
     <div class="container docs-hero">
       <p class="docs-kicker">Docs</p>
       <h1 tabindex="-1">How {{ brand.name }} works.</h1>
-      <p class="docs-lead">Deposit a Stock Token into a series. Receive one Income position and one Upside position per unit. At settlement, Upside pays the amount of one unit's value above the cap price K, in Stock Tokens; its maximum loss is the price paid for it. Income keeps everything up to K plus whatever the auction paid for Upside. Income is not protected: if the Stock Token falls, Income falls with it. One Income position plus one Upside position of the same series merge back into one Stock Token at any time, free.</p>
+      <p class="docs-lead">Deposit an SPL market unit into a series. Receive one Income position and one Upside position per unit. At settlement, Upside pays the amount of one unit's value above the cap price K, in the market unit; its maximum loss is the price paid for it. Income keeps everything up to K plus whatever the auction paid for Upside. Income is not protected: if the SPL unit falls, Income falls with it. One Income position plus one Upside position of the same series merge back into one SPL unit at any time, free.</p>
       <p class="demo-note">{{ brand.network }} interface preview. The scenario lab and contract references are read-only; this build has no trade execution or live oracle integration.</p>
     </div>
 
@@ -92,8 +92,8 @@ function go(to) { emit('navigate', to) }
             </li>
           </ol>
           <div class="role-grid">
-            <article><p class="role-label income">Income</p><h3>Keeps the Stock Token up to K.</h3><p>Income receives the auction proceeds. It is not protected: if the Stock Token falls, Income falls with it.</p></article>
-            <article><p class="role-label upside">Upside</p><h3>Receives value above K.</h3><p>Upside is prefunded by the Stock Tokens in the vault. No borrowing, funding rate, or liquidation engine. Maximum loss is the price paid.</p></article>
+            <article><p class="role-label income">Income</p><h3>Keeps the SPL unit up to K.</h3><p>Income receives the auction proceeds. It is not protected: if the SPL unit falls, Income falls with it.</p></article>
+            <article><p class="role-label upside">Upside</p><h3>Receives value above K.</h3><p>Upside is prefunded by the SPL market units in the vault. No borrowing, funding rate, or liquidation engine. Maximum loss is the price paid.</p></article>
           </div>
         </section>
 
@@ -113,9 +113,9 @@ function go(to) { emit('navigate', to) }
         </section>
 
         <section id="oracle" class="docs-section prose-section"><p class="section-label">Oracle</p><h2>Settlement starts with a price.</h2><p>A production series would use a defined oracle method, market session, and settlement window. The reference design uses a 30-minute average of the Chainlink feed inside the regular session. This interface displays the rule as documentation only.</p></section>
-        <section id="fees" class="docs-section prose-section"><p class="section-label">Fees</p><h2>Activity first. Revenue follows.</h2><p>The reference model has one fee: 5% of gross auction proceeds, in USDG. Split, merge, and settlement claims are free. No live fee is charged by this demo.</p></section>
-        <section id="listing" class="docs-section prose-section"><p class="section-label">Listing</p><h2>Familiar assets, defined exposure.</h2><p>A candidate Stock Token needs an oracle feed and a USDG liquidity path. Listing rules, custody, jurisdiction, and permissions must be verified before a production launch.</p></section>
-        <section id="risks" class="docs-section prose-section"><p class="section-label">Risks</p><h2>Premium is income, not a shield.</h2><p>Income still bears downside in the Stock Token. Upside may lose the premium paid. Oracle, liquidity, smart contract, counterparty, market, and regulatory risks remain outside this interface.</p></section>
+        <section id="fees" class="docs-section prose-section"><p class="section-label">Fees</p><h2>Activity first. Revenue follows.</h2><p>The reference model has one fee: 5% of gross auction proceeds, in USDC. Split, merge, and settlement claims are free. No live fee is charged by this demo.</p></section>
+        <section id="listing" class="docs-section prose-section"><p class="section-label">Listing</p><h2>Familiar assets, defined exposure.</h2><p>A candidate SPL market unit needs a verified price feed and a USDC liquidity path. Listing rules, custody, jurisdiction, and permissions must be verified before a production launch.</p></section>
+        <section id="risks" class="docs-section prose-section"><p class="section-label">Risks</p><h2>Premium is income, not a shield.</h2><p>Income still bears downside in the SPL market unit. Upside may lose the premium paid. Oracle, liquidity, smart contract, counterparty, market, and regulatory risks remain outside this interface.</p></section>
         <section id="token" class="docs-section prose-section"><p class="section-label">Token</p><h2>Positions are distinct from {{ brand.asset }}.</h2><p>Income and Upside are positions created from market units. The proposed {{ brand.asset }} symbol is separate from those positions and has not been issued. Any supply, utility, or launch statement shown here is a product concept, not a promise of production availability.</p></section>
         <section id="documents" class="docs-section prose-section"><p class="section-label">Documents</p><h2>Read the model with the interface.</h2><p>Use the concept cards, payoff explorer, and local scenario lab together. External protocol documentation is linked only where it is public and relevant.</p><a class="text-link" href="/signal" @click.prevent="go('/signal')">Open local scenario lab <ArrowRight :size="14" /></a></section>
         <section id="terms" class="docs-section prose-section"><p class="section-label">Terms</p><h2>Terms for this local preview.</h2><p>This page is a readable product notice for the interface. It does not replace production terms or create a contractual relationship.</p><a class="text-link" href="/terms" @click.prevent="go('/terms')">Read the demo terms <ExternalLink :size="13" /></a></section>

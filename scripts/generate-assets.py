@@ -1,4 +1,4 @@
-"""Rebuild Lumquira assets from original, deterministic vector scenes.
+"""Rebuild Openyra assets from original, deterministic vector scenes.
 
 Run: python scripts/generate-assets.py (requires Pillow).
 SVG and raster exports share geometry, copy and colors. No remote assets or APIs
@@ -106,10 +106,10 @@ def research_sheet(s, x, y, w, h):
     s.box(x+16,y+18,w,h,PALE,22)
     s.box(x,y,w,h,WHITE,22,LINE,2)
     s.circle(x+35,y+38,5,CORAL)
-    s.text(x+53,y+44,"LMQR / PROPOSED TOKEN",17,GREEN,"mono")
+    s.text(x+53,y+44,"OPNY / PROPOSED TOKEN",17,GREEN,"mono")
     s.line([(x+26,y+70),(x+w-26,y+70)],LINE,1)
-    s.text(x+30,y+126,"See the move.",39,GREEN,"serif")
-    s.text(x+30,y+173,"Test your assumptions.",29,GREEN,"serif")
+    s.text(x+30,y+126,"Read the move.",39,GREEN,"serif")
+    s.text(x+30,y+173,"Build with intent.",29,GREEN,"serif")
     s.grid(x+30,y+210,w-60,h-310,50)
     pts=[(0,.66),(.1,.58),(.18,.67),(.3,.44),(.4,.50),(.5,.24),(.62,.35),(.74,.49),(.87,.25),(1,.30)]
     s.line([(x+38+a*(w-76),y+226+b*(h-335)) for a,b in pts],GREEN,5)
@@ -119,17 +119,17 @@ def research_sheet(s, x, y, w, h):
 
 
 def hero():
-    s=Scene(2000,1119,"Lumquira market terminal","Original coin pulse mark and Solana research notebook. Illustrative chart with no market forecast.")
+    s=Scene(2000,1119,"Openyra market terminal","Original token mark and Solana market notebook. Illustrative chart with no market forecast.")
     s.circle(1528,528,403,BLUE)
     s.circle(1528,528,354,None,GREEN,1.5)
     s.mark(1535,527,560,GREEN,CORAL)
     s.box(89,89,655,941,GREEN,38)
-    s.text(140,154,"L U M Q U I R A",25,PAPER,"mono")
+    s.text(140,154,"O P E N Y R A",25,PAPER,"mono")
     s.text(138,270,"A clear",84,PAPER,"serif")
     s.text(138,371,"market desk",84,PAPER,"serif")
     s.text(138,472,"for a noisy chain.",66,PAPER,"serif")
     s.line([(143,550),(216,550),(250,498),(297,600),(337,530),(365,550),(436,550)],CORAL,8)
-    s.text(140,844,"Observe. Question. Record.",27,PAPER)
+    s.text(140,844,"Read the move. Build with intent.",27,PAPER)
     s.text(140,933,"SOLANA / TESTNET MINT",19,BLUE,"mono")
     research_sheet(s,810,577,578,448)
     s.box(1640,924,218,63,CORAL,32)
@@ -138,7 +138,7 @@ def hero():
 
 
 def token():
-    s=Scene(1800,1209,"Lumquira LMQR snapshot","Original mark in a research field. A visual identity asset, not a coin or contract.")
+    s=Scene(1800,1209,"Openyra OPNY snapshot","Original mark in a research field. A visual identity asset, not a coin or contract.")
     s.grid(100,105,1600,1000,100)
     s.circle(900,553,364,BLUE)
     s.circle(900,553,312,GREEN)
@@ -151,7 +151,7 @@ def token():
 
 
 def stack():
-    s=Scene(1200,1200,"Lumquira research journal","Three offset notebook sheets for observation, assumptions and review.",BLUE)
+    s=Scene(1200,1200,"Openyra research journal","Three offset notebook sheets for observation, assumptions and review.",BLUE)
     s.box(130,160,840,864,GREEN,26)
     s.box(164,125,840,864,CORAL,26)
     s.box(203,89,840,864,PAPER,26,GREEN,2)
@@ -171,7 +171,7 @@ def stack():
 
 
 def network():
-    s=Scene(1200,1200,"Lumquira scenario sandbox","User price assumptions and a local journal, with no live market feed.",PAPER)
+    s=Scene(1200,1200,"Openyra scenario sandbox","User price assumptions and a local journal, with no live market feed.",PAPER)
     s.circle(980,162,152,BLUE)
     s.text(93,140,"THE RESEARCH LOOP",22,GREEN,"mono")
     s.text(89,229,"Test your",70,GREEN,"serif")
@@ -192,45 +192,45 @@ def network():
 def social_frame(title, description, index):
     s=Scene(1600,900,title,description)
     s.mark(97,70,68)
-    s.text(154,82,"Lumquira",37,GREEN,"bold")
+    s.text(154,82,"Openyra",37,GREEN,"bold")
     s.text(1531,79,index,15,MUTED,"mono","right")
     s.line([(65,132),(1535,132)],LINE,1.5)
     s.line([(65,803),(1535,803)],LINE,1.5)
     s.text(65,851,"INDEPENDENT SOLANA RESEARCH / LOCAL PREVIEW",15,MUTED,"mono")
-    s.text(1535,851,"See the move. Test your assumptions.",19,GREEN,"serif","right")
+    s.text(1535,851,"Read the move. Build with intent.",19,GREEN,"serif","right")
     return s
 
 
 def social_assets():
-    logo=Scene(400,400,"Lumquira profile mark","Original coin pulse mark in a Solana lime field.",GREEN)
+    logo=Scene(400,400,"Openyra profile mark","Original token mark in a Solana lime field.",GREEN)
     logo.mark(200,200,302,PAPER,CORAL)
-    banner=Scene(1500,500,"Lumquira research banner","See the move. Test your assumptions. Independent Solana research.",PAPER)
+    banner=Scene(1500,500,"Openyra research banner","Read the move. Build with intent. Independent Solana research.",PAPER)
     banner.circle(1310,235,280,BLUE)
     banner.mark(1284,247,300,GREEN,CORAL)
     banner.mark(91,85,65)
-    banner.text(147,101,"Lumquira",39,GREEN,"bold")
-    banner.text(63,228,"See the move.",75,GREEN,"serif")
-    banner.text(63,318,"Test your assumptions.",70,GREEN,"serif")
+    banner.text(147,101,"Openyra",39,GREEN,"bold")
+    banner.text(63,228,"Read the move.",75,GREEN,"serif")
+    banner.text(63,318,"Build with intent.",70,GREEN,"serif")
     banner.text(65,405,"Read the signal, keep the proof.",25,MUTED)
     banner.text(65,462,"INDEPENDENT SOLANA RESEARCH",15,GREEN,"mono")
 
-    one=social_frame("Lumquira: Testnet mint, no live quote","The LMQR testnet mint is deployed; no verified market feed is connected.","01 / SNAPSHOT")
-    one.text(63,266,"See the move.",85,GREEN,"serif")
-    one.text(67,333,"Testnet mint deployed; quote feed offline.",29,MUTED)
+    one=social_frame("Openyra: Solana preview, no live quote","The OPNY preview is illustrative; no verified market feed is connected.","01 / LAUNCH")
+    one.text(63,266,"Read the move.",85,GREEN,"serif")
+    one.text(67,333,"CA not published; quote feed offline.",29,MUTED)
     one.box(65,413,1470,310,GREEN,24)
-    one.text(106,468,"LMQR / NO LIVE QUOTE",21,PAPER,"mono")
-    for x,head,body in [(106,"Mint","Testnet verified"),(584,"Feed","Not wired"),(1062,"Scenario","User priced")]:
+    one.text(106,468,"OPNY / NO LIVE QUOTE",21,PAPER,"mono")
+    for x,head,body in [(106,"CA","Unpublished"),(584,"Feed","Not wired"),(1062,"Scenario","User priced")]:
         one.text(x,561,head,49,PAPER,"serif")
         one.text(x,619,body,26,BLUE)
         if x>106: one.line([(x-32,505),(x-32,657)],"#547362",1.5)
     one.text(108,688,"CONTEXT BEFORE CONCLUSIONS",15,BLUE,"mono")
 
-    two=social_frame("Lumquira: Test your assumptions","Scenario sandbox inputs are user assumptions, not forecasts or executable orders.","02 / SCENARIO")
-    two.text(63,267,"Test your assumptions.",82,GREEN,"serif")
+    two=social_frame("Openyra Build 01: Payoff explorer","Scenario sandbox inputs are user assumptions, not forecasts or executable orders.","02 / BUILD 01")
+    two.text(63,267,"See both sides.",82,GREEN,"serif")
     two.text(67,334,"Your price, amount and move are assumptions only.",29,MUTED)
     two.box(65,412,945,308,BLUE,24)
-    two.text(104,468,"SCENARIO SANDBOX",18,GREEN,"mono")
-    for x,label,value in [(105,"REFERENCE PRICE","USD"),(556,"AMOUNT + MOVE","LMQR / %")]:
+    two.text(104,468,"PAYOFF EXPLORER",18,GREEN,"mono")
+    for x,label,value in [(105,"REFERENCE PRICE","USD"),(556,"AMOUNT + MOVE","OPNY / %")]:
         two.text(x,526,label,16,GREEN,"mono")
         two.box(x,554,410,98,PAPER,12)
         two.line([(x+28,610),(x+190,610)],LINE,2)
@@ -241,7 +241,7 @@ def social_assets():
     two.text(1075,612,"Not a prediction.",45,GREEN,"serif")
     two.text(1079,677,"No orders. No promised outcome.",20,GREEN)
 
-    three=social_frame("Lumquira: Write the reason","A local research journal with the user's observation, assumptions and review checklist.","03 / JOURNAL")
+    three=social_frame("Openyra Build 02: What-if journal","A local research journal with the user's observation, assumptions and review checklist.","03 / BUILD 02")
     three.text(63,267,"Write the reason.",85,GREEN,"serif")
     three.text(67,334,"Keep a record of what you saw and assumed.",29,MUTED)
     three.box(65,411,1470,310,WHITE,24,LINE,1.5)
@@ -253,17 +253,7 @@ def social_assets():
         three.text(x+47,625,label,24,GREEN)
     three.line([(109,668),(1478,668)],LINE,2)
 
-    four=social_frame("Lumquira: Context, assumptions, notes","The workflow separates public observations, user scenarios and local journal notes.","04 / METHOD")
-    four.text(63,258,"Clear inputs.",81,GREEN,"serif")
-    four.text(63,355,"Useful questions.",81,GREEN,"serif")
-    data=[(65,GREEN,PAPER,"01","WATCHLIST","Market symbols","No quote feed."),(567,BLUE,GREEN,"02","ASSUMED","Your scenario","Quantity and price change."),(1069,CORAL,GREEN,"03","RECORDED","Your journal","Notes and review checklist.")]
-    for x,fill,ink,no,label,heading,body in data:
-        four.box(x,421,466,300,fill,24)
-        four.text(x+31,466,no,20,ink,"mono")
-        four.text(x+31,522,label,16,ink,"mono")
-        four.text(x+29,584,heading,36,ink,"serif")
-        four.text(x+31,644,body,22,ink)
-    return {"twitter-logo":logo,"twitter-banner":banner,"post-01-signal":one,"post-02-risk":two,"post-03-journal":three,"post-04-research-preview":four}
+    return {"twitter-logo":logo,"twitter-banner":banner,"post-01-signal":one,"post-02-build-split":two,"post-03-build-journal":three}
 
 
 def generate():
@@ -276,10 +266,10 @@ def generate():
     public.mkdir(exist_ok=True)
     twitter.mkdir(exist_ok=True)
 
-    favicon=Scene(64,64,"Lumquira","Original coin pulse mark.",GREEN)
+    favicon=Scene(64,64,"Openyra","Original token mark.",GREEN)
     favicon.mark(32,32,47,PAPER,CORAL)
     favicon.save(public/"icon.svg",vector=True)
-    apple=Scene(180,180,"Lumquira touch icon","Original coin pulse mark.",GREEN)
+    apple=Scene(180,180,"Openyra touch icon","Original token mark.",GREEN)
     apple.mark(90,90,132,PAPER,CORAL)
     apple.save(public/"apple-icon.png")
     for name,scene in [("hero",hero()),("token",token()),("stack",stack()),("network",network())]:
@@ -299,7 +289,7 @@ def generate():
         elif (website/"scripts"/script.name).resolve()!=script:
             shutil.copy2(script,website/"scripts"/script.name)
 
-    print("Lumquira assets regenerated from deterministic SVG/Pillow scenes.")
+    print("Openyra assets regenerated from deterministic SVG/Pillow scenes.")
     for directory in [public,twitter]:
         for path in sorted(directory.iterdir()):
             if path.suffix in [".jpg",".png",".webp"]:

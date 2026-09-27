@@ -19,7 +19,7 @@ const feedback = ref('')
 const storageNotice = ref('')
 const isSaved = ref(false)
 const stages = ['Inputs recorded', 'Assumption reviewed', 'Limits reviewed', 'Review complete']
-const legacyJournalKeys = ['Kovrane:journal:v1', 'kinovra:journal:v1']
+const legacyJournalKeys = ['Kovrane:journal:v1', 'kinovra:journal:v1', 'Kinovra:journal:v1', 'Scenarill:journal:v1', 'Solenzi:journal:v1']
 const input = computed(() => ({ amount: amount.value, basePrice: basePrice.value, movePct: movePct.value, note: note.value }))
 const result = computed(() => record.value ? calculateScenario(record.value) : null)
 const remaining = computed(() => MAX_NOTE_LENGTH - note.value.length)
@@ -122,7 +122,7 @@ function downloadJournal() {
   const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }))
   const link = document.createElement('a')
   link.href = url
-    link.download = `scenarill-${record.value.id.toLowerCase()}.json`
+    link.download = `openyra-${record.value.id.toLowerCase()}.json`
   link.click()
   URL.revokeObjectURL(url)
   feedback.value = 'Journal export prepared.'
@@ -179,7 +179,7 @@ defineExpose({ focusHeading })
         <label for="note">Thesis note <span>OPTIONAL</span></label><textarea id="note" v-model="note" :maxlength="MAX_NOTE_LENGTH" :aria-invalid="Boolean(errors.note)" :aria-describedby="errors.note ? 'note-error' : 'note-count'" placeholder="What would make this move plausible?"></textarea><p v-if="errors.note" id="note-error" class="sl-error">{{ errors.note }}</p><p id="note-count" class="sl-char-count">{{ remaining }} characters remaining</p>
         <button class="sl-button sl-primary sl-wide" type="submit">Review scenario <ArrowUpRight :size="17" /></button>
       </form>
-      <aside class="sl-card sl-aside"><div class="sl-aside-icon"><ShieldCheck :size="27" /></div><span class="sl-step">A LITTLE SPACE TO THINK</span><h2>Your idea.<br />Your assumptions.</h2><p>This is a private what-if calculator. Reference prices are entered by you; they are not live quotes or execution prices.</p><dl><div><dt>Asset</dt><dd>{{ brand.asset }} / USD</dd></div><div><dt>Network</dt><dd>{{ brand.network }} 路 preview</dd></div><div><dt>Wallet</dt><dd>Not required</dd></div><div><dt>Storage</dt><dd>This browser only</dd></div></dl><p class="sl-aside-foot">Fees, slippage and taxes are excluded. No transaction is created.</p></aside>
+      <aside class="sl-card sl-aside"><div class="sl-aside-icon"><ShieldCheck :size="27" /></div><span class="sl-step">A LITTLE SPACE TO THINK</span><h2>Your idea.<br />Your assumptions.</h2><p>This is a private what-if calculator. Reference prices are entered by you; they are not live quotes or execution prices.</p><dl><div><dt>Asset</dt><dd>{{ brand.asset }} / USD</dd></div><div><dt>Network</dt><dd>{{ brand.network }} - preview</dd></div><div><dt>Wallet</dt><dd>Not required</dd></div><div><dt>Storage</dt><dd>This browser only</dd></div></dl><p class="sl-aside-foot">Fees, slippage and taxes are excluded. No transaction is created.</p></aside>
     </div>
 
     <div v-else-if="step === 'review'" class="sl-card sl-review">

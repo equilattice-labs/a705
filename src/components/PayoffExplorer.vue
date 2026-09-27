@@ -33,14 +33,14 @@ const chartDescription = computed(() => `At a settlement price of ${money(settle
           <div class="control-label"><label for="cap-range">Cap</label><output for="cap-range">+{{ cap }}%</output></div>
           <input id="cap-range" v-model.number="cap" type="range" min="0" max="10" step="1" :style="{ '--range-fill': `${cap * 10}%` }" :aria-valuetext="`${cap}% cap, strike ${money(model.strike)}`" aria-describedby="cap-model-note">
           <div class="cap-ticks" aria-hidden="true"><span>0%</span><span>2%</span><span :class="{ 'selected-tick': cap === 5 }">5%</span><span>10%</span></div>
-          <p id="cap-model-note" class="model-note">ETHX example at <span>{{ money(model.spot) }}</span> · cap price (K) <span>{{ money(model.strike) }}</span> · 30 days · model at 25% vol</p>
+          <p id="cap-model-note" class="model-note">SOLX example at <span>{{ money(model.spot) }}</span> · cap price (K) <span>{{ money(model.strike) }}</span> · 30 days · model at 25% vol</p>
         </div>
       </div>
 
       <div class="payoff-visual">
         <div class="settlement-card">
-          <div class="chart-heading"><div><h3>Value at settlement</h3><p>Per unit · ETHX example at {{ money(model.spot) }} · cap +{{ cap }}% · K {{ money(model.strike) }}</p></div><button class="table-toggle" type="button" :aria-pressed="showTable" aria-controls="payoff-display" @click="showTable = !showTable">{{ showTable ? 'Chart' : 'Table' }}</button></div>
-          <ul class="chart-legend" aria-label="Chart legend"><li class="legend-stock">ETHX market unit</li><li class="legend-income">Income</li><li class="legend-upside">Upside</li></ul>
+          <div class="chart-heading"><div><h3>Value at settlement</h3><p>Per unit · SOLX example at {{ money(model.spot) }} · cap +{{ cap }}% · K {{ money(model.strike) }}</p></div><button class="table-toggle" type="button" :aria-pressed="showTable" aria-controls="payoff-display" @click="showTable = !showTable">{{ showTable ? 'Chart' : 'Table' }}</button></div>
+          <ul class="chart-legend" aria-label="Chart legend"><li class="legend-stock">SOLX market unit</li><li class="legend-income">Income</li><li class="legend-upside">Upside</li></ul>
 
           <div id="payoff-display" class="payoff-display">
             <div v-if="showTable" class="payoff-table-wrap" tabindex="0" role="region" aria-label="Settlement values table">
@@ -67,7 +67,7 @@ const chartDescription = computed(() => `At a settlement price of ${money(settle
             <div class="value-row"><span class="value-label legend-income">Income ·<br> min(S, K)</span><div><strong>{{ money(model.incomeSettlement) }}</strong><small> + premium {{ money(model.premium) }} if subscribed (model)<br> = {{ money(model.incomeWithPremium) }}</small></div></div>
             <div class="value-row"><span class="value-label legend-upside">Upside · max(S − K, 0)</span><div><strong>{{ money(model.upsideSettlement) }}</strong><small> breakeven {{ money(model.breakeven) }} (model)</small></div></div>
           </div>
-          <p class="chart-disclaimer">Indicative premium <b>{{ money(model.premium) }}</b> per unit · model at 25% vol · 30 days · the auction sets the price. Values per unit; Income is paid in Stock Tokens worth min(S, K); the premium goes to subscribers only.</p>
+          <p class="chart-disclaimer">Indicative premium <b>{{ money(model.premium) }}</b> per unit · model at 25% vol · 30 days · the auction sets the price. Values per unit; Income is paid in SPL market units worth min(S, K); the premium goes to subscribers only.</p>
         </div>
 
         <div class="position-card income-card"><div class="position-label"><span class="position-mark">◢</span><b>INCOME</b><span>(Up to the cap)</span></div><div class="position-price"><strong>{{ money(model.incomePrice) }}</strong><span>~{{ model.incomeShare.toFixed(1) }}%</span></div><div class="position-track" aria-hidden="true"><span :style="{ width: `${model.incomeShare}%` }"></span></div></div>

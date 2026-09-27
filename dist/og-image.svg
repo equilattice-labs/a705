@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-<title id="title">Scenarill | Robinhood Chain</title><desc id="desc">See the move. Test the path. Consumer crypto market app preview.</desc>
+<title id="title">Openyra | Solana</title><desc id="desc">Read the move. Build with intent. Consumer crypto market app preview.</desc>
 <defs>
 <linearGradient id="koiCoral" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f04f68"/><stop offset="0.55" stop-color="#ff826c"/><stop offset="1" stop-color="#ffd166"/></linearGradient>
 <linearGradient id="koiBlue" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset="0.5" stop-color="#38bdf8"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
@@ -22,10 +22,10 @@
 <ellipse cx="79.2" cy="99.19999999999999" rx="1.3199999999999932" ry="1.3199999999999932" fill="#eff6ff" stroke="none" stroke-width="1"/>
 <ellipse cx="79.02" cy="99.19999999999999" rx="0.5999999999999943" ry="0.5999999999999943" fill="#111827" stroke="none" stroke-width="1"/>
 <polyline points="88.8,85.4 91.2,87.8" fill="none" stroke="#f8fafc" stroke-width="1" stroke-linejoin="round"/>
-<text x="143" y="100" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" text-anchor="start">SCENARILL</text>
-<text x="56" y="249" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">SEE THE MOVE.</text>
-<text x="56" y="341" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">TEST THE PATH.</text>
-<text x="61" y="430" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start">Markets / payoff model / local journal</text>
+<text x="143" y="100" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" text-anchor="start">OPENYRA</text>
+<text x="56" y="249" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="700" text-anchor="start">READ THE MOVE.</text>
+<text x="56" y="341" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="65" font-weight="700" text-anchor="start">BUILD WITH INTENT.</text>
+<text x="61" y="430" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start">Signals / payoff model / local journal</text>
 <text x="61" y="478" fill="#9ca9b8" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" text-anchor="start">User-priced scenarios, no live quote</text>
-<text x="61" y="575" fill="#9ca9b8" font-family="Consolas, monospace" font-size="18" font-weight="400" text-anchor="start">ROBINHOOD CHAIN / MARKET APP PREVIEW</text>
+<text x="61" y="575" fill="#9ca9b8" font-family="Consolas, monospace" font-size="18" font-weight="400" text-anchor="start">SOLANA / MARKET APP PREVIEW</text>
 </svg>

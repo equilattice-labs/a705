@@ -1,15 +1,15 @@
-// Concept copy for the Scenarill market model.
+// Concept copy for the Solana market model.
 export const concepts = [
   {
     "id": "asset-backing",
     "title": "Asset Backing",
-    "description": "The Stock Token is locked in the series vault to back the payoff. No margin, no funding rate, no liquidation engine.",
+    "description": "The SPL market unit is locked in the series vault to back the payoff. No margin, funding rate, or liquidation engine.",
     "image": "/stack.webp"
   },
   {
     "id": "asset-distinction",
     "title": "Asset Distinction",
-    "description": "Positions are created from Stock Tokens and carry Income or Upside exposure. The protocol token is separate from them.",
+    "description": "Positions are created from SPL market units and carry Income or Upside exposure. The protocol token is separate from them.",
     "image": "/token.webp"
   },
   {
@@ -33,7 +33,7 @@ export const concepts = [
   {
     "id": "market-structure",
     "title": "Market Structure",
-    "description": "One Stock Token, one epoch, one cap per series. Income earns the premium; Upside buys the move above the cap.",
+    "description": "One SPL market unit, one epoch, one cap per series. Income earns the premium; Upside buys the move above the cap.",
     "image": "/stack.webp"
   },
   {
@@ -51,7 +51,7 @@ export const concepts = [
   {
     "id": "position-redemption",
     "title": "Position Redemption",
-    "description": "One Income position plus one Upside position of the same series merge back into one Stock Token at any time, free.",
+    "description": "One Income position plus one Upside position of the same series merge back into one SPL market unit at any time, free.",
     "image": "/stack.webp"
   },
   {
@@ -63,25 +63,25 @@ export const concepts = [
   {
     "id": "protocol-revenue",
     "title": "Protocol Revenue",
-    "description": "One fee: 5 % of gross auction proceeds, in USDG. Split, merge and settlement claims are free.",
+    "description": "One fee: 5 % of gross auction proceeds, in USDC. Split, merge and settlement claims are free.",
     "image": "/network.webp"
   },
   {
     "id": "risk-perspective",
     "title": "Risk Perspective",
-    "description": "Income still bears the downside of the Stock Token. The upside buyer can lose the premium paid.",
+    "description": "Income still bears the downside of the SPL market unit. The upside buyer can lose the premium paid.",
     "image": "/token.webp"
   },
   {
     "id": "tokenized-markets",
     "title": "Tokenized Markets",
-    "description": "Stock Tokens on Robinhood Chain. A token with a Chainlink feed and a USDG pool can be listed.",
+    "description": "SPL market units on Solana. A token with a verified price feed and a USDC liquidity path can be listed.",
     "image": "/hero.webp"
   },
   {
     "id": "token-utility",
     "title": "Token Utility",
-    "description": "SCRL is a proposed symbol only. No token has been issued and no production utility is enabled in this preview.",
+    "description": "OPNY is a proposed symbol only. No token has been issued and no production utility is enabled in this preview.",
     "image": "/icon.svg"
   },
   {

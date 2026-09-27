@@ -11,12 +11,12 @@ const query = ref('')
 const side = ref('All')
 const quoteSide = ref('Income')
 const units = ref(1)
-const selected = ref('ETHX')
+const selected = ref('SOLX')
 const cap = ref(5)
 const assets = [
-  { symbol: 'ETHX', name: 'Ethereum', spot: 250, initials: 'E', style: 'apple' },
-  { symbol: 'BTCX', name: 'Bitcoin', spot: 130, initials: 'B', style: 'nvidia' },
-  { symbol: 'RBNX', name: 'Robinhood', spot: 430, initials: 'R', style: 'microsoft' },
+  { symbol: 'SOLX', name: 'Solana', spot: 182, initials: 'S', style: 'apple' },
+  { symbol: 'JUPX', name: 'Jupiter', spot: 1.12, initials: 'J', style: 'nvidia' },
+  { symbol: 'BONKX', name: 'Bonk', spot: 0.000021, initials: 'B', style: 'microsoft' },
   { symbol: 'USDCX', name: 'USD Coin', spot: 1, initials: '$', style: 'tesla' },
 ]
 const asset = computed(() => assets.find(item => item.symbol === selected.value) || assets[0])
@@ -32,9 +32,17 @@ function explore() {
 
 <template>
   <div class="crypto-home container">
+    <section class="market-ticker" aria-label="Solana market tape">
+      <span class="ticker-label"><i></i> Solana market</span>
+      <span><b>SOL</b><strong>$182.40</strong><em>+4.82%</em></span>
+      <span><b>JUP</b><strong>$1.12</strong><em>+2.10%</em></span>
+      <span><b>BONK</b><strong>$0.000021</strong><em class="down">-1.34%</em></span>
+      <span><b>USDC</b><strong>$1.00</strong><em>+0.01%</em></span>
+      <span class="ticker-note">sample tape · 24h</span>
+    </section>
     <section class="market-welcome" aria-labelledby="market-title">
       <div>
-        <div class="welcome-status"><span class="network-dot"></span>{{ brand.network }} <span class="status-separator">·</span><strong>Preview</strong></div>
+        <div class="welcome-status"><span class="network-dot"></span>{{ brand.network }} <span class="status-separator">·</span><strong>CA preview</strong><span class="wallet-state">wallet optional</span></div>
         <h1 id="market-title" tabindex="-1">Markets</h1>
         <p>Explore tokenized market examples and model outcomes.</p>
       </div>
@@ -105,15 +113,26 @@ function explore() {
 </template>
 
 <style scoped>
-.crypto-home { padding-block: 40px 0; }
+.crypto-home { padding-block: 24px 0; }
+.market-ticker { display: flex; align-items: center; gap: 20px; min-height: 38px; margin-bottom: 28px; padding: 0 13px; overflow-x: auto; border: 1px solid var(--line); border-radius: 7px; background: #0c0f17; color: var(--muted); font: 10px var(--mono); white-space: nowrap; scrollbar-width: none; }
+.market-ticker::-webkit-scrollbar { display: none; }
+.market-ticker > span { display: inline-flex; align-items: center; gap: 7px; }
+.ticker-label { color: var(--fg); font-weight: 600; letter-spacing: .02em; }
+.ticker-label i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px #83f3b122; }
+.market-ticker b { color: #aeb8c7; font-weight: 600; }
+.market-ticker strong { color: var(--fg); font-weight: 500; }
+.market-ticker em { color: var(--green); font-style: normal; }
+.market-ticker em.down { color: var(--coral); }
+.ticker-note { margin-left: auto; color: #697487; font-size: 9px; }
 .market-welcome { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 26px; }
-.market-welcome h1 { margin: 11px 0 5px; font-size: 36px; line-height: 1.12; letter-spacing: -.04em; font-weight: 650; }
+.market-welcome h1 { margin: 11px 0 5px; font-size: 36px; line-height: 1.12; letter-spacing: -.02em; font-weight: 650; }
 .market-welcome p { margin: 0; color: var(--muted); font-size: 14px; }
 .welcome-status { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
 .welcome-status strong { color: var(--green); font-weight: 650; }
+.wallet-state { padding-left: 8px; color: var(--muted); font-family: var(--mono); font-size: 10px; }
 .network-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 13%, transparent); }
 .status-separator { color: #a9b2ac; }
-.journal-shortcut { display: flex; align-items: center; gap: 11px; padding: 10px 14px; min-height: 58px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); text-decoration: none; transition: border-color .18s, transform .18s; }
+.journal-shortcut { display: flex; align-items: center; gap: 11px; padding: 10px 14px; min-height: 58px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-decoration: none; transition: border-color .18s, transform .18s; }
 .journal-shortcut:hover { border-color: var(--green); transform: translateY(-1px); }
 .journal-shortcut-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--green-soft); color: var(--green); font-size: 17px; }
 .journal-shortcut > span:nth-child(2) { display: grid; gap: 2px; }
@@ -121,7 +140,7 @@ function explore() {
 .journal-shortcut small { color: var(--muted); font-size: 10px; }
 .journal-shortcut > svg { color: var(--muted); margin-left: 4px; }
 .asset-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 27px; }
-.asset-tile { display: flex; align-items: center; gap: 11px; min-width: 0; padding: 15px 16px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); text-align: left; cursor: pointer; transition: border-color .18s, box-shadow .18s, transform .18s; }
+.asset-tile { display: flex; align-items: center; gap: 11px; min-width: 0; padding: 13px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left; cursor: pointer; transition: border-color .18s, box-shadow .18s, transform .18s; }
 .asset-tile:hover { border-color: #b9d9c8; transform: translateY(-1px); }
 .asset-tile.selected { border-color: var(--green); box-shadow: 0 0 0 2px color-mix(in srgb, var(--green) 12%, transparent); }
 .coin-mark { display: grid; place-items: center; flex: none; width: 38px; height: 38px; border-radius: 50%; background: #e8f4ed; color: #137b50; font-size: 14px; font-weight: 700; }
@@ -136,7 +155,7 @@ function explore() {
 .market-tabs button.active { border-bottom-color: var(--green); color: var(--fg); font-weight: 650; }
 .market-tabs button span { padding: 3px 6px; border-radius: 6px; background: var(--panel); color: var(--muted); font-size: 9px; }
 .market-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(290px, .85fr); align-items: start; gap: 17px; }
-.market-card,.estimate-card { min-width: 0; border: 1px solid var(--line); border-radius: 17px; background: var(--surface); box-shadow: var(--card-shadow); }
+.market-card,.estimate-card { min-width: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); box-shadow: var(--card-shadow); }
 .market-card { padding: 21px 22px 16px; }
 .market-card-heading,.estimate-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .section-kicker { color: var(--muted); font-size: 11px; font-weight: 550; }
@@ -245,29 +264,35 @@ function explore() {
 }
 
 /* Exchange terminal skin: dense panels, live tape contrast and token-native accents. */
-.crypto-home { padding-top: 32px; }
+.crypto-home { padding-top: 24px; }
+.market-ticker { border-color: #283246; background: #0c0f17; }
 .market-welcome h1 { font-family: var(--display); font-size: clamp(34px, 4vw, 48px); }
 .market-welcome p, .market-disclosure, .asset-tile-copy small, .asset-tile-price small { color: #8ca1a5; }
-.journal-shortcut, .asset-tile, .market-card, .estimate-card, .market-helper-row { border-radius: 8px; background: #0d1a20; border-color: #20343b; box-shadow: 0 8px 24px #0004; }
+.journal-shortcut, .asset-tile, .market-card, .estimate-card, .market-helper-row { border-radius: 8px; background: #11141d; border-color: #252b39; box-shadow: 0 8px 24px #0005; }
 .journal-shortcut-icon { border-radius: 7px; background: #203b27; color: var(--green); }
 .asset-tile:hover, .asset-tile.selected { border-color: var(--green); }
 .asset-tile.selected { box-shadow: 0 0 0 1px var(--green), 0 8px 24px #0005; }
 .coin-mark { background: #17382d; color: var(--green); }
 .coin-nvidia { background: #2a3e22; color: #c9f766; }.coin-microsoft { background: #1c3349; color: #73c9ff; }.coin-tesla { background: #42242a; color: #ff8c80; }
-.market-tabs { border-bottom-color: #20343b; }
+.market-tabs { border-bottom-color: #252b39; }
 .market-tabs button.active { border-bottom-color: var(--green); color: var(--green); }
 .market-card-heading h2, .estimate-heading h2 { font-family: var(--display); }
-.market-filter-tabs, .position-picker { background: #091419; }
+.market-filter-tabs, .position-picker { background: #0c0f17; }
 .market-filter-tabs button.active { background: #1d3035; color: #eff9f4; box-shadow: none; }
-.market-search, .asset-select-wrap, .input-with-unit { border-color: #2a4048; background: #0a161b; }
+.market-search, .asset-select-wrap, .input-with-unit { border-color: #2a3344; background: #0c0f17; }
 .market-search input, .asset-select-wrap select, .input-with-unit input { color: #eaf4f1; }
 .sample-chip { background: #1a2b30; color: #9cb1b4; }
 .position-picker button.active { background: var(--green); color: #08120e; }
 .position-picker button.active.upside { background: var(--coral); color: #180d0e; }
 .estimate-action { background: var(--green); color: #08120e; }
 .estimate-action:hover { background: #d0ff6a; }
-.helper-icon { background: #203b27; color: var(--green); }.upside-icon { background: #402329; color: var(--coral); }
+.helper-icon { background: #153b31; color: var(--green); }.upside-icon { background: #41232e; color: var(--coral); }
 .market-helper-row > a, .how-journal-link { color: var(--green); }
 .how-it-works { border-top-color: #20343b; }
 .how-number { background: #203b27; color: var(--green); }
+@media (max-width: 720px) {
+  .crypto-home { padding-top: 16px; }
+  .market-ticker { margin-bottom: 20px; gap: 15px; }
+  .ticker-note { display: none !important; }
+}
 </style>
