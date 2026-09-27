@@ -16,7 +16,7 @@ const cap = ref(5)
 const assets = [
   { symbol: 'ETHX', name: 'Ethereum', spot: 250, initials: 'E', style: 'apple' },
   { symbol: 'BTCX', name: 'Bitcoin', spot: 130, initials: 'B', style: 'nvidia' },
-  { symbol: 'SOLX', name: 'Solana', spot: 430, initials: 'S', style: 'microsoft' },
+  { symbol: 'RBNX', name: 'Robinhood', spot: 430, initials: 'R', style: 'microsoft' },
   { symbol: 'USDCX', name: 'USD Coin', spot: 1, initials: '$', style: 'tesla' },
 ]
 const asset = computed(() => assets.find(item => item.symbol === selected.value) || assets[0])
@@ -92,7 +92,7 @@ function explore() {
       <div class="helper-chip"><span class="helper-icon upside-icon">⌁</span><span><strong>Upside</strong><small>Value above the cap</small></span></div>
       <a href="/docs#mechanism" @click.prevent="emit('navigate', '/docs#mechanism')">Learn how the model works <ArrowUpRight :size="14" /></a>
     </div>
-    <p class="market-disclosure"><Info :size="14" /> Prices and markets on this page are illustrative. Solana Chain is the target network; this preview has no live data, wallet connection or transaction execution.</p>
+    <p class="market-disclosure"><Info :size="14" /> Prices and markets on this page are illustrative. {{ brand.network }} is the target network; this preview has no live data, wallet connection or transaction execution.</p>
   </div>
 
   <PayoffExplorer />
@@ -243,4 +243,31 @@ function explore() {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* Exchange terminal skin: dense panels, live tape contrast and token-native accents. */
+.crypto-home { padding-top: 32px; }
+.market-welcome h1 { font-family: var(--display); font-size: clamp(34px, 4vw, 48px); }
+.market-welcome p, .market-disclosure, .asset-tile-copy small, .asset-tile-price small { color: #8ca1a5; }
+.journal-shortcut, .asset-tile, .market-card, .estimate-card, .market-helper-row { border-radius: 8px; background: #0d1a20; border-color: #20343b; box-shadow: 0 8px 24px #0004; }
+.journal-shortcut-icon { border-radius: 7px; background: #203b27; color: var(--green); }
+.asset-tile:hover, .asset-tile.selected { border-color: var(--green); }
+.asset-tile.selected { box-shadow: 0 0 0 1px var(--green), 0 8px 24px #0005; }
+.coin-mark { background: #17382d; color: var(--green); }
+.coin-nvidia { background: #2a3e22; color: #c9f766; }.coin-microsoft { background: #1c3349; color: #73c9ff; }.coin-tesla { background: #42242a; color: #ff8c80; }
+.market-tabs { border-bottom-color: #20343b; }
+.market-tabs button.active { border-bottom-color: var(--green); color: var(--green); }
+.market-card-heading h2, .estimate-heading h2 { font-family: var(--display); }
+.market-filter-tabs, .position-picker { background: #091419; }
+.market-filter-tabs button.active { background: #1d3035; color: #eff9f4; box-shadow: none; }
+.market-search, .asset-select-wrap, .input-with-unit { border-color: #2a4048; background: #0a161b; }
+.market-search input, .asset-select-wrap select, .input-with-unit input { color: #eaf4f1; }
+.sample-chip { background: #1a2b30; color: #9cb1b4; }
+.position-picker button.active { background: var(--green); color: #08120e; }
+.position-picker button.active.upside { background: var(--coral); color: #180d0e; }
+.estimate-action { background: var(--green); color: #08120e; }
+.estimate-action:hover { background: #d0ff6a; }
+.helper-icon { background: #203b27; color: var(--green); }.upside-icon { background: #402329; color: var(--coral); }
+.market-helper-row > a, .how-journal-link { color: var(--green); }
+.how-it-works { border-top-color: #20343b; }
+.how-number { background: #203b27; color: var(--green); }
 </style>

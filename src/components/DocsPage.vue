@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { ArrowRight, ExternalLink } from 'lucide-vue-next'
 import { concepts } from '../concepts.js'
+import { brand } from '../brand.js'
 
 const props = defineProps({
   path: { type: String, default: '/docs' },
@@ -40,7 +41,7 @@ const legalBody = computed(() => ({
   ],
   '/terms': [
     'This website is a local product demonstration. Buttons, prices, markets, wallets, and contract references are illustrative unless a connected production integration says otherwise.',
-    'Use of this demo does not create an account, custody relationship, order, or agreement with Scenovia. Contract references and the scenario lab are read-only in this build.',
+    `Use of this demo does not create an account, custody relationship, order, or agreement with ${brand.name}. Contract references and the scenario lab are read-only in this build.`,
   ],
   '/privacy': [
     'The demo keeps interface state in your browser. It does not require a wallet connection to read the pages and does not send a trade order from this interface.',
@@ -70,9 +71,9 @@ function go(to) { emit('navigate', to) }
   <section v-else class="docs-page">
     <div class="container docs-hero">
       <p class="docs-kicker">Docs</p>
-      <h1 tabindex="-1">How Scenovia works.</h1>
+      <h1 tabindex="-1">How {{ brand.name }} works.</h1>
       <p class="docs-lead">Deposit a Stock Token into a series. Receive one Income position and one Upside position per unit. At settlement, Upside pays the amount of one unit's value above the cap price K, in Stock Tokens; its maximum loss is the price paid for it. Income keeps everything up to K plus whatever the auction paid for Upside. Income is not protected: if the Stock Token falls, Income falls with it. One Income position plus one Upside position of the same series merge back into one Stock Token at any time, free.</p>
-      <p class="demo-note">Solana Chain interface preview. The scenario lab and contract references are read-only; this build has no trade execution or live oracle integration.</p>
+      <p class="demo-note">{{ brand.network }} interface preview. The scenario lab and contract references are read-only; this build has no trade execution or live oracle integration.</p>
     </div>
 
     <div class="container docs-layout">
@@ -115,7 +116,7 @@ function go(to) { emit('navigate', to) }
         <section id="fees" class="docs-section prose-section"><p class="section-label">Fees</p><h2>Activity first. Revenue follows.</h2><p>The reference model has one fee: 5% of gross auction proceeds, in USDG. Split, merge, and settlement claims are free. No live fee is charged by this demo.</p></section>
         <section id="listing" class="docs-section prose-section"><p class="section-label">Listing</p><h2>Familiar assets, defined exposure.</h2><p>A candidate Stock Token needs an oracle feed and a USDG liquidity path. Listing rules, custody, jurisdiction, and permissions must be verified before a production launch.</p></section>
         <section id="risks" class="docs-section prose-section"><p class="section-label">Risks</p><h2>Premium is income, not a shield.</h2><p>Income still bears downside in the Stock Token. Upside may lose the premium paid. Oracle, liquidity, smart contract, counterparty, market, and regulatory risks remain outside this interface.</p></section>
-        <section id="token" class="docs-section prose-section"><p class="section-label">Token</p><h2>Positions are distinct from SCNV.</h2><p>Income and Upside are positions created from market units. The proposed SCNV symbol is separate from those positions and has not been issued. Any supply, utility, or launch statement shown here is a product concept, not a promise of production availability.</p></section>
+        <section id="token" class="docs-section prose-section"><p class="section-label">Token</p><h2>Positions are distinct from {{ brand.asset }}.</h2><p>Income and Upside are positions created from market units. The proposed {{ brand.asset }} symbol is separate from those positions and has not been issued. Any supply, utility, or launch statement shown here is a product concept, not a promise of production availability.</p></section>
         <section id="documents" class="docs-section prose-section"><p class="section-label">Documents</p><h2>Read the model with the interface.</h2><p>Use the concept cards, payoff explorer, and local scenario lab together. External protocol documentation is linked only where it is public and relevant.</p><a class="text-link" href="/signal" @click.prevent="go('/signal')">Open local scenario lab <ArrowRight :size="14" /></a></section>
         <section id="terms" class="docs-section prose-section"><p class="section-label">Terms</p><h2>Terms for this local preview.</h2><p>This page is a readable product notice for the interface. It does not replace production terms or create a contractual relationship.</p><a class="text-link" href="/terms" @click.prevent="go('/terms')">Read the demo terms <ExternalLink :size="13" /></a></section>
         <section id="privacy" class="docs-section prose-section"><p class="section-label">Privacy</p><h2>Your browser holds the demo state.</h2><p>No trade order or private key is requested by this documentation view. External links have their own privacy practices.</p><a class="text-link" href="/privacy" @click.prevent="go('/privacy')">Read the demo privacy notice <ExternalLink :size="13" /></a></section>
@@ -197,3 +198,10 @@ function go(to) { emit('navigate', to) }
   .legal-actions { align-items: flex-start; flex-direction: column; }
 }
 </style>
+
+<style scoped>
+/* Dark exchange reading surface */
+.docs-page :deep(.concept-card img) { border-color: var(--line); }
+.docs-page :deep(.role-grid article), .docs-page :deep(.formula-card) { background: var(--surface); border-color: var(--line); }
+</style>
+

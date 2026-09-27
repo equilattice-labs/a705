@@ -17,7 +17,7 @@ const DEFAULT_RPC_URLS = Object.freeze({
   localnet: 'http://127.0.0.1:8899',
 })
 
-// Legacy Solana fixture retained for migration tests. It is not a Scenovia or Solana Chain asset.
+// Legacy Solana fixture retained for migration tests. It is not a Robinhood Chain asset.
 const DEFAULT_TOKEN_MINTS = Object.freeze({
   'mainnet-beta': null,
   devnet: null,
@@ -208,7 +208,7 @@ export async function initializeSolanaWallets({ metaMaskInitializer = createMeta
       try {
         const network = cluster === 'mainnet-beta' ? 'mainnet' : cluster
         metaMaskClient = await metaMaskInitializer({
-          dapp: { name: 'Scenovia', url: window.location.origin },
+          dapp: { name: 'Scenarill', url: window.location.origin },
           api: { supportedNetworks: network === 'localnet' ? {} : { [network]: rpcUrl } },
           analytics: { enabled: false },
         })

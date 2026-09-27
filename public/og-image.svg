@@ -1,20 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-<title id="title">Scenovia | Solana Chain</title><desc id="desc">See the move. Test the path. Consumer crypto market app preview.</desc>
-<rect width="1200" height="630" fill="#0b1016"/>
+<title id="title">Scenarill | Robinhood Chain</title><desc id="desc">See the move. Test the path. Consumer crypto market app preview.</desc>
 <defs>
-  <linearGradient id="badge" x1="56" y1="52" x2="120" y2="122" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#122b33"/><stop offset=".55" stop-color="#11645e"/><stop offset="1" stop-color="#36c99c"/></linearGradient>
-  <linearGradient id="mark" x1="73" y1="73" x2="106" y2="108" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ecfff7"/><stop offset="1" stop-color="#9ef6d2"/></linearGradient>
-  <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(110 65) rotate(135) scale(50)"><stop stop-color="#a4ffe0" stop-opacity=".24"/><stop offset="1" stop-color="#a4ffe0" stop-opacity="0"/></radialGradient>
+<linearGradient id="koiCoral" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f04f68"/><stop offset="0.55" stop-color="#ff826c"/><stop offset="1" stop-color="#ffd166"/></linearGradient>
+<linearGradient id="koiBlue" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset="0.5" stop-color="#38bdf8"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+<linearGradient id="orbitalInk" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#111b2b"/><stop offset="1" stop-color="#1d2b43"/></linearGradient>
 </defs>
-<rect x="56" y="52" width="64" height="64" rx="18" fill="url(#badge)"/>
-<rect x="56" y="52" width="64" height="64" rx="18" fill="url(#glow)"/>
-<rect x="57.5" y="53.5" width="61" height="61" rx="17" fill="none" stroke="#b5ffe3" stroke-opacity=".3"/>
-<path d="M101 69H82.8c-4.5 0-7.7 2.6-7.7 6.4 0 3.2 2.3 5.4 6.7 6.3l14.3 3c3.7.8 5.7 2.7 5.7 5.6 0 4-3.5 6.7-8.4 6.7H77" fill="none" stroke="url(#mark)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="105.5" cy="68" r="2" fill="#d8fff0" fill-opacity=".75"/>
-<text x="143" y="100" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" text-anchor="start">SCENOVIA</text>
+<rect width="1200" height="630" fill="#0b1016"/>
+<ellipse cx="90.0" cy="86.0" rx="28.799999999999997" ry="28.799999999999997" fill="url(#orbitalInk)" stroke="#334155" stroke-width="1.0799999999999998"/>
+<ellipse cx="90.0" cy="86.0" rx="22.799999999999997" ry="21.599999999999994" fill="none" stroke="#263750" stroke-width="1"/>
+<polyline points="69.6,103.4 77.4,95.0 85.8,90.19999999999999 93.0,81.8 100.80000000000001,76.4 109.19999999999999,66.8" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="109.19999999999999,66.8 103.19999999999999,68.0 106.80000000000001,72.8" fill="#38bdf8"/>
+<ellipse cx="85.8" cy="90.19999999999999" rx="1.6800000000000068" ry="1.6800000000000068" fill="#d9f99d" stroke="none" stroke-width="1"/>
+<path d="M 105.6,72.2 C 97.2,66.8 89.4,73.4 81.0,84.8 C 78.0,89.0 75.0,91.4 73.8,90.19999999999999 C 76.2,97.4 84.0,92.6 91.2,87.8 C 98.4,82.4 103.8,78.8 105.6,72.2 Z" fill="url(#koiCoral)" stroke="#ffb4a2" stroke-width="1"/>
+<polygon points="74.4,90.19999999999999 66.6,84.8 69.6,93.2 66.6,99.19999999999999 76.8,94.4" fill="#e5536b"/>
+<polyline points="85.8,83.0 91.2,87.8" fill="none" stroke="#ffd166" stroke-width="1" stroke-linejoin="round"/>
+<ellipse cx="103.19999999999999" cy="74.0" rx="1.3199999999999932" ry="1.3199999999999932" fill="#fff7ed" stroke="none" stroke-width="1"/>
+<ellipse cx="103.38" cy="74.0" rx="0.5999999999999943" ry="0.5999999999999943" fill="#111827" stroke="none" stroke-width="1"/>
+<path d="M 77.4,100.4 C 85.2,105.8 91.8,96.2 102.0,86.6 C 105.6,83.0 108.0,81.8 108.0,81.8 C 103.8,76.4 97.2,81.8 91.2,86.6 C 84.0,93.2 79.2,96.2 77.4,100.4 Z" fill="url(#koiBlue)" stroke="#a5e8ff" stroke-width="1"/>
+<polygon points="106.80000000000001,81.8 114.6,77.0 112.2,85.4 115.80000000000001,90.8 105.0,86.0" fill="#2563a8"/>
+<polyline points="93.0,87.8 97.8,81.8" fill="none" stroke="#ffd166" stroke-width="1" stroke-linejoin="round"/>
+<ellipse cx="79.2" cy="99.19999999999999" rx="1.3199999999999932" ry="1.3199999999999932" fill="#eff6ff" stroke="none" stroke-width="1"/>
+<ellipse cx="79.02" cy="99.19999999999999" rx="0.5999999999999943" ry="0.5999999999999943" fill="#111827" stroke="none" stroke-width="1"/>
+<polyline points="88.8,85.4 91.2,87.8" fill="none" stroke="#f8fafc" stroke-width="1" stroke-linejoin="round"/>
+<text x="143" y="100" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" text-anchor="start">SCENARILL</text>
 <text x="56" y="249" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">SEE THE MOVE.</text>
 <text x="56" y="341" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" text-anchor="start">TEST THE PATH.</text>
 <text x="61" y="430" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start">Markets / payoff model / local journal</text>
 <text x="61" y="478" fill="#9ca9b8" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" text-anchor="start">User-priced scenarios, no live quote</text>
-<text x="61" y="575" fill="#9ca9b8" font-family="Consolas, monospace" font-size="18" font-weight="400" text-anchor="start">Solana CHAIN / MARKET APP PREVIEW</text>
+<text x="61" y="575" fill="#9ca9b8" font-family="Consolas, monospace" font-size="18" font-weight="400" text-anchor="start">ROBINHOOD CHAIN / MARKET APP PREVIEW</text>
 </svg>

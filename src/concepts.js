@@ -1,4 +1,4 @@
-// Concept copy for the Scenovia market model.
+// Concept copy for the Scenarill market model.
 export const concepts = [
   {
     "id": "asset-backing",
@@ -75,13 +75,13 @@ export const concepts = [
   {
     "id": "tokenized-markets",
     "title": "Tokenized Markets",
-    "description": "Stock Tokens on Solana Chain. A token with a Chainlink feed and a USDG pool can be listed.",
+    "description": "Stock Tokens on Robinhood Chain. A token with a Chainlink feed and a USDG pool can be listed.",
     "image": "/hero.webp"
   },
   {
     "id": "token-utility",
     "title": "Token Utility",
-    "description": "SCNV is a proposed symbol only. No token has been issued and no production utility is enabled in this preview.",
+    "description": "SCRL is a proposed symbol only. No token has been issued and no production utility is enabled in this preview.",
     "image": "/icon.svg"
   },
   {

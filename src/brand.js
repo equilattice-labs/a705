@@ -1,12 +1,12 @@
 export const brand = Object.freeze({
-  name: 'Scenovia',
-  slug: 'scenovia',
-  asset: 'SCNV',
-  network: 'Solana Chain',
-  domain: 'scenovia.xyz',
-  handle: '@Scenovia',
+  name: 'Scenarill',
+  slug: 'scenarill',
+  asset: 'SCRL',
+  network: 'Robinhood Chain',
+  domain: 'scenarill.xyz',
+  handle: '@Scenarill',
   tagline: 'See the move. Test the path.',
-  supportingLine: 'A Solana Chain market workspace for clear assumptions.',
+  supportingLine: 'A Robinhood Chain market workspace for clear assumptions.',
 })
 
-export const storageKeys = Object.freeze({ journal: 'Scenovia:journal:v1' })
+export const storageKeys = Object.freeze({ journal: 'Scenarill:journal:v1' })

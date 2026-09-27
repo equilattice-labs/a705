@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
   <header class="site-header">
     <div class="container header-inner">
       <a class="wordmark wordmark-text" href="/" :aria-label="`${brand.name} markets`" @click.prevent="navigate('/')">
-        <img src="/icon.svg" alt="" width="30" height="30" />
+        <img src="/icon.svg" alt="" width="30" height="30" decoding="async" aria-hidden="true" />
         <span>{{ brand.name }}</span>
       </a>
       <nav class="desktop-nav" aria-label="Primary">
@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a href="/" class="wordmark wordmark-text" :aria-label="`${brand.name} markets`" @click.prevent="navigate('/')"><img src="/icon.svg" width="26" height="26" alt="" /><span>{{ brand.name }}</span></a>
+        <a href="/" class="wordmark wordmark-text" :aria-label="`${brand.name} markets`" @click.prevent="navigate('/')"><img src="/icon.svg" width="26" height="26" alt="" decoding="async" aria-hidden="true" /><span>{{ brand.name }}</span></a>
         <span>{{ brand.network }} preview · sample prices · no transactions</span>
       </div>
       <div class="footer-right">
