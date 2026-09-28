@@ -1,10 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
-<title id="title">Orbinza icon</title><desc id="desc">Signal-orbit mark.</desc>
-<rect width="64" height="64" fill="#090d14"/>
-<circle cx="32" cy="32" r="25.44" fill="#152235" stroke="none" stroke-width="1"/>
-<circle cx="32" cy="32" r="20.64" fill="none" stroke="#28d7e8" stroke-width="2"/>
-<circle cx="32" cy="32" r="12.96" fill="none" stroke="#f4b84a" stroke-width="2"/>
-<polyline points="17.12,35.36 23.36,35.36 28.16,25.76 32.96,38.72 37.76,29.12 42.08,32.48 46.88,32.48" fill="none" stroke="#f05bbb" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="37.76" cy="29.12" r="1.6800000000000002" fill="#f4b84a" stroke="none" stroke-width="1"/>
-<circle cx="28.16" cy="38.72" r="1.296" fill="#28d7e8" stroke="none" stroke-width="1"/>
+<title id="title">Tikriva icon</title><desc id="desc">Angular faceted T/K mark.</desc>
+<rect width="64" height="64" fill="#10120f"/>
+<polygon points="11.84,11.84 52.16,11.84 52.16,18.080000000000002 35.84,18.080000000000002 35.84,52.16 28.16,52.16 28.16,18.080000000000002 11.84,18.080000000000002" fill="#252923" stroke="#30362e" stroke-width="2"/>
+<polygon points="19.52,23.6 46.4,23.6 46.4,29.6 33.92,29.6 45.44,44.96 38.0,44.96 30.08,33.92 22.4,44.96 15.200000000000003,44.96 27.68,29.6 19.52,29.6" fill="#75d8a8" stroke="none" stroke-width="1"/>
+<polygon points="46.4,23.6 50.72,28.4 37.28,46.879999999999995 32.96,42.8" fill="#d8fa63" stroke="none" stroke-width="1"/>
+<polygon points="30.08,33.92 33.92,33.92 42.08,44.0 38.0,44.96" fill="#ff7887" stroke="none" stroke-width="1"/>
 </svg>

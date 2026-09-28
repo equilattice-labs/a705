@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">Illustrative settlement split</title><desc id="desc">Example settlement value splits into Income and Upside at a defined cap.</desc>
+<rect width="1200" height="675" fill="#10120f"/>
+<text x="54" y="62" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start">MODEL / SETTLEMENT</text>
+<text x="54" y="126" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" text-anchor="start">One example settlement.</text>
+<text x="54" y="160" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" text-anchor="start">S = $200.00 / cap K = $190.00 / per unit</text>
+<rect x="54" y="238" width="330" height="250" rx="6" fill="#191c18" stroke="#30362e" stroke-width="1"/>
+<text x="78" y="278" fill="#75d8a8" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="start">INCOME / UP TO K</text>
+<text x="78" y="375" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="45" font-weight="700" text-anchor="start">$190.00</text>
+<text x="78" y="421" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start">min(S, K)</text>
+<rect x="438" y="238" width="330" height="250" rx="6" fill="#191c18" stroke="#30362e" stroke-width="1"/>
+<text x="462" y="278" fill="#ff7887" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="start">UPSIDE / ABOVE K</text>
+<text x="462" y="375" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="45" font-weight="700" text-anchor="start">$10.00</text>
+<text x="462" y="421" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start">max(S - K, 0)</text>
+<text x="822" y="383" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" text-anchor="middle">+</text>
+<rect x="878" y="238" width="268" height="250" rx="6" fill="#252923" stroke="#30362e" stroke-width="1"/>
+<text x="902" y="278" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="start">TOTAL UNIT VALUE</text>
+<text x="902" y="375" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start">$200.00</text>
+<text x="902" y="421" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start">Illustrative</text>
+<text x="54" y="555" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="start">NO LIVE ORACLE / AUCTION / TRANSACTION</text>
+</svg>

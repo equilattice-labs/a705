@@ -1,9 +1,9 @@
 export const SCHEMA_VERSION = 3
 export const MAX_NOTE_LENGTH = 1000
 export const DEFAULT_BASE_PRICE = '1.00'
-const ASSET = 'OBZA'
+const ASSET = 'TKVA'
 const LEGACY_ASSET = 'KNVR'
-const LEGACY_ASSETS = new Set(['SCRL', 'KNVR', 'LMQR', 'KSTR', 'KVRN', 'SCNV'])
+const LEGACY_ASSETS = new Set(['TKRV', 'OBZA', 'SCRL', 'KNVR', 'LMQR', 'KSTR', 'KVRN', 'SCNV'])
 const LEGACY_SNAPSHOT_SOURCE = 'https://solscan.io/tokens'
 const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value)
 
@@ -31,7 +31,7 @@ export function validateScenarioInputs(input) {
   const amount = decimal(value.amount, 8)
   const basePrice = decimal(value.basePrice, 12)
   const movePct = decimal(value.movePct, 2)
-  if (amount === null || amount.units <= 0n || amount.units > 100000000000000000n) errors.amount = 'Enter more than 0 and at most 1,000,000,000 OBZA units, with up to 8 decimal places.'
+  if (amount === null || amount.units <= 0n || amount.units > 100000000000000000n) errors.amount = 'Enter more than 0 and at most 1,000,000,000 TKVA units, with up to 8 decimal places.'
   if (basePrice === null || basePrice.units <= 0n || basePrice.number > 1e9) errors.basePrice = 'Enter a price greater than $0 and no more than $1,000,000,000, with up to 12 decimal places.'
   if (movePct === null || movePct.units < -9000n || movePct.units > 10000n) errors.movePct = 'Enter a price change from -90% to +100%, with up to 2 decimal places.'
   const note = value.note === undefined ? '' : value.note
@@ -53,7 +53,7 @@ export function calculateScenario(input) {
 export function validateJournalRecord(record) {
   const errors = {}
   if (!isObject(record)) return { valid: false, errors: { record: 'Journal record is not an object.' }, value: null }
-  if (record.schemaVersion !== SCHEMA_VERSION || (record.asset !== ASSET && !LEGACY_ASSETS.has(record.asset))) errors.schema = 'This is not a supported Orbinza journal record.'
+  if (record.schemaVersion !== SCHEMA_VERSION || (record.asset !== ASSET && !LEGACY_ASSETS.has(record.asset))) errors.schema = 'This is not a supported Tikriva journal record.'
   if (typeof record.id !== 'string' || !/^(?:OB|SC|LM|KV)-[A-Za-z0-9-]{1,64}$/.test(record.id)) errors.id = 'Journal ID is invalid.'
   if (!isUtcTimestamp(record.createdAt)) errors.createdAt = 'Journal creation timestamp is invalid.'
   if (!Number.isInteger(record.stage) || record.stage < 0 || record.stage > 3) errors.stage = 'Journal stage must be between 0 and 3.'

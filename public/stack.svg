@@ -1,35 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
-<title id="title">Orbinza signal stack</title><desc id="desc">Three terminal surfaces for observe, model and journal.</desc>
-<rect width="1200" height="1200" fill="#090d14"/>
-<text x="64" y="57" fill="#28d7e8" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start">ORBINZA</text>
-<text x="64" y="84" fill="#8294ab" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="start">WORKFLOW / THREE SURFACES</text>
-<text x="1136" y="57" fill="#f4b84a" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="end">SOLANA / PREVIEW</text>
-<polyline points="64.00,111.00 1136.00,111.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="82" y="205" fill="#eef6ff" font-family="Arial, Helvetica, sans-serif" font-size="53" font-weight="700" text-anchor="start">From signal</text>
-<text x="82" y="266" fill="#28d7e8" font-family="Arial, Helvetica, sans-serif" font-size="53" font-weight="700" text-anchor="start">to scenario.</text>
-<rect x="82" y="370" width="1036" height="140" rx="8" fill="#101925" stroke="#203247" stroke-width="1"/>
-<circle cx="144" cy="440" r="28" fill="#090d14" stroke="#28d7e8" stroke-width="2"/>
-<text x="144" y="447" fill="#28d7e8" font-family="Consolas, monospace" font-size="15" font-weight="400" text-anchor="middle">01</text>
-<text x="205" y="432" fill="#28d7e8" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" text-anchor="start">OBSERVE</text>
-<text x="205" y="469" fill="#8294ab" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">Read the market surface.</text>
-<text x="1047" y="449" fill="#28d7e8" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="end">ACTIVE</text>
-<polyline points="1046.00,520.00 1046.00,545.00" fill="none" stroke="#28d7e8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="1038.00,536.00 1046.00,545.00 1054.00,536.00" fill="none" stroke="#28d7e8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="82" y="555" width="1036" height="140" rx="8" fill="#101925" stroke="#203247" stroke-width="1"/>
-<circle cx="144" cy="625" r="28" fill="#090d14" stroke="#f4b84a" stroke-width="2"/>
-<text x="144" y="632" fill="#f4b84a" font-family="Consolas, monospace" font-size="15" font-weight="400" text-anchor="middle">02</text>
-<text x="205" y="617" fill="#f4b84a" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" text-anchor="start">MODEL</text>
-<text x="205" y="654" fill="#8294ab" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">Move the price slider.</text>
-<text x="1047" y="634" fill="#f4b84a" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="end">ACTIVE</text>
-<polyline points="1046.00,705.00 1046.00,730.00" fill="none" stroke="#f4b84a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="1038.00,721.00 1046.00,730.00 1054.00,721.00" fill="none" stroke="#f4b84a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="82" y="740" width="1036" height="140" rx="8" fill="#101925" stroke="#203247" stroke-width="1"/>
-<circle cx="144" cy="810" r="28" fill="#090d14" stroke="#f05bbb" stroke-width="2"/>
-<text x="144" y="817" fill="#f05bbb" font-family="Consolas, monospace" font-size="15" font-weight="400" text-anchor="middle">03</text>
-<text x="205" y="802" fill="#f05bbb" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" text-anchor="start">JOURNAL</text>
-<text x="205" y="839" fill="#8294ab" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">Keep the reason local.</text>
-<text x="1047" y="819" fill="#f05bbb" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="end">ACTIVE</text>
-<rect x="82" y="1004" width="1036" height="75" rx="6" fill="#090d14" stroke="#203247" stroke-width="1"/>
-<text x="112" y="1050" fill="#8294ab" font-family="Consolas, monospace" font-size="14" font-weight="400" text-anchor="start">SOLANA / LOCAL PREVIEW / NO EXECUTION</text>
-<text x="1086" y="1050" fill="#28d7e8" font-family="Consolas, monospace" font-size="14" font-weight="400" text-anchor="end">OBZA</text>
+<title id="title">Tikriva workflow stack</title><desc id="desc">Angular Tikriva workflow from board to payoff to journal.</desc>
+<rect width="1200" height="1200" fill="#10120f"/>
+<rect x="48" y="35" width="52" height="52" rx="6" fill="#d8fa63" stroke="#d8fa63" stroke-width="1"/>
+<polygon points="57.620000000000005,44.620000000000005 90.38,44.620000000000005 90.38,49.69 77.12,49.69 77.12,77.38 70.88,77.38 70.88,49.69 57.620000000000005,49.69" fill="#10120f" stroke="#30362e" stroke-width="2"/>
+<polygon points="63.86,54.175 85.7,54.175 85.7,59.05 75.56,59.05 84.92,71.53 78.875,71.53 72.44,62.56 66.2,71.53 60.35,71.53 70.49,59.05 63.86,59.05" fill="#75d8a8" stroke="none" stroke-width="1"/>
+<polygon points="85.7,54.175 89.21000000000001,58.075 78.29,73.09 74.78,69.775" fill="#d8fa63" stroke="none" stroke-width="1"/>
+<polygon points="72.44,62.56 75.56,62.56 82.19,70.75 78.875,71.53" fill="#ff7887" stroke="none" stroke-width="1"/>
+<text x="120" y="61" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start">TIKRIVA</text>
+<text x="120" y="84" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="start">WORKFLOW / THREE SURFACES</text>
+<text x="1144" y="61" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="end">SOLANA / PREVIEW</text>
+<polyline points="48,108 1152,108" fill="none" stroke="#30362e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="82" y="204" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="700" text-anchor="start">ONE BOARD.</text>
+<text x="82" y="266" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="700" text-anchor="start">THREE CHECKS.</text>
+<rect x="82" y="360" width="1036" height="142" rx="6" fill="#191c18" stroke="#30362e" stroke-width="1"/>
+<polygon points="128,431 154,405 180,431 154,457" fill="#75d8a8" stroke="none" stroke-width="1"/>
+<text x="154" y="437" fill="#10120f" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle">01</text>
+<text x="220" y="423" fill="#75d8a8" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="start">BOARD</text>
+<text x="220" y="461" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">Read the market surface.</text>
+<text x="1050" y="441" fill="#75d8a8" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="end">OPEN</text>
+<rect x="82" y="548" width="1036" height="142" rx="6" fill="#191c18" stroke="#30362e" stroke-width="1"/>
+<polygon points="128,619 154,593 180,619 154,645" fill="#d8fa63" stroke="none" stroke-width="1"/>
+<text x="154" y="625" fill="#10120f" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle">02</text>
+<text x="220" y="611" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="start">PAYOFF</text>
+<text x="220" y="649" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">Set the boundary.</text>
+<text x="1050" y="629" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="end">OPEN</text>
+<rect x="82" y="736" width="1036" height="142" rx="6" fill="#191c18" stroke="#30362e" stroke-width="1"/>
+<polygon points="128,807 154,781 180,807 154,833" fill="#ff7887" stroke="none" stroke-width="1"/>
+<text x="154" y="813" fill="#10120f" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle">03</text>
+<text x="220" y="799" fill="#ff7887" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="start">JOURNAL</text>
+<text x="220" y="837" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">Keep the why visible.</text>
+<text x="1050" y="817" fill="#ff7887" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="end">OPEN</text>
+<text x="82" y="1080" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start">SOLANA / LOCAL PREVIEW / NO EXECUTION</text>
 </svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">Defined cap model</title><desc id="desc">An illustrative price path meets cap K at the model boundary.</desc>
+<rect width="1200" height="675" fill="#10120f"/>
+<text x="54" y="62" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start">MODEL / CAP BOUNDARY</text>
+<text x="54" y="126" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" text-anchor="start">K marks the modeled boundary.</text>
+<text x="54" y="160" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" text-anchor="start">The payoff view separates value at and above the selected cap.</text>
+<rect x="54" y="216" width="1092" height="386" rx="6" fill="#191c18" stroke="#30362e" stroke-width="1"/>
+<polyline points="128,520 1074,520" fill="none" stroke="#30362e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="128,278 128,520" fill="none" stroke="#30362e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="128,300 1074,300" fill="none" stroke="#30362e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="108" y="305" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" text-anchor="end">$220</text>
+<polyline points="128,380 1074,380" fill="none" stroke="#30362e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="108" y="385" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" text-anchor="end">$200</text>
+<polyline points="128,460 1074,460" fill="none" stroke="#30362e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="108" y="465" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" text-anchor="end">$180</text>
+<polyline points="760,267 760,521" fill="none" stroke="#d8fa63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="778" y="300" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start">K / $191.10</text>
+<polyline points="180,478 340,442 495,451 660,374 760,354 910,320 1040,286" fill="none" stroke="#75d8a8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1040,286 1028,284 1034,297" fill="#75d8a8" stroke="none" stroke-width="1"/>
+<text x="180" y="557" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" text-anchor="start">START / $182</text>
+<text x="950" y="557" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" text-anchor="start">SETTLEMENT S</text>
+</svg>

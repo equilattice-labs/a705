@@ -17,7 +17,7 @@ Copy `.env.example` to `.env.local` when configuring a deployment:
   when omitted.
 - `VITE_SOLANA_DEVNET_TOKEN_MINT` and `VITE_SOLANA_TESTNET_TOKEN_MINT` override
   separate public SPL mint addresses. The app selects the matching value from
-  `VITE_SOLANA_CLUSTER`; no mint is bundled in this preview because the Orbinza
+  `VITE_SOLANA_CLUSTER`; no mint is bundled in this preview because the Tikriva
   CA is unpublished. Invalid base58/length overrides are ignored and surfaced
   as `solanaConfig.invalidTokenMint`; this does not verify on-chain ownership
   or that an account is a mint.
@@ -51,7 +51,7 @@ local. Do not put a private key or recovery phrase in website source, `.env`,
 or a browser bundle. Stop if the printed address does not match the funded
 Solana account.
 
-No Orbinza mint has been published. When a verified CA exists and a public
+No Tikriva mint has been published. When a verified CA exists and a public
 configuration is intentionally prepared, create a replacement on the intended
 cluster only through the approved deployment process:
 

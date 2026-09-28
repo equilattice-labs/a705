@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">SPL asset backing model</title><desc id="desc">Illustrative SPL unit flows to a model series and two example positions.</desc>
+<rect width="1200" height="675" fill="#10120f"/>
+<text x="54" y="62" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start">MODEL / ASSET BACKING</text>
+<text x="54" y="126" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" text-anchor="start">One market unit backs the model.</text>
+<text x="54" y="160" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" text-anchor="start">Illustrative only / no asset is deposited by this preview.</text>
+<rect x="54" y="238" width="330" height="250" rx="6" fill="#191c18" stroke="#30362e" stroke-width="1"/>
+<text x="78" y="278" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="start">SPL UNIT</text>
+<text x="78" y="354" fill="#75d8a8" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" text-anchor="start">SOL</text>
+<text x="78" y="395" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start">Example asset</text>
+<polyline points="78,435 360,435" fill="none" stroke="#30362e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="78" y="464" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" text-anchor="start">LOCAL PREVIEW</text>
+<rect x="432" y="238" width="330" height="250" rx="6" fill="#191c18" stroke="#30362e" stroke-width="1"/>
+<text x="456" y="278" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="start">SERIES</text>
+<text x="456" y="354" fill="#d8fa63" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" text-anchor="start">K / 5% cap</text>
+<text x="456" y="395" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start">Model boundary</text>
+<polyline points="456,435 738,435" fill="none" stroke="#30362e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="456" y="464" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" text-anchor="start">LOCAL PREVIEW</text>
+<rect x="810" y="238" width="330" height="250" rx="6" fill="#191c18" stroke="#30362e" stroke-width="1"/>
+<text x="834" y="278" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="start">POSITIONS</text>
+<text x="834" y="354" fill="#ff7887" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" text-anchor="start">Income + Upside</text>
+<text x="834" y="395" fill="#f1f3ed" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start">Example split</text>
+<polyline points="834,435 1116,435" fill="none" stroke="#30362e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="834" y="464" fill="#a0a79b" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" text-anchor="start">LOCAL PREVIEW</text>
+<polyline points="384,362 425,362" fill="none" stroke="#d8fa63" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="425,362 414,355 414,369" fill="#d8fa63" stroke="none" stroke-width="1"/>
+<polyline points="762,362 803,362" fill="none" stroke="#d8fa63" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="803,362 792,355 792,369" fill="#d8fa63" stroke="none" stroke-width="1"/>
+</svg>

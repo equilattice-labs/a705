@@ -1,12 +1,12 @@
 export const brand = Object.freeze({
-  name: 'Orbinza',
-  slug: 'orbinza',
-  asset: 'OBZA',
+  name: 'Tikriva',
+  slug: 'tikriva',
+  asset: 'TKVA',
   network: 'Solana',
-  domain: 'orbinza.fun',
-  handle: '@Orbinza',
-  tagline: 'Orbit the signal. Own the scenario.',
+  domain: 'tikriva.fun',
+  handle: '@Tikriva',
+  tagline: 'Read the move. Build with intent.',
   supportingLine: 'A Solana market terminal for watchlists, payoff models and a local journal.',
 })
 
-export const storageKeys = Object.freeze({ journal: 'Orbinza:journal:v1' })
+export const storageKeys = Object.freeze({ journal: 'Tikriva:journal:v1' })

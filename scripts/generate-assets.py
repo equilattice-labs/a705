@@ -1,267 +1,93 @@
-"""Generate Orbinza's deterministic identity and product visual assets.
-
-The scenes are intentionally app-like: dark market surfaces, compact terminal
-labels and cyan/amber/magenta state colors. They are generated locally so the
-website can reproduce the same assets without a remote image dependency.
-Run from ``website`` with ``python scripts/generate-assets.py``.
-"""
+"""Generate Tikriva's angular, consumer-crypto product artwork."""
 from __future__ import annotations
-
-import hashlib
-import shutil
+import hashlib, shutil
 from html import escape
 from pathlib import Path
-
 from PIL import Image, ImageDraw, ImageFont
 
-BG = "#090d14"
-SURFACE = "#101925"
-SURFACE_2 = "#152235"
-CYAN = "#28d7e8"
-CYAN_DARK = "#126b80"
-AMBER = "#f4b84a"
-MAGENTA = "#f05bbb"
-TEXT = "#eef6ff"
-MUTED = "#8294ab"
-GRID = "#203247"
-
-
-def font_path(kind: str) -> str:
-    options = {
-        "sans": ["C:/Windows/Fonts/arial.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"],
-        "bold": ["C:/Windows/Fonts/arialbd.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"],
-        "mono": ["C:/Windows/Fonts/consola.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"],
-    }
-    for candidate in options[kind]:
-        if Path(candidate).exists():
-            return candidate
-    raise RuntimeError("Install Arial/Consolas or DejaVu fonts before regenerating assets.")
-
-
+BG="#10120f"; PANEL="#191c18"; PANEL_2="#252923"; AMBER="#d8fa63"; MINT="#75d8a8"; PINK="#ff7887"; TEXT="#f1f3ed"; MUTED="#a0a79b"; LINE="#30362e"
+def font(kind):
+    names={"sans":"arial.ttf","bold":"arialbd.ttf","mono":"consola.ttf"}; fallbacks={"sans":"DejaVuSans.ttf","bold":"DejaVuSans-Bold.ttf","mono":"DejaVuSansMono.ttf"}; p=Path("C:/Windows/Fonts")/names[kind]; return str(p if p.exists() else Path("/usr/share/fonts/truetype/dejavu")/fallbacks[kind])
 class Scene:
-    def __init__(self, w: int, h: int, title: str, description: str, bg: str = BG):
-        self.w, self.h, self.scale = w, h, 2
-        self.im = Image.new("RGB", (w * self.scale, h * self.scale), bg)
-        self.draw = ImageDraw.Draw(self.im)
-        self.svg = [
-            f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-labelledby="title desc">',
-            f'<title id="title">{escape(title)}</title><desc id="desc">{escape(description)}</desc>',
-            f'<rect width="{w}" height="{h}" fill="{bg}"/>',
-        ]
-
-    def rect(self, x, y, w, h, fill="none", stroke="none", sw=1, radius=0):
-        self.svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>')
-        s = self.scale
-        self.draw.rounded_rectangle((x*s, y*s, (x+w)*s, (y+h)*s), radius=radius*s, fill=None if fill == "none" else fill, outline=None if stroke == "none" else stroke, width=max(1, round(sw*s)))
-
-    def circle(self, cx, cy, radius, fill="none", stroke="none", sw=1):
-        self.svg.append(f'<circle cx="{cx}" cy="{cy}" r="{radius}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>')
-        s = self.scale
-        self.draw.ellipse(((cx-radius)*s, (cy-radius)*s, (cx+radius)*s, (cy+radius)*s), fill=None if fill == "none" else fill, outline=None if stroke == "none" else stroke, width=max(1, round(sw*s)))
-
-    def line(self, points, color=CYAN, sw=2):
-        pairs = " ".join(f"{x:.2f},{y:.2f}" for x, y in points)
-        self.svg.append(f'<polyline points="{pairs}" fill="none" stroke="{color}" stroke-width="{sw}" stroke-linejoin="round" stroke-linecap="round"/>')
-        pts = [(round(x*self.scale), round(y*self.scale)) for x, y in points]
-        self.draw.line(pts, fill=color, width=max(1, round(sw*self.scale)), joint="curve")
-
-    def text(self, x, y, content, size=24, color=TEXT, kind="sans", align="left"):
-        family = "Consolas, monospace" if kind == "mono" else "Arial, Helvetica, sans-serif"
-        anchor = {"left": "start", "center": "middle", "right": "end"}[align]
-        weight = 700 if kind == "bold" else 400
-        self.svg.append(f'<text x="{x}" y="{y}" fill="{color}" font-family="{family}" font-size="{size}" font-weight="{weight}" text-anchor="{anchor}">{escape(content)}</text>')
-        font = ImageFont.truetype(font_path(kind), round(size*self.scale))
-        self.draw.text((round(x*self.scale), round(y*self.scale)), content, fill=color, font=font, anchor={"left": "ls", "center": "ms", "right": "rs"}[align])
-
-    def grid(self, x, y, w, h, step=50, color=GRID):
-        for offset in range(0, int(w)+1, step):
-            self.line([(x+offset, y), (x+offset, y+h)], color, 1)
-        for offset in range(0, int(h)+1, step):
-            self.line([(x, y+offset), (x+w, y+offset)], color, 1)
-
-    def mark(self, cx, cy, size, background=None):
-        """Signal-orbit mark: two orbital rings and a stepped price pulse."""
-        if background:
-            self.circle(cx, cy, size*.53, background)
-        self.circle(cx, cy, size*.43, "none", CYAN, max(2, size*.022))
-        self.circle(cx, cy, size*.27, "none", AMBER, max(2, size*.018))
-        pulse = [(-.31, .07), (-.18, .07), (-.08, -.13), (.02, .14), (.12, -.06), (.21, .01), (.31, .01)]
-        self.line([(cx+px*size, cy+py*size) for px, py in pulse], MAGENTA, max(2, size*.035))
-        self.circle(cx+size*.12, cy-size*.06, size*.035, AMBER)
-        self.circle(cx-size*.08, cy+size*.14, size*.027, CYAN)
-
-    def save(self, path: Path, vector=False):
-        path.parent.mkdir(parents=True, exist_ok=True)
-        if vector:
-            path.with_suffix(".svg").write_text("\n".join(self.svg + ["</svg>"]) + "\n", encoding="utf-8")
-        if path.suffix == ".svg":
-            return
-        raster = self.im.resize((self.w, self.h), Image.Resampling.LANCZOS)
-        if path.suffix == ".webp":
-            raster.save(path, quality=94, method=6)
-        elif path.suffix == ".jpg":
-            raster.save(path, quality=95, subsampling=0, optimize=True)
-        else:
-            raster.save(path, optimize=True)
-
-
-def terminal_header(s: Scene, label: str, right: str = "SOLANA / PREVIEW"):
-    s.text(64, 57, "ORBINZA", 22, CYAN, "bold")
-    s.text(64, 84, label, 13, MUTED, "mono")
-    s.text(s.w-64, 57, right, 13, AMBER, "mono", "right")
-    s.line([(64, 111), (s.w-64, 111)], GRID, 1)
-
-
+    def __init__(self,w,h,title,desc,bg=BG):
+        self.w,self.h,self.k=w,h,2; self.im=Image.new("RGB",(w*2,h*2),bg); self.d=ImageDraw.Draw(self.im); self.svg=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-labelledby="title desc">',f'<title id="title">{escape(title)}</title><desc id="desc">{escape(desc)}</desc>',f'<rect width="{w}" height="{h}" fill="{bg}"/>']
+    def rect(self,x,y,w,h,fill=PANEL,stroke=LINE,sw=1,r=8):
+        r=min(r,6)
+        self.svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{r}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>'); self.d.rounded_rectangle((x*2,y*2,(x+w)*2,(y+h)*2),radius=r*2,fill=fill,outline=stroke,width=max(1,round(sw*2)))
+    def poly(self,pts,fill,stroke=None,sw=1):
+        self.svg.append(f'<polygon points="{" ".join(f"{x},{y}" for x,y in pts)}" fill="{fill}" stroke="{stroke or "none"}" stroke-width="{sw}"/>'); self.d.polygon([(x*2,y*2) for x,y in pts],fill=fill,outline=stroke)
+    def line(self,pts,color=LINE,sw=2):
+        self.svg.append(f'<polyline points="{" ".join(f"{x},{y}" for x,y in pts)}" fill="none" stroke="{color}" stroke-width="{sw}" stroke-linecap="round" stroke-linejoin="round"/>'); self.d.line([(x*2,y*2) for x,y in pts],fill=color,width=max(1,round(sw*2)),joint="curve")
+    def text(self,x,y,s,size=24,color=TEXT,kind="sans",align="left"):
+        anchor={"left":"start","center":"middle","right":"end"}[align]; self.svg.append(f'<text x="{x}" y="{y}" fill="{color}" font-family="Arial, Helvetica, sans-serif" font-size="{size}" font-weight="{700 if kind=="bold" else 400}" text-anchor="{anchor}">{escape(s)}</text>'); self.d.text((x*2,y*2),s,fill=color,font=ImageFont.truetype(font(kind),round(size*2)),anchor={"left":"ls","center":"ms","right":"rs"}[align])
+    def mark(self,cx,cy,size,bg=PANEL_2):
+        """Angular faceted T/K monogram; no rings, orbits or pulses."""
+        q=size*.5; self.poly([(cx-q*.84,cy-q*.84),(cx+q*.84,cy-q*.84),(cx+q*.84,cy-q*.58),(cx+q*.16,cy-q*.58),(cx+q*.16,cy+q*.84),(cx-q*.16,cy+q*.84),(cx-q*.16,cy-q*.58),(cx-q*.84,cy-q*.58)],bg,LINE,2); self.poly([(cx-q*.52,cy-q*.35),(cx+q*.60,cy-q*.35),(cx+q*.60,cy-q*.10),(cx+q*.08,cy-q*.10),(cx+q*.56,cy+q*.54),(cx+q*.25,cy+q*.54),(cx-q*.08,cy+q*.08),(cx-q*.40,cy+q*.54),(cx-q*.70,cy+q*.54),(cx-q*.18,cy-q*.10),(cx-q*.52,cy-q*.10)],MINT); self.poly([(cx+q*.60,cy-q*.35),(cx+q*.78,cy-q*.15),(cx+q*.22,cy+q*.62),(cx+q*.04,cy+q*.45)],AMBER); self.poly([(cx-q*.08,cy+q*.08),(cx+q*.08,cy+q*.08),(cx+q*.42,cy+q*.50),(cx+q*.25,cy+q*.54)],PINK)
+    def save(self,path,vector=False):
+        path=Path(path); path.parent.mkdir(parents=True,exist_ok=True)
+        if vector: path.with_suffix(".svg").write_text("\n".join(self.svg+["</svg>"])+'\n',encoding="utf-8")
+        if path.suffix==".svg": return
+        out=self.im.resize((self.w,self.h),Image.Resampling.LANCZOS)
+        if path.suffix==".webp": out.save(path,quality=95,method=6)
+        elif path.suffix==".jpg": out.save(path,quality=95,subsampling=0,optimize=True)
+        else: out.save(path,optimize=True)
+def header(s,label,right="SOLANA / PREVIEW"):
+    s.rect(48,35,52,52,AMBER,AMBER,1,6); s.mark(74,61,39,BG); s.text(120,61,"TIKRIVA",22,TEXT,"bold"); s.text(120,84,label,12,MUTED,"mono"); s.text(s.w-56,61,right,12,AMBER,"mono","right"); s.line([(48,108),(s.w-48,108)],LINE,1)
 def hero():
-    s = Scene(2000, 1119, "Orbinza market terminal", "Orbinza Solana market terminal visual with signal, scenario and journal surfaces.")
-    s.grid(72, 150, 1856, 850, 80)
-    terminal_header(s, "MARKETS / SIGNAL DESK", "OBZA / SOLANA")
-    s.text(92, 260, "Orbit the", 88, TEXT, "bold")
-    s.text(92, 355, "signal.", 88, CYAN, "bold")
-    s.text(92, 438, "Own the scenario.", 44, AMBER, "bold")
-    s.text(94, 493, "Watchlists, payoff paths and a local thesis.", 23, MUTED)
-    s.rect(92, 566, 520, 238, SURFACE, GRID, 1, 8)
-    s.text(124, 609, "OBZA / MARKET UNIT", 15, MUTED, "mono")
-    s.text(124, 681, "$1.00", 57, TEXT, "bold")
-    s.text(453, 681, "+5.8%", 25, CYAN, "mono", "right")
-    s.line([(124, 724), (552, 724)], GRID, 1)
-    s.text(124, 764, "MODEL QUOTE / 30D EPOCH", 13, MUTED, "mono")
-    s.mark(1542, 477, 610, SURFACE_2)
-    s.circle(1542, 477, 345, "none", CYAN_DARK, 2)
-    s.rect(1010, 682, 725, 254, BG, GRID, 1, 8)
-    s.text(1040, 726, "SCENARIO PATH / USER PRICED", 14, CYAN, "mono")
-    points = [(1045, 861), (1120, 828), (1194, 842), (1277, 783), (1360, 808), (1442, 751), (1523, 779), (1603, 712), (1694, 732)]
-    s.line(points, CYAN, 5)
-    s.line([(1045, 875), (1694, 875)], GRID, 1)
-    s.circle(1603, 712, 7, AMBER)
-    s.text(1040, 909, "REFERENCE  $1.00", 13, MUTED, "mono")
-    s.text(1695, 909, "NO LIVE FEED", 13, MAGENTA, "mono", "right")
-    return s
-
-
+    s=Scene(2000,1119,"Tikriva market terminal","Angular Tikriva Solana market terminal visual with watchlist, payoff and journal surfaces."); header(s,"MARKETS / BOARD","TKVA / SOLANA"); s.text(86,258,"READ THE",76,TEXT,"bold"); s.text(86,344,"MOVE.",92,AMBER,"bold"); s.text(90,406,"Build with intent.",42,MINT,"bold"); s.text(92,454,"A consumer crypto workspace for assumptions you can inspect.",22,MUTED); s.rect(88,522,520,280,PANEL,LINE,1,12); s.text(118,562,"TKVA / WATCHLIST SAMPLE",14,MUTED,"mono"); s.text(118,635,"$1.00",62,TEXT,"bold"); s.text(550,635,"+5.8%",24,MINT,"mono","right"); s.line([(118,678),(556,678)],LINE,1); s.text(118,723,"REFERENCE / USER ENTERED",13,MUTED,"mono"); s.text(118,764,"PREVIEW ONLY",13,PINK,"mono"); s.rect(760,205,1090,680,PANEL,LINE,1,14); s.text(804,258,"MARKET BOARD",16,MINT,"mono"); s.text(1810,258,"NO LIVE FEED",15,PINK,"mono","right")
+    for t,x in [("ASSET",804),("REFERENCE",1205),("MOVE",1470),("STATE",1736)]: s.text(x,310,t,13,MUTED,"mono")
+    for i,(a,p,m,state) in enumerate([("SOL","$250.00","+8.4%","WATCH"),("JUP","$0.92","-2.1%","REVIEW"),("TKVA","$1.00","+5.8%","LOCAL")]):
+        y=365+i*132; s.line([(804,y-30),(1808,y-30)],LINE,1); s.poly([(804,y-4),(820,y-20),(836,y-4),(820,y+12)],[MINT,AMBER,PINK][i]); s.text(856,y,a,24,TEXT,"bold"); s.text(1205,y,p,22,TEXT,"mono"); s.text(1470,y,m,21,[MINT,PINK,AMBER][i],"mono"); s.text(1736,y,state,13,[MINT,AMBER,PINK][i],"mono")
+    s.text(804,804,"WATCHLIST     PAYOFF MAP     JOURNAL",14,AMBER,"mono"); return s
 def token():
-    s = Scene(1800, 1209, "Orbinza OBZA market card", "OBZA signal-orbit mark on a Solana market terminal grid.")
-    s.grid(86, 112, 1628, 1005, 80)
-    terminal_header(s, "ASSET / OBZA", "SOLANA / CONTEXT")
-    s.text(118, 233, "OBZA", 26, CYAN, "bold")
-    s.text(118, 270, "Orbinza market unit", 20, MUTED)
-    s.text(118, 418, "SIGNAL", 15, MUTED, "mono")
-    s.text(118, 478, "+5.8%", 52, CYAN, "bold")
-    s.text(118, 514, "model move / illustrative", 15, MUTED, "mono")
-    s.mark(892, 525, 505, SURFACE_2)
-    s.circle(892, 525, 296, "none", CYAN_DARK, 2)
-    s.rect(118, 825, 1564, 155, SURFACE, GRID, 1, 8)
-    s.text(150, 872, "INCOME", 15, AMBER, "mono")
-    s.text(150, 928, "$0.95", 37, TEXT, "bold")
-    s.text(600, 872, "UPSIDE", 15, MAGENTA, "mono")
-    s.text(600, 928, "$0.05", 37, TEXT, "bold")
-    s.text(1050, 872, "EPOCH", 15, MUTED, "mono")
-    s.text(1050, 928, "30D", 37, TEXT, "bold")
-    s.text(1650, 872, "PREVIEW", 15, CYAN, "mono", "right")
-    s.text(1650, 928, "NO CA", 37, MAGENTA, "bold", "right")
-    s.circle(1636, 260, 11, AMBER)
-    s.text(1664, 267, "USER ASSUMPTION", 14, MUTED, "mono")
+    s=Scene(1800,1209,"Tikriva TKVA market card","Angular Tikriva TKVA card for a Solana consumer crypto workspace."); header(s,"ASSET / TKVA","SOLANA / CONTEXT"); s.rect(94,158,1612,890,PANEL,LINE,1,14); s.mark(900,426,440,PANEL_2); s.text(140,250,"TKVA",31,AMBER,"bold"); s.text(140,289,"Tikriva market unit",19,MUTED); s.text(140,414,"REFERENCE",13,MUTED,"mono"); s.text(140,472,"$1.00",54,TEXT,"bold"); s.text(140,520,"+5.8% illustrative move",17,MINT,"mono"); s.poly([(1294,252),(1578,252),(1578,524),(1294,524)],BG,LINE,1); s.text(1330,306,"SCENARIO",13,MUTED,"mono"); s.line([(1332,455),(1392,417),(1455,438),(1510,359),(1562,384)],AMBER,5); s.text(1330,490,"USER PRICED",13,AMBER,"mono");
+    for x,t,v,c in [(140,"INCOME","$0.95",MINT),(560,"UPSIDE","$0.05",PINK),(980,"EPOCH","30D",AMBER),(1400,"STATUS","NO CA",PINK)]: s.rect(x,830,330,126,BG,LINE,1,8); s.text(x+26,872,t,13,MUTED,"mono"); s.text(x+26,930,v,32,c,"bold")
     return s
-
-
 def stack():
-    s = Scene(1200, 1200, "Orbinza signal stack", "Three terminal surfaces for observe, model and journal.", BG)
-    terminal_header(s, "WORKFLOW / THREE SURFACES")
-    s.text(82, 205, "From signal", 53, TEXT, "bold")
-    s.text(82, 266, "to scenario.", 53, CYAN, "bold")
-    rows = [(370, "01", "OBSERVE", "Read the market surface.", CYAN), (555, "02", "MODEL", "Move the price slider.", AMBER), (740, "03", "JOURNAL", "Keep the reason local.", MAGENTA)]
-    for y, number, title, body, color in rows:
-        s.rect(82, y, 1036, 140, SURFACE, GRID, 1, 8)
-        s.circle(144, y+70, 28, BG, color, 2)
-        s.text(144, y+77, number, 15, color, "mono", "center")
-        s.text(205, y+62, title, 29, color, "bold")
-        s.text(205, y+99, body, 18, MUTED)
-        s.text(1047, y+79, "ACTIVE", 13, color, "mono", "right")
-        if y < 740:
-            s.line([(1046, y+150), (1046, y+175)], color, 2)
-            s.line([(1038, y+166), (1046, y+175), (1054, y+166)], color, 2)
-    s.rect(82, 1004, 1036, 75, BG, GRID, 1, 6)
-    s.text(112, 1050, "SOLANA / LOCAL PREVIEW / NO EXECUTION", 14, MUTED, "mono")
-    s.text(1086, 1050, "OBZA", 14, CYAN, "mono", "right")
-    return s
-
-
+    s=Scene(1200,1200,"Tikriva workflow stack","Angular Tikriva workflow from board to payoff to journal."); header(s,"WORKFLOW / THREE SURFACES"); s.text(82,204,"ONE BOARD.",55,TEXT,"bold"); s.text(82,266,"THREE CHECKS.",55,AMBER,"bold")
+    for i,(n,t,b,c) in enumerate([("01","BOARD","Read the market surface.",MINT),("02","PAYOFF","Set the boundary.",AMBER),("03","JOURNAL","Keep the why visible.",PINK)]):
+        y=360+i*188; s.rect(82,y,1036,142,PANEL,LINE,1,12); s.poly([(128,y+71),(154,y+45),(180,y+71),(154,y+97)],c); s.text(154,y+77,n,14,BG,"bold","center"); s.text(220,y+63,t,28,c,"bold"); s.text(220,y+101,b,18,TEXT); s.text(1050,y+81,"OPEN",12,c,"mono","right")
+    s.text(82,1080,"SOLANA / LOCAL PREVIEW / NO EXECUTION",13,MUTED,"mono"); return s
 def network():
-    s = Scene(1200, 1200, "Orbinza Solana workflow", "A compact market workflow from watchlist to payoff model and local journal.")
-    terminal_header(s, "SOLANA / WORKFLOW", "OBZA / PREVIEW")
-    s.text(82, 196, "Scan. Model.", 54, TEXT, "bold")
-    s.text(82, 255, "Keep the proof.", 54, CYAN, "bold")
-    s.text(84, 302, "A working surface for user-priced crypto scenarios.", 18, MUTED)
-    nodes = [(380, "01", "WATCHLIST", "Observe the signal", CYAN), (574, "02", "PAYOFF", "Set the boundary", AMBER), (768, "03", "JOURNAL", "Export your view", MAGENTA)]
-    for y, number, title, body, color in nodes:
-        s.rect(82, y, 1036, 138, SURFACE, GRID, 1, 8)
-        s.circle(144, y+69, 29, BG, color, 2)
-        s.text(144, y+76, number, 15, color, "mono", "center")
-        s.text(205, y+59, title, 28, color, "bold")
-        s.text(205, y+97, body, 18, TEXT)
-        s.text(1049, y+77, "OPEN", 13, color, "mono", "right")
-        if y < 768:
-            s.line([(1048, y+147), (1048, y+174)], GRID, 2)
-            s.line([(1039, y+165), (1048, y+174), (1057, y+165)], GRID, 2)
-    s.text(84, 1056, "SCENARIOS ARE ASSUMPTIONS, NOT PREDICTIONS.", 14, MUTED, "mono")
-    s.mark(1017, 207, 142, SURFACE_2)
+    s=Scene(1200,1200,"Tikriva Solana workflow","Tikriva workflow for watchlist, payoff and local journal."); header(s,"SOLANA / WORKFLOW","TKVA / PREVIEW"); s.text(82,200,"SCAN.",54,TEXT,"bold"); s.text(82,260,"BUILD.",54,MINT,"bold"); s.text(82,320,"REVIEW.",54,AMBER,"bold"); s.text(82,374,"User-priced scenarios with a visible paper trail.",18,MUTED)
+    for i,(t,b,c) in enumerate([("WATCHLIST","Read the signal",MINT),("PAYOFF","Set the boundary",AMBER),("JOURNAL","Export your view",PINK)]):
+        y=460+i*170; s.rect(82,y,1036,120,PANEL,LINE,1,12); s.text(120,y+50,f"0{i+1}",15,c,"mono"); s.text(205,y+51,t,27,c,"bold"); s.text(205,y+87,b,17,TEXT); s.text(1050,y+67,"READY",12,c,"mono","right")
+    s.mark(1000,215,140,PANEL_2); s.text(84,1110,"SCENARIOS ARE ASSUMPTIONS, NOT PREDICTIONS.",13,MUTED,"mono"); return s
+def concept_backing():
+    s=Scene(1200,675,"SPL asset backing model","Illustrative SPL unit flows to a model series and two example positions."); s.text(54,62,"MODEL / ASSET BACKING",13,AMBER,"mono"); s.text(54,126,"One market unit backs the model.",35,TEXT,"bold"); s.text(54,160,"Illustrative only / no asset is deposited by this preview.",15,MUTED)
+    for x,label,value,sub,color in [(54,"SPL UNIT","SOL","Example asset",MINT),(432,"SERIES","K / 5% cap","Model boundary",AMBER),(810,"POSITIONS","Income + Upside","Example split",PINK)]:
+        s.rect(x,238,330,250,PANEL,LINE,1,6); s.text(x+24,278,label,12,MUTED,"mono"); s.text(x+24,354,value,27,color,"bold"); s.text(x+24,395,sub,14,TEXT); s.line([(x+24,435),(x+306,435)],LINE,1); s.text(x+24,464,"LOCAL PREVIEW",11,MUTED,"mono")
+    s.line([(384,362),(425,362)],AMBER,3); s.poly([(425,362),(414,355),(414,369)],AMBER)
+    s.line([(762,362),(803,362)],AMBER,3); s.poly([(803,362),(792,355),(792,369)],AMBER)
     return s
-
-
+def concept_cap():
+    s=Scene(1200,675,"Defined cap model","An illustrative price path meets cap K at the model boundary."); s.text(54,62,"MODEL / CAP BOUNDARY",13,AMBER,"mono"); s.text(54,126,"K marks the modeled boundary.",35,TEXT,"bold"); s.text(54,160,"The payoff view separates value at and above the selected cap.",15,MUTED)
+    s.rect(54,216,1092,386,PANEL,LINE,1,6); s.line([(128,520),(1074,520)],LINE,1); s.line([(128,278),(128,520)],LINE,1)
+    for y,label in [(300,"$220"),(380,"$200"),(460,"$180")]:
+        s.line([(128,y),(1074,y)],LINE,1); s.text(108,y+5,label,11,MUTED,"mono","right")
+    s.line([(760,267),(760,521)],AMBER,2); s.text(778,300,"K / $191.10",13,AMBER,"mono"); s.line([(180,478),(340,442),(495,451),(660,374),(760,354),(910,320),(1040,286)],MINT,4); s.poly([(1040,286),(1028,284),(1034,297)],MINT)
+    s.text(180,557,"START / $182",11,MUTED,"mono"); s.text(950,557,"SETTLEMENT S",11,MUTED,"mono")
+    return s
+def concept_settlement():
+    s=Scene(1200,675,"Illustrative settlement split","Example settlement value splits into Income and Upside at a defined cap."); s.text(54,62,"MODEL / SETTLEMENT",13,AMBER,"mono"); s.text(54,126,"One example settlement.",35,TEXT,"bold"); s.text(54,160,"S = $200.00 / cap K = $190.00 / per unit",15,MUTED)
+    for x,label,value,color,foot in [(54,"INCOME / UP TO K","$190.00",MINT,"min(S, K)"),(438,"UPSIDE / ABOVE K","$10.00",PINK,"max(S - K, 0)")]:
+        s.rect(x,238,330,250,PANEL,LINE,1,6); s.text(x+24,278,label,12,color,"mono"); s.text(x+24,375,value,45,TEXT,"bold"); s.text(x+24,421,foot,14,MUTED,"mono")
+    s.text(822,383,"+",35,MUTED,"bold","center"); s.rect(878,238,268,250,PANEL_2,LINE,1,6); s.text(902,278,"TOTAL UNIT VALUE",12,MUTED,"mono"); s.text(902,375,"$200.00",32,AMBER,"bold"); s.text(902,421,"Illustrative",14,MUTED)
+    s.text(54,555,"NO LIVE ORACLE / AUCTION / TRANSACTION",12,MUTED,"mono")
+    return s
 def og_image():
-    s = Scene(1200, 630, "Orbinza Solana market terminal", "Orbinza market terminal preview for Solana.")
-    s.grid(42, 110, 1116, 464, 56)
-    terminal_header(s, "MARKETS / OG CARD", "SOLANA / OBZA")
-    s.text(64, 244, "ORBIT THE SIGNAL.", 58, TEXT, "bold")
-    s.text(64, 312, "OWN THE SCENARIO.", 52, CYAN, "bold")
-    s.text(66, 363, "Signals / payoff paths / local journal", 21, MUTED)
-    s.rect(64, 416, 682, 104, SURFACE, GRID, 1, 7)
-    s.text(90, 455, "OBZA", 17, CYAN, "bold")
-    s.text(90, 490, "USER-PRICED / NO LIVE QUOTE", 14, MUTED, "mono")
-    s.text(698, 487, "+5.8%", 25, AMBER, "mono", "right")
-    s.mark(1011, 321, 260, SURFACE_2)
-    s.text(66, 580, "ORBINZA / SOLANA MARKET APP PREVIEW", 14, MUTED, "mono")
-    return s
-
-
-def identity_assets(public: Path):
-    icon = Scene(64, 64, "Orbinza icon", "Signal-orbit mark.", BG)
-    icon.mark(32, 32, 48, SURFACE_2)
-    icon.save(public / "icon.svg", vector=True)
-    apple = Scene(180, 180, "Orbinza app icon", "Signal-orbit mark.", BG)
-    apple.mark(90, 90, 138, SURFACE_2)
-    apple.save(public / "apple-icon.png")
-
-
+    s=Scene(1200,630,"Tikriva Solana market terminal","Tikriva market terminal preview for Solana."); header(s,"MARKETS / OG CARD","SOLANA / TKVA"); s.text(64,210,"READ THE",56,TEXT,"bold"); s.text(64,276,"MOVE.",74,AMBER,"bold"); s.text(64,335,"BUILD WITH INTENT.",42,MINT,"bold"); s.text(66,388,"Signals / payoff map / local journal",20,MUTED); s.rect(64,435,700,92,PANEL,LINE,1,8); s.text(90,473,"TKVA",17,AMBER,"bold"); s.text(90,505,"USER-PRICED / NO LIVE QUOTE",13,MUTED,"mono"); s.mark(1000,322,240,PANEL_2); s.text(66,590,"TIKRIVA / SOLANA MARKET APP PREVIEW",13,MUTED,"mono"); return s
+def identity_assets(public):
+    i=Scene(64,64,"Tikriva icon","Angular faceted T/K mark."); i.mark(32,32,48,PANEL_2); i.save(public/"icon.svg",True); a=Scene(180,180,"Tikriva app icon","Angular faceted T/K mark."); a.mark(90,90,136,PANEL_2); a.save(public/"apple-icon.png")
 def generate():
-    script = Path(__file__).resolve()
-    website = script.parents[1]
-    public = website / "public"
-    public.mkdir(exist_ok=True)
-    identity_assets(public)
-    for name, scene in [("hero", hero()), ("token", token()), ("stack", stack()), ("network", network()), ("og-image", og_image())]:
-        scene.save(public / f"{name}.webp" if name != "og-image" else public / "og-image.jpg", vector=True)
-
-    mirror = website / "a705"
+    script=Path(__file__).resolve(); website=script.parents[1]; public=website/"public"; public.mkdir(exist_ok=True); identity_assets(public)
+    for name,scene in [("hero",hero()),("token",token()),("stack",stack()),("network",network()),("concept-backing",concept_backing()),("concept-cap",concept_cap()),("concept-settlement",concept_settlement()),("og-image",og_image())]: scene.save(public/(f"{name}.webp" if name!="og-image" else "og-image.jpg"),True)
+    mirror=website/"a705"
     if mirror.is_dir():
-        (mirror / "public").mkdir(exist_ok=True)
-        (mirror / "scripts").mkdir(exist_ok=True)
-        for name in ["icon.svg", "apple-icon.png", "hero.webp", "hero.svg", "token.webp", "token.svg", "stack.webp", "stack.svg", "network.webp", "network.svg", "og-image.jpg", "og-image.svg"]:
-            shutil.copy2(public / name, mirror / "public" / name)
-        destination = mirror / "scripts" / script.name
-        if destination.resolve() != script:
-            shutil.copy2(script, destination)
-
-    print("Orbinza terminal assets regenerated.")
-    for path in sorted(public.iterdir()):
-        if path.suffix in [".jpg", ".png", ".webp"]:
-            with Image.open(path) as im:
-                print(f"{path.relative_to(website.parent)}: {im.width}x{im.height} {im.mode} {path.stat().st_size:,} bytes")
+        for name in ["icon.svg","apple-icon.png","hero.webp","hero.svg","token.webp","token.svg","stack.webp","stack.svg","network.webp","network.svg","concept-backing.webp","concept-backing.svg","concept-cap.webp","concept-cap.svg","concept-settlement.webp","concept-settlement.svg","og-image.jpg","og-image.svg"]: shutil.copy2(public/name,mirror/"public"/name)
+        shutil.copy2(script,mirror/"scripts"/script.name)
+    print("Tikriva angular product assets regenerated.")
     if mirror.is_dir():
-        for name in ["icon.svg", "apple-icon.png", "hero.webp", "hero.svg", "token.webp", "token.svg", "stack.webp", "stack.svg", "network.webp", "network.svg", "og-image.jpg", "og-image.svg"]:
-            assert hashlib.sha256((public / name).read_bytes()).digest() == hashlib.sha256((mirror / "public" / name).read_bytes()).digest(), name
+        for name in ["icon.svg","apple-icon.png","hero.webp","hero.svg","token.webp","token.svg","stack.webp","stack.svg","network.webp","network.svg","concept-backing.webp","concept-backing.svg","concept-cap.webp","concept-cap.svg","concept-settlement.webp","concept-settlement.svg","og-image.jpg","og-image.svg"]: assert hashlib.sha256((public/name).read_bytes()).digest()==hashlib.sha256((mirror/"public"/name).read_bytes()).digest(),name
         print("Mirror verification: public assets are byte-identical.")
-
-
-if __name__ == "__main__":
-    generate()
+if __name__=="__main__": generate()
