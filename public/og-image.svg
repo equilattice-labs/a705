@@ -1,31 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-<title id="title">Openyra | Solana</title><desc id="desc">Read the move. Build with intent. Consumer crypto market app preview.</desc>
-<defs>
-<linearGradient id="koiCoral" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f04f68"/><stop offset="0.55" stop-color="#ff826c"/><stop offset="1" stop-color="#ffd166"/></linearGradient>
-<linearGradient id="koiBlue" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset="0.5" stop-color="#38bdf8"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
-<linearGradient id="orbitalInk" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#111b2b"/><stop offset="1" stop-color="#1d2b43"/></linearGradient>
-</defs>
-<rect width="1200" height="630" fill="#0b1016"/>
-<ellipse cx="90.0" cy="86.0" rx="28.799999999999997" ry="28.799999999999997" fill="url(#orbitalInk)" stroke="#334155" stroke-width="1.0799999999999998"/>
-<ellipse cx="90.0" cy="86.0" rx="22.799999999999997" ry="21.599999999999994" fill="none" stroke="#263750" stroke-width="1"/>
-<polyline points="69.6,103.4 77.4,95.0 85.8,90.19999999999999 93.0,81.8 100.80000000000001,76.4 109.19999999999999,66.8" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="109.19999999999999,66.8 103.19999999999999,68.0 106.80000000000001,72.8" fill="#38bdf8"/>
-<ellipse cx="85.8" cy="90.19999999999999" rx="1.6800000000000068" ry="1.6800000000000068" fill="#d9f99d" stroke="none" stroke-width="1"/>
-<path d="M 105.6,72.2 C 97.2,66.8 89.4,73.4 81.0,84.8 C 78.0,89.0 75.0,91.4 73.8,90.19999999999999 C 76.2,97.4 84.0,92.6 91.2,87.8 C 98.4,82.4 103.8,78.8 105.6,72.2 Z" fill="url(#koiCoral)" stroke="#ffb4a2" stroke-width="1"/>
-<polygon points="74.4,90.19999999999999 66.6,84.8 69.6,93.2 66.6,99.19999999999999 76.8,94.4" fill="#e5536b"/>
-<polyline points="85.8,83.0 91.2,87.8" fill="none" stroke="#ffd166" stroke-width="1" stroke-linejoin="round"/>
-<ellipse cx="103.19999999999999" cy="74.0" rx="1.3199999999999932" ry="1.3199999999999932" fill="#fff7ed" stroke="none" stroke-width="1"/>
-<ellipse cx="103.38" cy="74.0" rx="0.5999999999999943" ry="0.5999999999999943" fill="#111827" stroke="none" stroke-width="1"/>
-<path d="M 77.4,100.4 C 85.2,105.8 91.8,96.2 102.0,86.6 C 105.6,83.0 108.0,81.8 108.0,81.8 C 103.8,76.4 97.2,81.8 91.2,86.6 C 84.0,93.2 79.2,96.2 77.4,100.4 Z" fill="url(#koiBlue)" stroke="#a5e8ff" stroke-width="1"/>
-<polygon points="106.80000000000001,81.8 114.6,77.0 112.2,85.4 115.80000000000001,90.8 105.0,86.0" fill="#2563a8"/>
-<polyline points="93.0,87.8 97.8,81.8" fill="none" stroke="#ffd166" stroke-width="1" stroke-linejoin="round"/>
-<ellipse cx="79.2" cy="99.19999999999999" rx="1.3199999999999932" ry="1.3199999999999932" fill="#eff6ff" stroke="none" stroke-width="1"/>
-<ellipse cx="79.02" cy="99.19999999999999" rx="0.5999999999999943" ry="0.5999999999999943" fill="#111827" stroke="none" stroke-width="1"/>
-<polyline points="88.8,85.4 91.2,87.8" fill="none" stroke="#f8fafc" stroke-width="1" stroke-linejoin="round"/>
-<text x="143" y="100" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" text-anchor="start">OPENYRA</text>
-<text x="56" y="249" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="700" text-anchor="start">READ THE MOVE.</text>
-<text x="56" y="341" fill="#6ee7b7" font-family="Arial, Helvetica, sans-serif" font-size="65" font-weight="700" text-anchor="start">BUILD WITH INTENT.</text>
-<text x="61" y="430" fill="#f5f7fa" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start">Signals / payoff model / local journal</text>
-<text x="61" y="478" fill="#9ca9b8" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" text-anchor="start">User-priced scenarios, no live quote</text>
-<text x="61" y="575" fill="#9ca9b8" font-family="Consolas, monospace" font-size="18" font-weight="400" text-anchor="start">SOLANA / MARKET APP PREVIEW</text>
+<title id="title">Orbinza Solana market terminal</title><desc id="desc">Orbinza market terminal preview for Solana.</desc>
+<rect width="1200" height="630" fill="#090d14"/>
+<polyline points="42.00,110.00 42.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="98.00,110.00 98.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="154.00,110.00 154.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="210.00,110.00 210.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="266.00,110.00 266.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="322.00,110.00 322.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="378.00,110.00 378.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="434.00,110.00 434.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="490.00,110.00 490.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="546.00,110.00 546.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="602.00,110.00 602.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="658.00,110.00 658.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="714.00,110.00 714.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="770.00,110.00 770.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="826.00,110.00 826.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="882.00,110.00 882.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="938.00,110.00 938.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="994.00,110.00 994.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="1050.00,110.00 1050.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="1106.00,110.00 1106.00,574.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="42.00,110.00 1158.00,110.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="42.00,166.00 1158.00,166.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="42.00,222.00 1158.00,222.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="42.00,278.00 1158.00,278.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="42.00,334.00 1158.00,334.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="42.00,390.00 1158.00,390.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="42.00,446.00 1158.00,446.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="42.00,502.00 1158.00,502.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="42.00,558.00 1158.00,558.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="64" y="57" fill="#28d7e8" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start">ORBINZA</text>
+<text x="64" y="84" fill="#8294ab" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="start">MARKETS / OG CARD</text>
+<text x="1136" y="57" fill="#f4b84a" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="end">SOLANA / OBZA</text>
+<polyline points="64.00,111.00 1136.00,111.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="64" y="244" fill="#eef6ff" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700" text-anchor="start">ORBIT THE SIGNAL.</text>
+<text x="64" y="312" fill="#28d7e8" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" text-anchor="start">OWN THE SCENARIO.</text>
+<text x="66" y="363" fill="#8294ab" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="start">Signals / payoff paths / local journal</text>
+<rect x="64" y="416" width="682" height="104" rx="7" fill="#101925" stroke="#203247" stroke-width="1"/>
+<text x="90" y="455" fill="#28d7e8" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" text-anchor="start">OBZA</text>
+<text x="90" y="490" fill="#8294ab" font-family="Consolas, monospace" font-size="14" font-weight="400" text-anchor="start">USER-PRICED / NO LIVE QUOTE</text>
+<text x="698" y="487" fill="#f4b84a" font-family="Consolas, monospace" font-size="25" font-weight="400" text-anchor="end">+5.8%</text>
+<circle cx="1011" cy="321" r="137.8" fill="#152235" stroke="none" stroke-width="1"/>
+<circle cx="1011" cy="321" r="111.8" fill="none" stroke="#28d7e8" stroke-width="5.72"/>
+<circle cx="1011" cy="321" r="70.2" fill="none" stroke="#f4b84a" stroke-width="4.68"/>
+<polyline points="930.40,339.20 964.20,339.20 990.20,287.20 1016.20,357.40 1042.20,305.40 1065.60,323.60 1091.60,323.60" fill="none" stroke="#f05bbb" stroke-width="9.100000000000001" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1042.2" cy="305.4" r="9.100000000000001" fill="#f4b84a" stroke="none" stroke-width="1"/>
+<circle cx="990.2" cy="357.4" r="7.02" fill="#28d7e8" stroke="none" stroke-width="1"/>
+<text x="66" y="580" fill="#8294ab" font-family="Consolas, monospace" font-size="14" font-weight="400" text-anchor="start">ORBINZA / SOLANA MARKET APP PREVIEW</text>
 </svg>

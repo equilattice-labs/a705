@@ -109,7 +109,7 @@ function go(to) { emit('navigate', to) }
 
         <section id="settlement" class="docs-section split-section">
           <div><p class="section-label">Settlement</p><h2>A defined cap sets the split.</h2><p>For a starting price P0 and a cap rate, K = P0 × (1 + cap). At settlement, Upside receives max(0, oracle price − K), while Income receives the value up to K and the auction premium.</p></div>
-          <div class="formula-card"><p class="formula-label">Illustrative scenario</p><strong>P0 $250 · K $262.50</strong><dl><div><dt>Oracle $200</dt><dd>Upside $0</dd></div><div><dt>Oracle $250</dt><dd>Upside $0</dd></div><div><dt>Oracle $300</dt><dd>Upside $37.50</dd></div></dl></div>
+          <div class="formula-card"><p class="formula-label">Illustrative scenario</p><strong>P0 $250 / K $262.50</strong><dl><div><dt>Oracle $200</dt><dd>Upside $0</dd></div><div><dt>Oracle $250</dt><dd>Upside $0</dd></div><div><dt>Oracle $300</dt><dd>Upside $37.50</dd></div></dl></div>
         </section>
 
         <section id="oracle" class="docs-section prose-section"><p class="section-label">Oracle</p><h2>Settlement starts with a price.</h2><p>A production series would use a defined oracle method, market session, and settlement window. The reference design uses a 30-minute average of the Chainlink feed inside the regular session. This interface displays the rule as documentation only.</p></section>
@@ -136,25 +136,25 @@ function go(to) { emit('navigate', to) }
 .docs-kicker, .section-label, .toc-label, .concept-index, .role-label, .formula-label { margin: 0; color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: .14em; line-height: 1.45; text-transform: uppercase; }
 .docs-hero h1 { margin: 12px 0 22px; font-size: clamp(44px, 6vw, 70px); font-weight: 600; letter-spacing: -.055em; line-height: 1; }
 .docs-lead { max-width: 790px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.72; }
-.demo-note { margin: 20px 0 0; color: var(--green); font-family: var(--mono); font-size: 11px; }
+.demo-note { margin: 20px 0 0; color: var(--cyan); font-family: var(--mono); font-size: 11px; }
 .docs-layout { display: grid; grid-template-columns: 170px minmax(0, 1fr); align-items: start; gap: 64px; padding-bottom: 100px; }
 .docs-toc { position: sticky; top: 92px; display: flex; flex-direction: column; gap: 10px; padding: 16px 0; border-top: 1px solid var(--line); }
 .docs-toc a { color: var(--muted); font-size: 12px; text-decoration: none; }
-.docs-toc a:hover { color: var(--green); }
+.docs-toc a:hover { color: var(--cyan); }
 .docs-content { min-width: 0; }
 .docs-section { scroll-margin-top: 92px; padding: 68px 0; border-top: 1px solid var(--line); }
 .docs-section h2 { margin: 8px 0 14px; font-size: clamp(25px, 3vw, 38px); font-weight: 600; letter-spacing: -.04em; line-height: 1.08; }
 .docs-section p { color: var(--muted); font-size: 14px; line-height: 1.7; }
 .mechanism-list { display: grid; gap: 0; margin: 26px 0 0; padding: 0; list-style: none; }
 .mechanism-list li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 18px; padding: 20px 0; border-top: 1px solid var(--line); }
-.step-number { color: var(--green); font-family: var(--mono); font-size: 11px; padding-top: 4px; }
+.step-number { color: var(--cyan); font-family: var(--mono); font-size: 11px; padding-top: 4px; }
 .mechanism-list h2 { margin: 0 0 5px; font-size: 18px; letter-spacing: -.02em; }
 .mechanism-list p { margin: 0; max-width: 600px; font-size: 13px; }
 .role-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 30px; }
 .role-grid article, .formula-card { padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--raised); }
 .role-grid h3 { margin: 8px 0; font-size: 17px; font-weight: 600; }
 .role-grid p:last-child { margin: 0; font-size: 12px; }
-.role-label.income { color: var(--green); }
+.role-label.income { color: var(--cyan); }
 .role-label.upside { color: #8e9d00; }
 .section-heading { margin-bottom: 28px; }
 .section-heading p:last-child { margin: 0; }
@@ -165,14 +165,14 @@ function go(to) { emit('navigate', to) }
 .concept-index { position: absolute; top: 17px; left: 0; font-family: var(--mono); font-size: 9px; }
 .concept-card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
 .concept-card p { margin: 0; font-size: 12px; line-height: 1.6; }
-.concept-card a { display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; color: var(--green); font-size: 11px; text-decoration: none; }
+.concept-card a { display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; color: var(--cyan); font-size: 11px; text-decoration: none; }
 .split-section { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(250px, .8fr); align-items: center; gap: 46px; }
 .split-section > div > p { max-width: 590px; }
 .formula-card strong { display: block; margin: 12px 0 19px; font-family: var(--mono); font-size: 16px; font-weight: 500; }
 .formula-card dl { display: grid; gap: 8px; margin: 0; }
 .formula-card dl div { display: flex; justify-content: space-between; gap: 10px; padding-top: 8px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; }
 .formula-card dt { color: var(--muted); }
-.formula-card dd { margin: 0; color: var(--green); }
+.formula-card dd { margin: 0; color: var(--cyan); }
 .prose-section { max-width: 760px; }
 .prose-section .text-link { margin-top: 8px; }
 .legacy-anchor { height: 1px; padding: 0; border: 0; scroll-margin-top: 92px; }
@@ -180,8 +180,8 @@ function go(to) { emit('navigate', to) }
 .legal-copy { max-width: 760px; padding-bottom: 120px; }
 .legal-copy p { margin: 0 0 20px; color: var(--muted); font-size: 15px; line-height: 1.8; }
 .legal-actions { display: flex; align-items: center; gap: 18px; margin-top: 34px; }
-.text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--green); font-size: 12px; text-decoration: none; }
-.text-link:hover { color: var(--forest); }
+.text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--cyan); font-size: 12px; text-decoration: none; }
+.text-link:hover { color: var(--fg); }
 @media (max-width: 800px) {
   .docs-hero { padding: 58px 0 40px; }
   .docs-layout { display: block; }

@@ -17,11 +17,11 @@ const DEFAULT_RPC_URLS = Object.freeze({
   localnet: 'http://127.0.0.1:8899',
 })
 
-// Solana fixture retained for migration tests and CA preview flows.
+// No mint is bundled until an official Orbinza CA is published and verified.
 const DEFAULT_TOKEN_MINTS = Object.freeze({
   'mainnet-beta': null,
   devnet: null,
-  testnet: 'EtzFpGbJ4ex4bsaYvviQGWA2NEEa8HMz3oxdxaES5Q7j',
+  testnet: null,
   localnet: null,
 })
 
@@ -162,7 +162,7 @@ function legacySolanaWallets() {
       icon: provider.icon || '',
       chains: ['solana:testnet'],
       features: {},
-      __lumquiraLegacyProvider: provider,
+      __legacySolanaProvider: provider,
     }]
   })
 }
@@ -208,7 +208,7 @@ export async function initializeSolanaWallets({ metaMaskInitializer = createMeta
       try {
         const network = cluster === 'mainnet-beta' ? 'mainnet' : cluster
         metaMaskClient = await metaMaskInitializer({
-          dapp: { name: 'Openyra', url: window.location.origin },
+          dapp: { name: 'Orbinza', url: window.location.origin },
           api: { supportedNetworks: network === 'localnet' ? {} : { [network]: rpcUrl } },
           analytics: { enabled: false },
         })
@@ -264,11 +264,11 @@ function walletConnectionErrorMessage(error, walletName) {
 export async function connectSolanaWallet(wallet) {
   if (!wallet) throw new SolanaWalletError('wallet-unavailable', 'Choose a Solana wallet to connect.')
   try {
-    const response = wallet.__lumquiraLegacyProvider
-      ? await wallet.__lumquiraLegacyProvider.connect()
+    const response = wallet.__legacySolanaProvider
+      ? await wallet.__legacySolanaProvider.connect()
       : await wallet.features[WALLET_CONNECT].connect()
     const account = response?.accounts?.[0]
-    const address = publicKeyString(account?.address || response?.publicKey || wallet.__lumquiraLegacyProvider?.publicKey)
+    const address = publicKeyString(account?.address || response?.publicKey || wallet.__legacySolanaProvider?.publicKey)
     if (!isValidSolanaAddress(address)) {
       throw new SolanaWalletError('invalid-public-key', 'The wallet returned an invalid Solana address.')
     }
@@ -288,8 +288,8 @@ export async function disconnectSolanaWallet(wallet = activeWallet) {
     if (activeWallet === wallet) activeWallet = null
     return
   }
-  const disconnect = wallet.__lumquiraLegacyProvider?.disconnect || wallet.features?.[WALLET_DISCONNECT]?.disconnect
-  if (typeof disconnect === 'function') await disconnect.call(wallet.__lumquiraLegacyProvider || wallet.features[WALLET_DISCONNECT])
+  const disconnect = wallet.__legacySolanaProvider?.disconnect || wallet.features?.[WALLET_DISCONNECT]?.disconnect
+  if (typeof disconnect === 'function') await disconnect.call(wallet.__legacySolanaProvider || wallet.features[WALLET_DISCONNECT])
   if (activeWallet === wallet) activeWallet = null
 }
 
@@ -303,7 +303,7 @@ export function watchSolanaWallet(listener, wallet = activeWallet) {
       listener(account ? { address: account.address, accounts: change.accounts } : null)
     })
   }
-  const provider = wallet.__lumquiraLegacyProvider
+  const provider = wallet.__legacySolanaProvider
   if (!provider || typeof provider.on !== 'function') return () => {}
   const onConnect = (event) => listener(event?.publicKey || provider.publicKey || null)
   const onDisconnect = () => listener(null)

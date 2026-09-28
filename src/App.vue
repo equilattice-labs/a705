@@ -47,7 +47,7 @@ function escapeMenu(event) {
 
 watch(pathname, path => {
   const title = path === '/' ? 'Markets' : path === '/signal' ? 'Your journal' : path === '/docs' ? 'Learn' : path.split('/').pop().replace(/^./, letter => letter.toUpperCase())
-  document.title = `${title} · ${brand.name}`
+  document.title = `${title} / ${brand.name}`
 }, { immediate: true })
 
 onMounted(() => {
@@ -105,7 +105,7 @@ onBeforeUnmount(() => {
     <div class="container footer-inner">
       <div class="footer-brand">
         <a href="/" class="wordmark wordmark-text" :aria-label="`${brand.name} markets`" @click.prevent="navigate('/')"><img src="/icon.svg" width="26" height="26" alt="" decoding="async" aria-hidden="true" /><span>{{ brand.name }}</span></a>
-        <span>{{ brand.network }} preview · sample prices · no transactions</span>
+        <span>{{ brand.network }} preview / sample prices / no transactions</span>
       </div>
       <div class="footer-right">
         <nav aria-label="Site links"><a v-for="[label, to] in footerLinks" :key="to" :href="to" @click.prevent="navigate(to)">{{ label }}</a><a href="/app/launchpad" @click.prevent="navigate('/app/launchpad')">Listing notes</a></nav>

@@ -81,7 +81,7 @@ export const concepts = [
   {
     "id": "token-utility",
     "title": "Token Utility",
-    "description": "OPNY is a proposed symbol only. No token has been issued and no production utility is enabled in this preview.",
+    "description": "OBZA is a proposed symbol only. No token has been issued and no production utility is enabled in this preview.",
     "image": "/icon.svg"
   },
   {

@@ -17,11 +17,10 @@ Copy `.env.example` to `.env.local` when configuring a deployment:
   when omitted.
 - `VITE_SOLANA_DEVNET_TOKEN_MINT` and `VITE_SOLANA_TESTNET_TOKEN_MINT` override
   separate public SPL mint addresses. The app selects the matching value from
-  `VITE_SOLANA_CLUSTER`. The deployed testnet mint is built in as a public
-  default; devnet and mainnet remain unset. Invalid
-  base58/length overrides are ignored and surfaced as
-  `solanaConfig.invalidTokenMint`; this does not verify on-chain ownership or
-  that an account is a mint.
+  `VITE_SOLANA_CLUSTER`; no mint is bundled in this preview because the Orbinza
+  CA is unpublished. Invalid base58/length overrides are ignored and surfaced
+  as `solanaConfig.invalidTokenMint`; this does not verify on-chain ownership
+  or that an account is a mint.
 
 Token mint deployment is handled separately with the Solana CLI. The website
 module exports `SOLANA_DEPLOYMENT_DISABLED` and has no signer, private-key,
@@ -35,7 +34,7 @@ The Vue interface selects an account using the Wallet Standard `connect`
 feature and listens for standard account-change events. Analytics are disabled
 in the MetaMask connector.
 
-## Safe test-cluster mint deployment
+## Future mint configuration
 
 MetaMask Solana Snap accounts are derived from the wallet recovery material
 with Ed25519 on `m/44'/501'/{account-index}'/0'`. An Ethereum account's exported
@@ -52,10 +51,9 @@ local. Do not put a private key or recovery phrase in website source, `.env`,
 or a browser bundle. Stop if the printed address does not match the funded
 Solana account.
 
-The project currently uses a classic SPL mint on testnet with 9 decimals, the
-Solana wallet as mint authority, no freeze authority, and zero initial supply.
-Its public mint is `EtzFpGbJ4ex4bsaYvviQGWA2NEEa8HMz3oxdxaES5Q7j`. To create a
-replacement on testnet only when explicitly needed:
+No Orbinza mint has been published. When a verified CA exists and a public
+configuration is intentionally prepared, create a replacement on the intended
+cluster only through the approved deployment process:
 
 ```sh
 spl-token create-token --url testnet --fee-payer <SOLANA_KEYPAIR.json> --mint-authority <SOLANA_PUBKEY> --decimals 9

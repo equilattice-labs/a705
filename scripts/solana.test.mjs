@@ -5,15 +5,15 @@ import { connectSolanaWallet, disconnectSolanaWallet, getSolanaWallets, initiali
 
 const VALID_ADDRESS = '11111111111111111111111111111111'
 
-test('Solana defaults to the deployed testnet mint and cannot deploy in the browser', () => {
+test('Solana defaults to an unissued mint and cannot deploy in the browser', () => {
   assert.equal(solanaConfig.cluster, 'testnet')
   assert.equal(solanaConfig.mintEnvironmentName, 'VITE_SOLANA_TESTNET_TOKEN_MINT')
   assert.equal(solanaConfig.tokenMints.devnet, null)
-  assert.equal(solanaConfig.tokenMints.testnet, 'EtzFpGbJ4ex4bsaYvviQGWA2NEEa8HMz3oxdxaES5Q7j')
-  assert.equal(solanaConfig.tokenMint, 'EtzFpGbJ4ex4bsaYvviQGWA2NEEa8HMz3oxdxaES5Q7j')
-  assert.equal(solanaConfig.tokenConfigured, true)
+  assert.equal(solanaConfig.tokenMints.testnet, null)
+  assert.equal(solanaConfig.tokenMint, null)
+  assert.equal(solanaConfig.tokenConfigured, false)
   assert.equal(solanaConfig.deploymentEnabled, false)
-  assert.equal(solanaExplorerToken(), 'https://explorer.solana.com/address/EtzFpGbJ4ex4bsaYvviQGWA2NEEa8HMz3oxdxaES5Q7j?cluster=testnet')
+  assert.equal(solanaExplorerToken(), null)
 })
 
 test('each supported cluster resolves to an isolated public mint setting', () => {
@@ -30,11 +30,11 @@ test('each supported cluster resolves to an isolated public mint setting', () =>
   assert.equal(configured['mainnet-beta'], null)
 })
 
-test('verified testnet mint links use the testnet explorer and allow a public env override', () => {
-  const mint = 'EtzFpGbJ4ex4bsaYvviQGWA2NEEa8HMz3oxdxaES5Q7j'
-  assert.equal(solanaConfig.tokenMints.testnet, mint)
-  assert.equal(solanaExplorerToken('testnet'), `https://explorer.solana.com/address/${mint}?cluster=testnet`)
-  assert.equal(resolveSolanaTokenMints({ VITE_SOLANA_TESTNET_TOKEN_MINT: VALID_ADDRESS }).testnet, VALID_ADDRESS)
+test('public testnet mint overrides use the testnet explorer', () => {
+  const configured = resolveSolanaTokenMints({ VITE_SOLANA_TESTNET_TOKEN_MINT: VALID_ADDRESS })
+  assert.equal(solanaConfig.tokenMints.testnet, null)
+  assert.equal(solanaExplorerToken('testnet'), null)
+  assert.equal(configured.testnet, VALID_ADDRESS)
 })
 
 test('base58 address and explorer helpers reject malformed account strings', () => {
@@ -82,7 +82,7 @@ function mockStandardWallet(name = 'MetaMask') {
 test('MetaMask Solana connector registers a testnet wallet through Wallet Standard', async () => {
   const previousWindow = globalThis.window
   const browserWindow = new EventTarget()
-  browserWindow.location = { origin: 'https://lumquira.xyz' }
+  browserWindow.location = { origin: 'https://orbinza.fun' }
   globalThis.window = browserWindow
   const standardWallet = mockStandardWallet('MetaMask')
   const registry = getWallets()

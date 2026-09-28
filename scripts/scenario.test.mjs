@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { DEFAULT_BASE_PRICE, SCHEMA_VERSION, calculateScenario, createJournalRecord, restoreJournalRecord, validateJournalRecord, validateScenarioInputs } from '../src/scenario.js'
 
 const inputs = { amount: '1000', basePrice: '0.0248', movePct: '-15', note: 'A deliberately chosen downside case.' }
-const options = { id: 'LM-TEST01', createdAt: '2026-09-23T08:00:00.000Z' }
+const options = { id: 'OB-TEST01', createdAt: '2026-09-23T08:00:00.000Z' }
 const close = (actual, expected) => assert.ok(Math.abs(actual - expected) <= Math.max(1e-12, Math.abs(expected) * 1e-12), `${actual} differs from ${expected}`)
 
 test('scenario uses the explicitly entered price without premature currency rounding', () => {
@@ -73,7 +73,7 @@ test('journal round trip preserves the entered assumptions and review stage', ()
   assert.equal(restored.migrated, false)
   assert.deepEqual(restored.value, original)
   assert.deepEqual(calculateScenario(restored.value), calculateScenario(inputs))
-  assert.equal(original.asset, 'OPNY')
+  assert.equal(original.asset, 'OBZA')
   assert.equal(original.id, 'SC-TEST01')
   assert.equal(original.schemaVersion, SCHEMA_VERSION)
   assert.equal(original.basePrice, 0.0248)
@@ -96,18 +96,18 @@ test('old placeholder journal converts its value into a user-entered assumption'
   assert.equal(restored.valid, true)
   assert.equal(restored.migrated, true)
   assert.equal(restored.value.id, 'SC-OLD01')
-  assert.equal(restored.value.asset, 'OPNY')
+  assert.equal(restored.value.asset, 'OBZA')
   assert.equal(restored.value.basePrice, 0.0248)
   assert.equal('snapshot' in restored.value, false)
   assert.equal(validateJournalRecord(old).valid, false)
 })
 
-test('current-version legacy brand records normalize once into the Openyra identity', () => {
+test('current-version legacy brand records normalize once into the Orbinza identity', () => {
   const older = { ...createJournalRecord(inputs, options), asset: 'LMQR', id: 'LM-TEST01' }
   const restored = restoreJournalRecord(older)
   assert.equal(restored.valid, true)
   assert.equal(restored.migrated, true)
-  assert.equal(restored.value.asset, 'OPNY')
+  assert.equal(restored.value.asset, 'OBZA')
   assert.equal(restored.value.id, 'SC-TEST01')
   assert.equal(restoreJournalRecord(restored.value).migrated, false)
 })

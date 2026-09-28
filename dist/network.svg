@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+<title id="title">Orbinza Solana workflow</title><desc id="desc">A compact market workflow from watchlist to payoff model and local journal.</desc>
+<rect width="1200" height="1200" fill="#090d14"/>
+<text x="64" y="57" fill="#28d7e8" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start">ORBINZA</text>
+<text x="64" y="84" fill="#8294ab" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="start">SOLANA / WORKFLOW</text>
+<text x="1136" y="57" fill="#f4b84a" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="end">OBZA / PREVIEW</text>
+<polyline points="64.00,111.00 1136.00,111.00" fill="none" stroke="#203247" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="82" y="196" fill="#eef6ff" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" text-anchor="start">Scan. Model.</text>
+<text x="82" y="255" fill="#28d7e8" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" text-anchor="start">Keep the proof.</text>
+<text x="84" y="302" fill="#8294ab" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">A working surface for user-priced crypto scenarios.</text>
+<rect x="82" y="380" width="1036" height="138" rx="8" fill="#101925" stroke="#203247" stroke-width="1"/>
+<circle cx="144" cy="449" r="29" fill="#090d14" stroke="#28d7e8" stroke-width="2"/>
+<text x="144" y="456" fill="#28d7e8" font-family="Consolas, monospace" font-size="15" font-weight="400" text-anchor="middle">01</text>
+<text x="205" y="439" fill="#28d7e8" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="start">WATCHLIST</text>
+<text x="205" y="477" fill="#eef6ff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">Observe the signal</text>
+<text x="1049" y="457" fill="#28d7e8" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="end">OPEN</text>
+<polyline points="1048.00,527.00 1048.00,554.00" fill="none" stroke="#203247" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="1039.00,545.00 1048.00,554.00 1057.00,545.00" fill="none" stroke="#203247" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="82" y="574" width="1036" height="138" rx="8" fill="#101925" stroke="#203247" stroke-width="1"/>
+<circle cx="144" cy="643" r="29" fill="#090d14" stroke="#f4b84a" stroke-width="2"/>
+<text x="144" y="650" fill="#f4b84a" font-family="Consolas, monospace" font-size="15" font-weight="400" text-anchor="middle">02</text>
+<text x="205" y="633" fill="#f4b84a" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="start">PAYOFF</text>
+<text x="205" y="671" fill="#eef6ff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">Set the boundary</text>
+<text x="1049" y="651" fill="#f4b84a" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="end">OPEN</text>
+<polyline points="1048.00,721.00 1048.00,748.00" fill="none" stroke="#203247" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="1039.00,739.00 1048.00,748.00 1057.00,739.00" fill="none" stroke="#203247" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="82" y="768" width="1036" height="138" rx="8" fill="#101925" stroke="#203247" stroke-width="1"/>
+<circle cx="144" cy="837" r="29" fill="#090d14" stroke="#f05bbb" stroke-width="2"/>
+<text x="144" y="844" fill="#f05bbb" font-family="Consolas, monospace" font-size="15" font-weight="400" text-anchor="middle">03</text>
+<text x="205" y="827" fill="#f05bbb" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="start">JOURNAL</text>
+<text x="205" y="865" fill="#eef6ff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">Export your view</text>
+<text x="1049" y="845" fill="#f05bbb" font-family="Consolas, monospace" font-size="13" font-weight="400" text-anchor="end">OPEN</text>
+<text x="84" y="1056" fill="#8294ab" font-family="Consolas, monospace" font-size="14" font-weight="400" text-anchor="start">SCENARIOS ARE ASSUMPTIONS, NOT PREDICTIONS.</text>
+<circle cx="1017" cy="207" r="75.26" fill="#152235" stroke="none" stroke-width="1"/>
+<circle cx="1017" cy="207" r="61.06" fill="none" stroke="#28d7e8" stroke-width="3.1239999999999997"/>
+<circle cx="1017" cy="207" r="38.34" fill="none" stroke="#f4b84a" stroke-width="2.5559999999999996"/>
+<polyline points="972.98,216.94 991.44,216.94 1005.64,188.54 1019.84,226.88 1034.04,198.48 1046.82,208.42 1061.02,208.42" fill="none" stroke="#f05bbb" stroke-width="4.970000000000001" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1034.04" cy="198.48" r="4.970000000000001" fill="#f4b84a" stroke="none" stroke-width="1"/>
+<circle cx="1005.64" cy="226.88" r="3.834" fill="#28d7e8" stroke="none" stroke-width="1"/>
+</svg>

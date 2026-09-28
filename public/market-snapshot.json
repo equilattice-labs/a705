@@ -3,16 +3,16 @@
   "status": "preview",
   "network": "Solana",
   "token": {
-    "symbol": "OPNY",
+    "symbol": "OBZA",
     "status": "proposed-unissued",
     "contractAddress": null,
     "quote": null
   },
   "watchlist": [
-    { "symbol": "SOLX", "quote": null, "priceStatus": "illustrative" },
-    { "symbol": "JUPX", "quote": null, "priceStatus": "illustrative" },
-    { "symbol": "BONKX", "quote": null, "priceStatus": "illustrative" },
-    { "symbol": "USDCX", "quote": null, "priceStatus": "illustrative" }
+    { "symbol": "SOL", "quote": null, "priceStatus": "illustrative" },
+    { "symbol": "JUP", "quote": null, "priceStatus": "illustrative" },
+    { "symbol": "BONK", "quote": null, "priceStatus": "illustrative" },
+    { "symbol": "USDC", "quote": null, "priceStatus": "illustrative" }
   ],
   "note": "No market data provider or Solana program integration is configured. Visible prices and markets are local model examples, not live listings."
 }
